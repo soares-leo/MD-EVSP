@@ -1,6 +1,7 @@
 from inputs import *
 from utils import *
-from datetime import datetime, timedelta
+from datetime import timedelta
+import numpy as np
 
 # Initial parameters
 
@@ -25,9 +26,11 @@ class Generator:
         self.ti = None
         self.dist = 0
         self.time = 0
+        self.route_total_dist = 0
+        self.route_total_time = 0
         self.time_since_recharge = 0
-        self.max_time = 360
-        self.max_dist = 60
+        self.max_time = 19*60
+        self.max_dist = 120
         self.recharging_rate = 30
         self.consumption_rate = 15.6
         self.route = []
@@ -74,7 +77,7 @@ class Generator:
                 # print()
                 _i += 1
             
-            self.initial_solution[f"Route_{i}"] = (self.route, self.dist, self.time)
+            self.initial_solution[f"Route_{i}"] = self.route #, self.dist, self.time
             # print("Route:", self.route)
             # print("Total_distance:", self.dist)
             # print("Total_time:", self.time)
@@ -87,6 +90,11 @@ class Generator:
 
         for k, v in self.initial_solution.items():
             print(f"{k}: {v}")
+        
+        self.timetables.to_csv("timetables_covered.csv", index=False)
+        pd.DataFrame(self.depots).to_csv("depots_final_picture.csv", index=False)
+
+        return self.initial_solution
 
     def initialize(self, i):
 
@@ -167,35 +175,80 @@ class Generator:
 
             self.time += charging_time
 
-            if self.time >= self.max_time:
+            ti = pd.Series(
+                {
+                    "line": ti.line,
+                    "start_cp": ti.start_cp,
+                    "start_cp_id": ti.start_cp_id,
+                    "dest_cp": ti.dest_cp,
+                    "dest_cp_id": ti.dest_cp_id,
+                    "departure_time": ti.departure_time + timedelta(minutes=ti.planned_travel_time) + timedelta(minutes=charging_time), # horario da primeira trip + time + charging time
+                    "planned_travel_time": 0,
+                }
+            )
+
+            tj = select_next_trip(self.timetables, self.dh_times_df, None, ti)
+
+            if tj is None:
                 self.route.append(self.route[0])
-                # Aqui precisa fazer mais uma pred time e ESPECIALMENTE pred dist (como condiçao AND do if, ou até mesmo como sendo a unica condicao do if) pra saber se no lugar da estacao nao precisa de um depósito.
                 return None, False
+            
+            tij_dist = self.dh_df.loc[ti.dest_cp_id, tj.start_cp_id]
+            tij_time = self.dh_times_df.loc[ti.dest_cp_id, tj.start_cp_id]
+            tj_dist = self.dh_df.loc[tj.start_cp_id, tj.dest_cp_id]
+            pred_dist = self.dist + tij_dist + tj_dist
+            pred_time = self.time + tij_time + tj.planned_travel_time
+
+            if self.time >= self.max_time:
+                #ESSE CHECKING NAO ACONTECE NO ALGORITMO OFICIAL!
+                self.route.append(self.route[0])
+                return None, False
+            
             else:
 
                 self.dist = 0
-                self.route.append(charging_station)
-         
-                ti = pd.Series(
-                    {
-                        "line": ti.line,
-                        "start_cp": ti.start_cp,
-                        "start_cp_id": ti.start_cp_id,
-                        "dest_cp": ti.dest_cp,
-                        "dest_cp_id": ti.dest_cp_id,
-                        "departure_time": ti.departure_time + timedelta(minutes=ti.planned_travel_time) + timedelta(minutes=charging_time), # horario da primeira trip + time + charging time
-                        "planned_travel_time": 0,
-                    }
-                )
+                self.route.extend([charging_station, tj.trip_id])
+                self.timetables.loc[self.timetables.trip_id == tj.trip_id, 'covered'] = True
 
+
+         
                 ## NÃO DELETAR A LINHA ABAIXO!!!
                 ## OBS: step 2.2 inconsistente, por isso foi modificado. Não tem re-checking de Time. Procura em todas as timetables, quando poderia procurar primeiro no cp onde está.
 
                 #print(ti)
-                return ti, True
+                return None, True
         else:
             self.route.append(self.route[0])
             return None, False
 
 generator = Generator(lines_info=lines_info, cp_depot_distances=cp_depot_distances, depots=depots)
-generator.generate_initial_set()
+initial_solution = generator.generate_initial_set()
+
+concat_routes = []
+
+for route in initial_solution.values():
+    concat_routes.extend(route)
+
+cleaned_trips = list(filter(lambda x: x[0] not in ["c", "d"], concat_routes))
+
+unique_trips = np.unique(cleaned_trips)
+
+duplicates = {}
+helper = []
+
+cleaned_trips_copy = cleaned_trips.copy()
+
+for trip in cleaned_trips:
+    if trip not in helper:
+        helper.append(trip)
+    else:
+        if duplicates.get(trip):
+            duplicates[trip] += 1
+        else:
+            duplicates[trip] = 1
+
+
+print(duplicates)
+
+
+
