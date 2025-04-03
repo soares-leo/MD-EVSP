@@ -129,7 +129,7 @@ depots = {
 }
 
 problem_params = {
-    "fixed_cost": 700,                    # RMB por veículo
+    "fixed_cost": 700,                   # RMB por veículo
     "waiting_cost_per_min": 0.7,         # RMB/min
     "deadhead_cost_per_min": 1.6,        # RMB/min
     "travel_cost_per_min": 1.6,          # RMB/min

@@ -6,21 +6,7 @@ from typing import Optional
 
 def generate_timetable(line, total_trips, start_time="05:50", min_interval=5, max_interval=15,
                        interval_bias=8, travel_time_range=(70, 75)):
-    """
-    Gera um timetable sintético para um CP (ponto de controle), incluindo os intervalos entre viagens.
 
-    Args:
-        cp_id (str): identificador do CP.
-        num_trips (int): número de partidas a gerar.
-        start_time (str): hora da primeira viagem.
-        min_interval (int): intervalo mínimo entre viagens.
-        max_interval (int): intervalo máximo.
-        interval_bias (int): valor central mais provável.
-        travel_time_range (tuple): tempo de viagem (min, max)
-
-    Returns:
-        pd.DataFrame com columns = ['trip_id', 'cp', 'departure_time', 'departure_interval', 'planned_travel_time']
-    """
     current_time = datetime.strptime(start_time, "%H:%M")
     trips = []
     int_div = total_trips // 2
