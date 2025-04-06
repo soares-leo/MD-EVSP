@@ -167,6 +167,7 @@ def get_nearest_depot(cp_id: str, depots: dict, cp_depot_distances: dict) -> str
     print("No depots found!")
     return None
 def select_next_trip(
+    eti,
     timetables: pd.DataFrame,
     dh_times_df: pd.DataFrame,
     last_trip_id: Optional[str] = None,
@@ -182,8 +183,7 @@ def select_next_trip(
         return df.max()
     
     
-    ti_line = ti.line
-    eti = ti.departure_time + timedelta(minutes=ti.planned_travel_time)    
+    ti_line = ti.line    
     tmax = timetables[(timetables.line == ti.line) & (timetables.covered == False)]["departure_interval"].max()
     try:
         int(tmax)
@@ -250,3 +250,17 @@ def select_next_trip(
         tj = tj_candidates[tj_candidates.dh_time == tj_candidates.dh_time.min()]
 
     return tj.iloc[0]
+
+def calculate_cost(recharging_freq, travel_time, dh_time, waiting_time):
+    vehicle_fixed_cost = 700
+    charging_cost = 35 * recharging_freq
+    
+    travel_cost = 1.6 * travel_time
+    dh_cost = 1.6 * dh_time
+    waiting_cost = 0.7 * waiting_time
+
+    operational_cost = travel_cost + dh_cost + waiting_cost
+
+    total_cost = vehicle_fixed_cost + charging_cost + operational_cost
+
+    return total_cost
