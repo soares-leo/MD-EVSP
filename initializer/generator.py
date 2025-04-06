@@ -44,7 +44,16 @@ class Generator:
 
     def generate_initial_set(self):
         i = 0
-        while not self.timetables[self.timetables.covered == False].empty:        
+        while not self.timetables[self.timetables.covered == False].empty:
+            if len(str(i)) == 1:
+                comp = "00"
+            elif len(str(i)) == 2:
+                comp = "0"
+            else:
+                comp = ""
+            print()      
+            print(f"+-----------+-----------+-----------+ ROUTE {comp + str(i)} +-----------+-----------+-----------+")
+            print()
             if (ti := self.initialize(i)) is None:
                 break              
             continue_loop = True
@@ -57,7 +66,7 @@ class Generator:
                     print("Departure time:", ti.departure_time)
                     print("Planned travel time:", ti.planned_travel_time)
                 except:
-                    print("Charging station:", self.route[-1])
+                    print("Recharge in cp of:", self.route[-1])
                 print("Dist:", self.dist)
                 print("Time:", self.time)
                 print("Time since racharge:", self.time_since_recharge)
@@ -92,6 +101,20 @@ class Generator:
                 }
             }
 
+            print("Last node:", self.route[-1])
+            print("Dist:", self.dist)
+            print("Time:", self.time)
+            print("Time since racharge:", self.time_since_recharge)
+            print("Deadhead distance:", self.total_dh_dist)
+            print("Deadhead time:", self.total_dh_time)
+            print("Total travel distance:", self.total_travel_dist)
+            print("Total travel time:", self.total_travel_time)
+            print("Total wait time:", self.total_wait_time)
+            print("Current time:", self.current_time)
+            print("Route:")
+            print(f"\t{self.route}")
+            print()
+
             self.route = []
             self.time = 0
             self.dist = 0
@@ -105,13 +128,13 @@ class Generator:
             
             i += 1
 
-        for k, v in self.initial_solution.items():
-            print(f"\n{k}:")
-            print("Path:", v["Path"])
-            print("Cost:", v["Cost"])
-            print("Data:")
-            for _k, _v in self.initial_solution[k]["Data"].items():
-                print(f"\t{_k}: {_v}")
+        # for k, v in self.initial_solution.items():
+        #     print(f"\n{k}:")
+        #     print("Path:", v["Path"])
+        #     print("Cost:", v["Cost"])
+        #     print("Data:")
+        #     for _k, _v in self.initial_solution[k]["Data"].items():
+        #         print(f"\t{_k}: {_v}")
         
         self.timetables.to_csv("initializer/files/timetables_covered.csv", index=False)
         pd.DataFrame(self.depots).to_csv("initializer/files/depots_final_picture.csv")
@@ -191,13 +214,6 @@ class Generator:
         self.time_since_recharge += dh_time_ij + travel_time - equalizer
         self.total_wait_time += wait_time
         self.total_charging_time += charging_time
-
-        
-
-
-
-
-
     def initialize(self, i):
 
         if (ti := get_earliest_trip(self.timetables)) is None:
@@ -240,7 +256,9 @@ class Generator:
         #### PRECISA CONSIDERAR WAIT TIMES EM PRED!!!!
 
         pred_dist = self.dist + tij_dist + tj_dist
-        pred_time = self.time + tij_time + tj.planned_travel_time
+        time_diff = tj.departure_time - (self.current_time + timedelta(tij_time))
+        time_diff = time_diff.total_seconds() / 60 
+        pred_time = self.time + tij_time + time_diff + tj.planned_travel_time
         
         if pred_dist <= self.max_dist and pred_time <= self.max_time:
             self.route.append(tj.trip_id)
