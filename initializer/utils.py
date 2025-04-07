@@ -264,3 +264,25 @@ def calculate_cost(recharging_freq, travel_time, dh_time, waiting_time):
     total_cost = vehicle_fixed_cost + charging_cost + operational_cost
 
     return total_cost
+
+def group_routes_by_depot(initial_solution):
+    depot_routes = {}
+    routes_costs = {}
+
+    for route_name, route_data in initial_solution.items():
+        route = route_data["Path"]
+        cost = route_data["Cost"]
+        
+        starting_depot = route[0]
+        
+        if not depot_routes.get(starting_depot):
+            depot_routes[starting_depot] = []
+            routes_costs[starting_depot] = []
+
+        depot_routes[starting_depot].append(route)
+        routes_costs[starting_depot].append(cost)
+
+    for k, v in depot_routes.items():
+        print(f"Number of vehicles departed from {k}: {len(v)}")
+    
+    return depot_routes, routes_costs

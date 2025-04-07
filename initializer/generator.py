@@ -41,6 +41,7 @@ class Generator:
         self.total_travel_time = 0
         self.total_wait_time = 0
         self.total_charging_time = 0
+        self.used_depots = []
 
     def generate_initial_set(self):
         i = 0
@@ -128,17 +129,17 @@ class Generator:
             
             i += 1
 
-        # for k, v in self.initial_solution.items():
-        #     print(f"\n{k}:")
-        #     print("Path:", v["Path"])
-        #     print("Cost:", v["Cost"])
-        #     print("Data:")
-        #     for _k, _v in self.initial_solution[k]["Data"].items():
-        #         print(f"\t{_k}: {_v}")
+        for k, v in self.initial_solution.items():
+            print(f"\n{k}:")
+            print("Path:", v["Path"])
+            print("Cost:", v["Cost"])
+            print("Data:")
+            for _k, _v in self.initial_solution[k]["Data"].items():
+                print(f"\t{_k}: {_v}")
         
         self.timetables.to_csv("initializer/files/timetables_covered.csv", index=False)
         pd.DataFrame(self.depots).to_csv("initializer/files/depots_final_picture.csv")
-        return self.initial_solution
+        return self.initial_solution, self.used_depots
 
     def refresh_data(self):
         nodes = self.route[-2:]
@@ -230,6 +231,7 @@ class Generator:
         
         self.depots[departure_depot]['departed'] += 1
         self.route.extend([departure_depot, ti['trip_id']])
+        self.used_depots.append(departure_depot)
 
         self.refresh_data()
 
@@ -331,30 +333,30 @@ class Generator:
             self.refresh_data()
             return None, False
 
-generator = Generator(lines_info=lines_info, cp_depot_distances=cp_depot_distances, depots=depots)
-initial_solution = generator.generate_initial_set()
+# generator = Generator(lines_info=lines_info, cp_depot_distances=cp_depot_distances, depots=depots)
+# initial_solution = generator.generate_initial_set()
 
-concat_routes = []
+# concat_routes = []
 
-for k, v in initial_solution.items():
-    concat_routes.extend(v["Path"])
+# for k, v in initial_solution.items():
+#     concat_routes.extend(v["Path"])
 
-cleaned_trips = list(filter(lambda x: x[0] not in ["c", "d"], concat_routes))
+# cleaned_trips = list(filter(lambda x: x[0] not in ["c", "d"], concat_routes))
 
-unique_trips = np.unique(cleaned_trips)
+# unique_trips = np.unique(cleaned_trips)
 
-duplicates = {}
-helper = []
+# duplicates = {}
+# helper = []
 
-cleaned_trips_copy = cleaned_trips.copy()
+# cleaned_trips_copy = cleaned_trips.copy()
 
-for trip in cleaned_trips:
-    if trip not in helper:
-        helper.append(trip)
-    else:
-        if duplicates.get(trip):
-            duplicates[trip] += 1
-        else:
-            duplicates[trip] = 1
+# for trip in cleaned_trips:
+#     if trip not in helper:
+#         helper.append(trip)
+#     else:
+#         if duplicates.get(trip):
+#             duplicates[trip] += 1
+#         else:
+#             duplicates[trip] = 1
 
-print("Duplicated trips:", duplicates)
+# print("Duplicated trips:", duplicates)
