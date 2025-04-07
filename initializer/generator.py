@@ -1,5 +1,5 @@
-from inputs import *
-from utils import *
+from .inputs import *
+from .utils import *
 from datetime import timedelta
 import numpy as np
 import pandas as pd
@@ -333,6 +333,8 @@ class Generator:
             self.refresh_data()
             return None, False
 
+
+# UTILIDADES PARA TESTES DE CODIGO:
 # generator = Generator(lines_info=lines_info, cp_depot_distances=cp_depot_distances, depots=depots)
 # initial_solution = generator.generate_initial_set()
 
