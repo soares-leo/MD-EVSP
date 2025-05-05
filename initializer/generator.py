@@ -255,8 +255,6 @@ class Generator:
         tij_time = self.dh_times_df.loc[ti.dest_cp_id, tj.start_cp_id]
         tj_dist = self.dh_df.loc[tj.start_cp_id, tj.dest_cp_id]
 
-        #### PRECISA CONSIDERAR WAIT TIMES EM PRED!!!!
-
         pred_dist = self.dist + tij_dist + tj_dist
         time_diff = tj.departure_time - (self.current_time + timedelta(tij_time))
         time_diff = time_diff.total_seconds() / 60 
