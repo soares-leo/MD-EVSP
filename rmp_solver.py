@@ -1,12 +1,10 @@
+import sys
 import pulp as pl
-from initializer.inputs import *
+import pandas as pd
 from initializer.generator import Generator
 from initializer.utils import group_routes_by_depot
-import numpy as np
-import pandas as pd
-import sys
 
-# Redirect output to both console and a file
+# === Logger class, unchanged ===
 class Logger(object):
     def __init__(self, filename="rmp_output.log"):
         self.terminal = sys.stdout
@@ -16,94 +14,198 @@ class Logger(object):
         self.terminal.write(message)
         self.log.write(message)
 
-    def flush(self):  # Required for compatibility
+    def flush(self):
         self.terminal.flush()
         self.log.flush()
 
-sys.stdout = Logger("rmp_output.log")
+# === Build function ===
+def build_rmp_model(
+    lines_info: dict,
+    cp_depot_distances: dict,
+    depots: dict,
+    timetables_csv: str = "initializer/files/timetables.csv",
+    name: str = "RestrictedMasterProblem"
+):
+    """
+    Build the RMP model and return:
+      model, X_vars, cost_map, coverage_map, trips_array, grouped_routes
+    """
+    gen = Generator(lines_info, cp_depot_distances, depots)
+    initial_solution, _ = gen.generate_initial_set()
+    grouped_routes, routes_costs = group_routes_by_depot(initial_solution)
 
-# === Configuration ===
-path_to_cplex = "/Applications/CPLEX_Studio2211/cplex/bin/arm64_osx/cplex"
-solver = pl.CPLEX_CMD(path=path_to_cplex)
-model = pl.LpProblem("RestrictedMasterProblem", pl.LpMinimize)
+    trips = pd.read_csv(timetables_csv, usecols=["trip_id"])["trip_id"].values
 
-# === Generate Initial Routes ===
-print("="*85)
-print("SECTION 1: INITIAL SOLUTION GENERATION PROCESS")
-print("="*85)
-generator = Generator(lines_info=lines_info, cp_depot_distances=cp_depot_distances, depots=depots)
-initial_solution, used_depots = generator.generate_initial_set()
-grouped_routes, routes_costs = group_routes_by_depot(initial_solution)
+    model = pl.LpProblem(name, pl.LpMinimize)
 
-# === Read Trips ===
-trips = pd.read_csv("initializer/files/timetables.csv", usecols=["trip_id"]).trip_id.values
+    # decision vars & costs
+    X = {}
+    C = {}
+    for k, depot in enumerate(grouped_routes):
+        for p, cost in enumerate(routes_costs[depot]):
+            X[(k,p)] = pl.LpVariable(f"{depot}_col{p}", 0, 1, cat="Continuous")
+            C[(k,p)] = cost
 
-# === Decision Variables ===
-X = {}  # Route selection variables
-C = {}  # Route costs
+    # coverage matrix
+    coverage = {}
+    for k, (depot, routes) in enumerate(grouped_routes.items()):
+        for p, route in enumerate(routes):
+            for i, trip in enumerate(trips):
+                coverage[(k,p,i)] = int(trip in route)
 
-for i, (depot, routes) in enumerate(grouped_routes.items()):
-    for j in range(len(routes)):
-        X[i, j] = pl.LpVariable(f"{depot}_col{j}", lowBound=0, upBound=1, cat="Continuous")
+    # α constraints
+    for i, trip in enumerate(trips):
+        model += (
+            pl.lpSum(coverage[(k,p,i)] * X[(k,p)]
+                     for k in range(len(grouped_routes))
+                     for p in range(len(grouped_routes[list(grouped_routes.keys())[k]])))
+            == 1,
+            f"alpha_trip_{trip}"
+        )
 
-for i, (depot, costs) in enumerate(routes_costs.items()):
-    for j, cost in enumerate(costs):
-        C[i, j] = cost
+    # β constraints
+    for k, depot in enumerate(grouped_routes):
+        model += (
+            pl.lpSum(X[(k,p)] for p in range(len(grouped_routes[depot])))
+            <= depots[depot]["capacity"],
+            f"beta_depot_{depot}"
+        )
 
-# === Trip Coverage Constraints (α duals) ===
-constraint_2_trips_values = {}
-for k, (depot, routes) in enumerate(grouped_routes.items()):
-    for p, route in enumerate(routes):
+    # objective
+    model += pl.lpSum(C[key] * X[key] for key in X)
+
+    return model, X, C, coverage, trips, grouped_routes
+
+# === Solve function ===
+def solve_rmp_model(
+    model: pl.LpProblem,
+    cplex_path: str = "/Applications/CPLEX_Studio2211/cplex/bin/arm64_osx/cplex"
+):
+    """
+    Solve the model, extract status, objective, and duals dict.
+    """
+    solver = pl.CPLEX_CMD(path=cplex_path)
+    status = model.solve(solver)
+
+    obj = pl.value(model.objective)
+
+    alpha = {}
+    beta = {}
+    for name, constr in model.constraints.items():
+        if name.startswith("alpha_trip_"):
+            trip = name.replace("alpha_trip_","")
+            alpha[trip] = constr.pi
+        elif name.startswith("beta_depot_"):
+            depot = name.replace("beta_depot_","")
+            beta[depot] = constr.pi
+
+    return status, obj, {"alpha": alpha, "beta": beta}
+
+# === Wrapper that keeps your prints + logger ===
+def run_rmp(
+    lines_info: dict,
+    cp_depot_distances: dict,
+    depots: dict,
+    timetables_csv: str = "initializer/files/timetables.csv",
+    cplex_path: str = "/Applications/CPLEX_Studio2211/cplex/bin/arm64_osx/cplex",
+    log_filename: str = "rmp_output.log"
+):
+    """
+    Redirects stdout to Logger, prints sections, solves RMP, and returns
+    (model, objective, duals).
+    """
+    # install logger
+    logger = Logger(log_filename)
+    original_stdout = sys.stdout
+    sys.stdout = logger
+
+    try:
+        print("="*85)
+        print("SECTION 1: INITIAL SOLUTION GENERATION PROCESS")
+        print("="*85)
+
+        model, X, C, coverage, trips, grouped = build_rmp_model(
+            lines_info, cp_depot_distances, depots, timetables_csv
+        )
+
+        print()
+        print("="*85)
+        print("SECTION 2: RMP SOLVING RESULTS")
+        print("="*85)
+
+        status, obj, duals = solve_rmp_model(model, cplex_path)
+
+        # print X values
+        print("\n--- Routes Coefficients ---")
+        for (k,p), var in X.items():
+            print(f"X[{k},{p}] = {var.varValue:.4f} (cost = {C[(k,p)]:.4f})")
+
+        # coverage check
+        print("\n--- Trip Coverage Check ---")
         for i, trip in enumerate(trips):
-            constraint_2_trips_values[k, p, i] = 1 if trip in route else 0
+            lhs = sum(coverage[(k,p,i)] * X[(k,p)].varValue
+                      for k in range(len(grouped))
+                      for p in range(len(grouped[list(grouped.keys())[k]])))
+            print(f"Trip {trip}: coverage = {lhs:.4f}")
 
-for i, trip in enumerate(trips):
-    model += pl.lpSum(
-        constraint_2_trips_values[k, p, i] * X[k, p]
-        for k in range(len(grouped_routes))
-        for p in range(len(grouped_routes[list(grouped_routes.keys())[k]]))
-    ) == 1, f"alpha_trip_{trip}"
+        print(f"\nZ (Objective Value): {obj:.4f}")
 
-# === Depot Capacity Constraints (β duals) ===
-for k, depot in enumerate(grouped_routes.keys()):
-    model += pl.lpSum(
-        X[k, p] for p in range(len(grouped_routes[depot]))
-    ) <= depots[depot]["capacity"], f"beta_depot_{depot}"
+        # duals
+        print("\n--- Dual Values ---")
+        for trip, π in duals["alpha"].items():
+            print(f"α for trip {trip}: {π:.4f}")
+        for depot, π in duals["beta"].items():
+            print(f"β for depot {depot}: {π:.4f}")
 
-# === Objective Function ===
-model.setObjective(
-    pl.lpSum(C[i, j] * X[i, j] for (i, j) in X)
+    finally:
+        # restore stdout and close log
+        sys.stdout = original_stdout
+        logger.log.close()
+
+    return status, model, obj, duals
+
+from initializer.inputs import lines_info, cp_depot_distances, depots
+
+status, model, optimal_cost, duals = run_rmp(
+    lines_info,
+    cp_depot_distances,
+    depots,
+    timetables_csv="initializer/files/timetables.csv",
+    cplex_path="/Applications/CPLEX_Studio2211/cplex/bin/arm64_osx/cplex",
+    log_filename="rmp_output.log"
 )
 
-# === Solve ===
-result = model.solve(solver)
+print("Done—results also in rmp_output.log")
 
-# === Output Solution ===
-print()
-print("="*85)
-print("SECTION 2: RMP SOLVING RESULTS")
-print("="*85)
-print("\n--- Routes Coefficients ---")
-for (i, j), var in X.items():
-    print(f"X[{i},{j}] = {var.varValue:.4f} (cost = {C[i, j]})")
 
-print("\n--- Trip Coverage Check ---")
-for i, trip in enumerate(trips):
-    lhs = sum(
-        constraint_2_trips_values[k, p, i] * X[k, p].varValue
-        for k in range(len(grouped_routes))
-        for p in range(len(grouped_routes[list(grouped_routes.keys())[k]]))
-    )
-    print(f"Trip {trip}: coverage = {lhs:.4f}")
+from initializer.inputs import *
+from initializer.utils import *
 
-print(f"\nZ (Objective Value): {pl.value(model.objective):.4f}")
+lines_info = lines_info
+cp_depot_distances = cp_depot_distances
+cp_locations_summary = summarize_cp_locations(lines_info)
+cp_distances = calculate_cp_distances(cp_locations_summary, lines_info)
+transformed_cp_depot_distances = transform_cp_depot_distances(cp_depot_distances)
+dh_dict = merge_distances_dicts(transformed_cp_depot_distances, cp_distances)
+dh_df = make_deadhead_df(dh_dict)
+dh_times_df = make_deadhead_times_df(20, dh_df)
 
-# === Duals ===
-print("\n--- Dual Values ---")
-for name, constraint in model.constraints.items():
-    if name.startswith("alpha_trip_"):
-        trip_id = name.replace("alpha_trip_", "")
-        print(f"α for trip {trip_id}: {constraint.pi:.4f}")
-    elif name.startswith("beta_depot_"):
-        depot_id = name.replace("beta_depot_", "")
-        print(f"β for depot {depot_id}: {constraint.pi:.4f}")
+
+from initializer.conn_network_builder import GraphBuilder
+builder = GraphBuilder('initializer/files/timetables.csv')
+graph = builder.build_graph()
+
+for u, v, data in graph.edges(data=True):
+    if graph.nodes[v]["type"] == "T":
+        dh_cost = data["time"] * 1.6
+        reduced_cost = dh_cost - duals["alpha"][graph.nodes[v]['id']]
+    elif graph.nodes[v]["type"] == "K":
+        dh_cost = data["time"] * 1.6
+        reduced_cost = dh_cost + duals["beta"][graph.nodes[v]['id']]
+    else:
+        j = v.replace("c", "d")
+        end_cp = graph.nodes[u]["end_cp"]
+        dh_time = float(dh_times_df.loc[end_cp, j])
+        reduced_cost = dh_time * 1.6
+    graph.edges[u, v]["reduced_cost"] = reduced_cost
+    # ISSO ACIMA 'E A MATRIZ DE ADJACENCIA (gerada como um grafo mesmo) QUE PRECISA AGORA SER PERCORRIDA PELO SPFA.

@@ -19,6 +19,29 @@ graph_2 = {
     5: {}
 }
 
+# def run_spfa(graph, source_node):
+#     distances = {source_node: 0}
+#     distances.update({k: math.inf for k in graph.keys() if k != source_node})
+#     queue = deque()
+#     queue.append(source_node)
+#     while len(queue) > 0:
+#         u = queue.popleft()
+#         for v, dv in graph[u].items():
+#             if distances[u] + dv < distances[v]:
+#                 distances[v] = distances[u] + dv
+#                 if v not in queue:
+#                     queue.append(v)
+#         print(distances)
+#     return distances
+
+# shortest_path = run_spfa(graph, "A")
+# print(shortest_path)
+
+
+
+
+
+
 def run_spfa(graph, source_node):
     distances = {source_node: 0}
     distances.update({k: math.inf for k in graph.keys() if k != source_node})
@@ -31,10 +54,13 @@ def run_spfa(graph, source_node):
                 distances[v] = distances[u] + dv
                 if v not in queue:
                     queue.append(v)
+        print(distances)
     return distances
 
-shortest_path = run_spfa(graph_2, 1)
-print(shortest_path)
+# para cada K:
+    # para cada nó i \in T:
+        # SPFA, ensuring dist and time. 
+            # OBS: na regra de dominancia, o nó que cobre maior distância e tem menor custo, prevalece.
 
 
 
