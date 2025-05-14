@@ -54,6 +54,7 @@ class GraphBuilder:
                 'start_cp': row['start_cp_id'],
                 'end_cp': row['dest_cp_id'],
                 'start_time': row['departure_time'],
+                'planned_travel_time': row['planned_travel_time'],
                 'end_time': row['departure_time'] + timedelta(minutes=row['planned_travel_time']),
                 'type': 'T'
             }
@@ -73,10 +74,12 @@ class GraphBuilder:
         """Add arcs between depots and trips (A_out and A_in)."""
         for d in self.depot_ids:
             for tid, data in self.trip_nodes.items():
-                dist = float(self.dh_df.loc[d, data['start_cp']])
-                tm = float(self.dh_times_df.loc[d, data['start_cp']])
-                self.G.add_edge(d, tid, type='A_out', dist=dist, time=tm)
-                self.G.add_edge(tid, d, type='A_in', dist=dist, time=tm)
+                dist_from_d = float(self.dh_df.loc[d, data['start_cp']])
+                time_from_d = float(self.dh_times_df.loc[d, data['start_cp']])
+                dist_to_d = float(self.dh_df.loc[data['end_cp'], d])
+                time_to_d = float(self.dh_times_df.loc[data['end_cp'], d])
+                self.G.add_edge(d, tid, type='A_out', dist=dist_from_d, time=time_from_d)
+                self.G.add_edge(tid, d, type='A_in', dist=dist_to_d, time=time_to_d)
 
     def add_dh_trip_arcs(self):
         """Add deadhead arcs between sequential trips."""
@@ -92,10 +95,14 @@ class GraphBuilder:
 
     def add_cs_arcs(self):
         """Add charging station arcs to and from trips."""
-        for tid in self.trip_nodes:
-            for c in self.cs_ids:
-                self.G.add_edge(tid, c, type='A_cs_to')
-                self.G.add_edge(c, tid, type='A_cs_from')
+        for c in self.cs_ids:
+            for tid, data in self.trip_nodes.items():
+                dist_from_c = float(self.dh_df.loc[c.replace("c", "d"), data['start_cp']])
+                time_from_c = float(self.dh_times_df.loc[c.replace("c", "d"), data['start_cp']])
+                dist_to_c = float(self.dh_df.loc[data['end_cp'], c.replace("c", "d")])
+                time_to_c = float(self.dh_times_df.loc[data['end_cp'], c.replace("c", "d")])
+                self.G.add_edge(c, tid, type='A_cs_from', dist=dist_from_c, time=time_from_c)
+                self.G.add_edge(tid, c, type='A_cs_to', dist=dist_to_c, time=time_to_c)
 
     def build_graph(self):
         """Execute all steps to populate the graph."""

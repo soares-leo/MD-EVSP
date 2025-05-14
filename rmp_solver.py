@@ -201,7 +201,7 @@ for u, v, data in graph.edges(data=True):
         reduced_cost = dh_cost - duals["alpha"][graph.nodes[v]['id']]
     elif graph.nodes[v]["type"] == "K":
         dh_cost = data["time"] * 1.6
-        reduced_cost = dh_cost + duals["beta"][graph.nodes[v]['id']]
+        reduced_cost = dh_cost + duals["beta"][v]
     else:
         j = v.replace("c", "d")
         end_cp = graph.nodes[u]["end_cp"]
@@ -209,3 +209,73 @@ for u, v, data in graph.edges(data=True):
         reduced_cost = dh_time * 1.6
     graph.edges[u, v]["reduced_cost"] = reduced_cost
     # ISSO ACIMA 'E A MATRIZ DE ADJACENCIA (gerada como um grafo mesmo) QUE PRECISA AGORA SER PERCORRIDA PELO SPFA.
+
+
+from collections import deque
+
+def run_spfa(graph, source_node, D, T_d):
+    red_costs = {source_node: 0}
+    red_costs.update({n: math.inf for n in graph.nodes if n != source_node})
+    dist = {source_node: 0}
+    dist.update({n: math.inf for n in graph.nodes if n != source_node})
+    time = {source_node: 0}
+    time.update({n: math.inf for n in graph.nodes if n != source_node})
+    queue = deque()
+    queue.append(source_node)
+    iteration=1
+    while len(queue) > 0:
+        u = queue.popleft()
+        print(f"Iteration: {iteration}. Queue len: {len(queue)}. U: {u}.")
+        current_time = graph.nodes[u]["start_time"]
+        start_time = graph.nodes[u]["start_time"]
+        planned_travel_time = graph.nodes[u]["planned_travel_time"]
+        end_time = graph.nodes[u]["end_time"]
+        start_cp = graph.nodes[u]['start_cp']
+        end_cp = graph.nodes[u]['end_cp']
+
+        for v in graph.neighbors(u):
+            if v[0] != "l":
+                continue
+            arc_reduced_cost = graph[u][v]["reduced_cost"]
+            arc_time = graph[u][v]["time"]
+            arc_dist = graph[u][v]["dist"]
+            if time[u] + arc_time >= T_d:
+                continue
+            elif dist[u] + arc_dist > D:
+                cs = "c + numero do deposito prox do end cp de u"
+                arc_reduced_cost = graph[u][cs]["reduced_cost"]
+                arc_dist = graph[u][cs]["dist"]
+                time_since_recharge = ((dist[u] + arc_dist) / 20) * 60
+                charging_time = 15.6 * time_since_recharge / 30
+                arc_time = graph[u][cs]["time"] + charging_time
+                red_costs[v] = red_costs[u] + arc_reduced_cost
+                #precisa ter contabilizador de dist que possa ser zerado.
+                dist[v]
+
+                
+
+            if red_costs[u] + arc_reduced_cost < red_costs[v] and time[u] + arc_time < T_d:
+                if time[u] + arc_time >= T_d:
+                    return red_costs, time, dist
+                elif dist[u] + arc_dist > D:
+
+                red_costs[v] = red_costs[u] + arc_reduced_cost
+                if v not in queue:
+                    queue.append(v)
+        iteration+=1
+    return red_costs
+
+trip_nodes = [n for n, attr in graph.nodes(data=True) if attr.get("type") == "T"]
+for i in trip_nodes:
+    red_costs = run_spfa(graph, i)
+    print(red_costs)
+
+
+
+
+# para cada K:
+    # para cada nó i \in T:
+        # SPFA, ensuring dist and time. 
+            # OBS: na regra de dominancia, o nó que cobre maior distância e tem menor custo, prevalece.
+            # OBS2: como ele nao recebe dest_node, ele acaba achando sp para todos os nós.
+            # OBS3: restricao de capacidade de depositos ja é resolvida no RMP.

@@ -42,20 +42,50 @@ graph_2 = {
 
 
 
+from collections import deque
+import math
+
 def run_spfa(graph, source_node):
-    distances = {source_node: 0}
-    distances.update({k: math.inf for k in graph.keys() if k != source_node})
-    queue = deque()
-    queue.append(source_node)
-    while len(queue) > 0:
+    # 1. Initialize
+    distances   = {node: math.inf for node in graph}
+    predecessor = {node: None       for node in graph}
+    distances[source_node] = 0
+
+    queue = deque([source_node])
+
+    # 2. Main SPFA loop
+    while queue:
         u = queue.popleft()
-        for v, dv in graph[u].items():
-            if distances[u] + dv < distances[v]:
-                distances[v] = distances[u] + dv
+        for v, weight in graph[u].items():
+            new_dist = distances[u] + weight
+            if new_dist < distances[v]:
+                distances[v] = new_dist
+                predecessor[v] = u
                 if v not in queue:
                     queue.append(v)
-        print(distances)
-    return distances
+
+    # 3. Return both distance and tree info
+    return distances, predecessor
+
+def reconstruct_path(predecessor, source, target):
+    """Walk backwards from target to source using predecessor[]"""
+    path = []
+    node = target
+    while node is not None:
+        path.append(node)
+        node = predecessor[node]
+    path.reverse()
+    # if it doesn’t start with source, there was no path
+    if path and path[0] == source:
+        return path
+    return []  # unreachable
+
+
+distances, pred = run_spfa(graph, 'A')
+print(distances)  
+# {'A': 0, 'B': 5, 'C': 2, 'D': 6}
+
+print(reconstruct_path(pred, 'A', 'G'))  
 
 # para cada K:
     # para cada nó i \in T:
