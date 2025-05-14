@@ -212,14 +212,19 @@ for u, v, data in graph.edges(data=True):
 
 
 from collections import deque
+from datetime import timedelta
 
 def run_spfa(graph, source_node, D, T_d):
     red_costs = {source_node: 0}
     red_costs.update({n: math.inf for n in graph.nodes if n != source_node})
+    dist_since_charge = {source_node: 0}
+    dist_since_charge.update({n: math.inf for n in graph.nodes if n != source_node})
     dist = {source_node: 0}
     dist.update({n: math.inf for n in graph.nodes if n != source_node})
     time = {source_node: 0}
     time.update({n: math.inf for n in graph.nodes if n != source_node})
+    current_time = {source_node: 0}
+    current_time.update({n: math.inf for n in graph.nodes if n != source_node})
     queue = deque()
     queue.append(source_node)
     iteration=1
@@ -234,32 +239,36 @@ def run_spfa(graph, source_node, D, T_d):
         end_cp = graph.nodes[u]['end_cp']
 
         for v in graph.neighbors(u):
-            if v[0] != "l":
-                continue
             arc_reduced_cost = graph[u][v]["reduced_cost"]
             arc_time = graph[u][v]["time"]
             arc_dist = graph[u][v]["dist"]
+            if u[0] == "c":
+                if graph.nodes[v]['start_time'] < current_time[u] + arc_time:
+                    continue
+            elif v[0] != "l":
+                continue
             if time[u] + arc_time >= T_d:
                 continue
-            elif dist[u] + arc_dist > D:
-                cs = "c + numero do deposito prox do end cp de u"
+            elif dist_since_charge[u] + arc_dist > D:
+                u_end_cp = graph.nodes[u]['end_cp']
+                depot_cols = dh_df.filter(regex="^d\d+_\d+$").columns
+                aka_depot = dh_df.loc[u_end_cp, depot_cols].idxmin()
+                cs = "c" + aka_depot[1:]
                 arc_reduced_cost = graph[u][cs]["reduced_cost"]
                 arc_dist = graph[u][cs]["dist"]
-                time_since_recharge = ((dist[u] + arc_dist) / 20) * 60
+                time_since_recharge = ((dist_since_charge[u] + arc_dist) / 20) * 60
                 charging_time = 15.6 * time_since_recharge / 30
                 arc_time = graph[u][cs]["time"] + charging_time
                 red_costs[v] = red_costs[u] + arc_reduced_cost
-                #precisa ter contabilizador de dist que possa ser zerado.
-                dist[v]
-
-                
-
+                dist[cs] = dist[u] + arc_dist
+                time[cs] = time[u] + arc_time
+                current_time[cs] = start_time + timedelta(minutes = time[u] + arc_time)
+                time_since_recharge[cs] = 0
+                queue.append(cs)
+                continue
             if red_costs[u] + arc_reduced_cost < red_costs[v] and time[u] + arc_time < T_d:
                 if time[u] + arc_time >= T_d:
-                    return red_costs, time, dist
-                elif dist[u] + arc_dist > D:
-
-                red_costs[v] = red_costs[u] + arc_reduced_cost
+                    continue
                 if v not in queue:
                     queue.append(v)
         iteration+=1
