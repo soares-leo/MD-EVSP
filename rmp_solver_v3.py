@@ -19,18 +19,17 @@ class Logger(object):
         self.log.flush()
 
 # === Build function ===
-def build_rmp_model(
-    lines_info: dict,
-    cp_depot_distances: dict,
-    depots: dict,
-    timetables_csv: str = "initializer/files/timetables.csv",
-    name: str = "RestrictedMasterProblem"
-):
-    """
-    Build the RMP model and return:
-      model, X_vars, cost_map, coverage_map, trips_array, grouped_routes
-    """
-    gen = Generator(lines_info, cp_depot_distances, depots)
+class ColumnGenerator:
+
+    def __init__(self, lines_info, cp_depot_distances, depots):
+        self.lines_info = lines_info
+        self.cp_depot_distances = cp_depot_distances
+        self.cp_depots = depots
+        self.timetables_csv: str = "initializer/files/timetables.csv",
+        self.name: str = "RestrictedMasterProblem"
+    
+    def build_model()
+    gen = Generator(self.lines_info, self.cp_depot_distances, self.depots)
     initial_solution, _ = gen.generate_initial_set()
     grouped_routes, routes_costs = group_routes_by_depot(initial_solution)
 
