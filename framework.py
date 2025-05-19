@@ -5,6 +5,7 @@ from initializer.conn_network_builder import GraphBuilder
 from column_generator.utils import add_reduced_cost_info
 from column_generator.rmp_solver import run_rmp
 from column_generator.spfa import run_spfa
+from genetic_algorithm.genetic_algorithm import run_ga
 from collections import deque, namedtuple
 from datetime import timedelta
 import datetime
@@ -30,69 +31,114 @@ initial_solution, _ = gen.generate_initial_set()
 graph_builder = GraphBuilder('initializer/files/timetables.csv')
 graph = graph_builder.build_graph()
 
-# RMP Solver
-status, model, optimal_cost, duals = run_rmp(
-    depots,
-    initial_solution,
-    timetables_csv="initializer/files/timetables.csv",
-    cplex_path="/Applications/CPLEX_Studio2211/cplex/bin/arm64_osx/cplex",
-    log_filename="rmp_output.log"
+def generate_columns(S, graph, depots, dh_df, dh_times_df, Z_min, K, I):
+    
+    cnt = 0
+    Z_values = []
+    lens_of_s = []
+    
+    while cnt <= I:
+        status, model, current_cost, duals = run_rmp(
+            depots,
+            S,
+            timetables_csv="initializer/files/timetables.csv",
+            cplex_path="/Applications/CPLEX_Studio2211/cplex/bin/arm64_osx/cplex",
+            log_filename="rmp_output.log"
+        )
+        
+        Z_values.append(current_cost)
+        
+        optimal = min(Z_values)
+        
+        if abs(current_cost - optimal) < Z_min:
+            cnt += 1
+
+        print("Done. Results also in rmp_output.log")
+
+        # Reduced costs calculations
+        graph = add_reduced_cost_info(graph, duals, dh_times_df)
+        print(graph)
+
+        # SPFA Run
+        trip_keys = list(map(lambda x: int(x.split("_")[-1]), list(S.keys())))
+           
+        last_route_number = max(trip_keys)
+        source_nodes = [n for n, d in graph.nodes(data=True) if d.get("type")=="K"]
+        all_labels = {}
+        times = []
+        for i, t in enumerate(source_nodes):
+            print(f"Running SPFA for source {t} ({i+1} of {len(source_nodes)})...")
+            start_time = time.time()
+            all_labels[t] = run_spfa(graph, t, D=120, T_d=19*60, dh_df=dh_df, last_route_number=last_route_number)
+            end_time = time.time()
+            elapsed_time = end_time - start_time
+            times.append(elapsed_time)
+            print(f"SPFA for source {t} successfully finished! Duration: {elapsed_time:.2f}s.")
+            print(f"Remaining time prediction: {np.mean(times) * (len(source_nodes) - (i+1)):.2f}s.")
+            print(f"Total time prediction: {np.mean(times) * len(source_nodes):.2f}s.\n")
+
+        print(f"SPFA was done in {np.sum(times):.2f}s.\n")
+
+        # Flatten all_labels into a list of (route_key, info)
+        flat = []
+        for depot, routes in all_labels.items():
+            for rkey, info in routes.items():
+                flat.append((rkey, info))
+
+        # Sort ascending by ReducedCost (most negative first)
+        flat.sort(key=lambda x: x[1]["ReducedCost"])
+
+        # Take the top 10
+        top10 = flat[:K]
+
+        # Build new entries, renaming keys to continue from last_route_number+1
+        new_entries = {}
+        for i, (old_key, info) in enumerate(top10, start=last_route_number+1):
+            if info["ReducedCost"] >= 0:
+                continue
+            new_key = f"Route_{i}"
+            new_entries[new_key] = {
+                "Path": info["Path"],
+                "Cost": info["Cost"],
+                "Data": info["Data"]
+            }
+            print(f"{new_key} (was {old_key}): ReducedCost = {info['ReducedCost']:.2f}, Path = {' → '.join(info['Path'])}")
+
+        # Merge into S ---
+        S.update(new_entries)
+        lens_of_s.append(len(S))
+
+    
+    print("NEW ENTRIES -------------------------")
+    print(new_entries)
+    return S, optimal, Z_values, lens_of_s
+
+columns, optimal, Z_values, lens_of_s = generate_columns(
+    S=initial_solution,
+    graph=graph,
+    depots=depots,
+    dh_df=dh_df,
+    dh_times_df=dh_times_df,
+    Z_min=50,
+    K=10,
+    I=2
 )
 
-print("Done. Results also in rmp_output.log")
+print(Z_values)
+print(lens_of_s)
 
-# Reduced costs calculations
-graph = add_reduced_cost_info(graph, duals, dh_times_df)
-print(graph)
+final_solution, optimal_fitness = run_ga(
+    S=initial_solution,
+    Lmin=140,
+    Lmax=180,
+    pop_size=100,
+    max_gen=20000,
+    crossover_prob=0.3,
+    mutation_prob=0.01,
+    elite_size=5
+)
 
-# SPFA Run
-source_nodes = [n for n, d in graph.nodes(data=True) if d.get("type")=="K"]
-all_labels = {}
-times = []
-for i, t in enumerate(source_nodes):
-    print(f"Running SPFA for source {t} ({i+1} of {len(source_nodes)})...")
-    start_time = time.time()
-    all_labels[t] = run_spfa(graph, t, D=120, T_d=19*60, dh_df=dh_df)
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    times.append(elapsed_time)
-    print(f"SPFA for source {t} successfully finished! Duration: {elapsed_time:.2f}s.")
-    print(f"Remaining time prediction: {np.mean(times) * (len(source_nodes) - (i+1)):.2f}s.")
-    print(f"Total time prediction: {np.mean(times) * len(source_nodes):.2f}s.\n")
-
-print(f"SPFA was done in {np.sum(times):.2f}s.\n")
+print(optimal_fitness)
 
 
 
-# ---- serialize and save to JSON ----
-# serializable = {}
-# for source, routes in all_labels.items():
-#     serializable[source] = []
-#     for lbl in routes:
-#         serializable[source].append({
-#             "node": lbl.node,
-#             "cost": lbl.cost,
-#             "dist_since_charge": lbl.dist_since_charge,
-#             "time": lbl.time,
-#             "current_time": lbl.current_time.isoformat() if lbl.current_time else None,
-#             "path": lbl.path
-#         })
-
-# with open("all_labels.json", "w") as f:
-#     json.dump(serializable, f, indent=2)
-
-# print("Results saved to all_labels.json")
-# print(all_labels)
-
-self.initial_solution[f"Route_{i}"] = {
-    "Path": self.route,
-    "Cost": route_cost,
-    "Data": {
-        "total_dh_dist": self.total_dh_dist,
-        "total_dh_time": self.total_dh_time,
-        "total_travel_dist": self.total_travel_dist,
-        "total_travel_time": self.total_travel_time,
-        "total_wait_time": self.total_wait_time,
-        "final_time": self.current_time
-    }
-}

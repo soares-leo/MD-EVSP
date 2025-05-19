@@ -1,22 +1,25 @@
 from initializer.inputs import *
-from initializer.utils import *
-from .utils import add_reduced_cost_info
+from initializer.utils import calculate_cost  # ensure calculate_cost is imported
 from collections import deque, namedtuple
 from datetime import timedelta
 import datetime
-import json
 
-# a single “state” (label) in the network
+# a single “state” (label) in the network, now with accumulators
 Label = namedtuple("Label", [
-    "node",             # current node ID
-    "cost",             # reduced cost so far (c_p)
-    "dist_since_charge",# distance since last charge/depot (d_p)
-    "time",             # cumulative travel time since depot
-    "current_time",     # actual clock time at arrival
-    "path"              # list of nodes visited so far
+    "node",
+    "cost",
+    "dist_since_charge",
+    "time",
+    "current_time",
+    "path",
+    "total_dh_dist",
+    "total_dh_time",
+    "total_travel_dist",
+    "total_travel_time",
+    "total_wait_time"
 ])
 
-def run_spfa(graph, source, D, T_d, dh_df):
+def run_spfa(graph, source, D, T_d, dh_df, last_route_number):
     # initialize label‐lists
     labels = {n: [] for n in graph.nodes}
     
@@ -27,11 +30,16 @@ def run_spfa(graph, source, D, T_d, dh_df):
         dist_since_charge=0,
         time=0,
         current_time=None,
-        path=[source]
+        path=[source],
+        total_dh_dist=0.0,
+        total_dh_time=0.0,
+        total_travel_dist=0.0,
+        total_travel_time=0.0,
+        total_wait_time=0.0
     )
     labels[source].append(init)
     
-    # FIFO queue of labels to process
+    # FIFO queue
     queue = deque([init])
     
     while queue:
@@ -42,19 +50,20 @@ def run_spfa(graph, source, D, T_d, dh_df):
             arc_time = graph[u][v]["time"]
             arc_dist = graph[u][v]["dist"]
 
+            # first hop clock adjustment
             if lbl.current_time is None:
-                # first hop: back out the travel time so wait = 0
                 clock = graph.nodes[v]["start_time"] - timedelta(minutes=arc_time)
             else:
                 clock = lbl.current_time
 
+            # time‐compatibility
             if u.startswith("c"):
                 if graph.nodes[v]["start_time"] < clock + timedelta(minutes=arc_time):
                     continue
             elif not v.startswith("l"):
                 continue
             
-            # compute wait & next‐trip stats
+            # compute wait, trip stats
             wait = (graph.nodes[v]["start_time"] - 
                     (clock + timedelta(minutes=arc_time))).total_seconds() / 60
             v_planned = graph.nodes[v]["planned_travel_time"]
@@ -62,15 +71,17 @@ def run_spfa(graph, source, D, T_d, dh_df):
             v_dist = dh_df.loc[sc, ec]
             v_end_clock = graph.nodes[v]["end_time"]
             
+            # new totals
             tot_time = lbl.time + arc_time + wait + v_planned
             tot_dist = lbl.dist_since_charge + arc_dist + v_dist
             
-            # 1) time‐window constraint
+            # constraints
             if tot_time > T_d:
                 continue
             
-            # 2) distance‐since‐charge constraint
+            # branch on recharge or trip
             if tot_dist > D:
+                # recharge node
                 depot_cols = dh_df.filter(regex=r"^d\d+_\d+$").columns
                 best = dh_df.loc[graph.nodes[u]["end_cp"], depot_cols].idxmin()
                 cs = "c" + best[1:]
@@ -87,10 +98,16 @@ def run_spfa(graph, source, D, T_d, dh_df):
                     dist_since_charge=0.0,
                     time=lbl.time + time_cs + charge_minutes,
                     current_time=new_clock,
-                    path=lbl.path + [cs]
+                    path=lbl.path + [cs],
+                    total_dh_dist=lbl.total_dh_dist + dist_cs,
+                    total_dh_time=lbl.total_dh_time + time_cs,
+                    total_travel_dist=lbl.total_travel_dist,
+                    total_travel_time=lbl.total_travel_time,
+                    total_wait_time=lbl.total_wait_time
                 )
                 dest = cs
             else:
+                # trip extension
                 cost_uv = graph[u][v]["reduced_cost"]
                 new_lbl = Label(
                     node=v,
@@ -98,11 +115,16 @@ def run_spfa(graph, source, D, T_d, dh_df):
                     dist_since_charge=tot_dist,
                     time=tot_time,
                     current_time=v_end_clock,
-                    path=lbl.path + [v]
+                    path=lbl.path + [v],
+                    total_dh_dist=lbl.total_dh_dist + arc_dist,
+                    total_dh_time=lbl.total_dh_time + arc_time,
+                    total_travel_dist=lbl.total_travel_dist + v_dist,
+                    total_travel_time=lbl.total_travel_time + v_planned,
+                    total_wait_time=lbl.total_wait_time + wait
                 )
                 dest = v
             
-            # Dominance test
+            # Dominance prune
             dominated = False
             to_remove = []
             for existing in labels[dest]:
@@ -124,38 +146,38 @@ def run_spfa(graph, source, D, T_d, dh_df):
             labels[dest].append(new_lbl)
             queue.append(new_lbl)
     
-    # Option B: close every trip‐ending label back to this source depot
-    completed_routes = []
+    completed_routes = {}
+    route_idx = last_route_number
     for lbl_list in labels.values():
         for lbl in lbl_list:
             if lbl.node.startswith("l"):
-                # add the reduced cost of the final arc i->d
+                # final arc cost back to depot
                 ret_cost = graph[lbl.node][source]["reduced_cost"]
                 full_cost = lbl.cost + ret_cost
                 full_path = lbl.path + [source]
-
-                recharging_freq = len(list(filter(lambda x: x[0] == "c", full_path)))
-                route_cost = calculate_cost(recharging_freq, travel_time, dh_time, waiting_time)
                 
-                completed_routes.append(
-                    Label(
-                        node=source,
-                        cost=full_cost,
-                        dist_since_charge=lbl.dist_since_charge,
-                        time=lbl.time,
-                        current_time=lbl.current_time,
-                        path=full_path,
-                        path_cost=route_cost,
-                        path_data= {
-                            "total_dh_dist": total_dh_dist,
-                            "total_dh_time": total_dh_time,
-                            "total_travel_dist": total_travel_dist,
-                            "total_travel_time": total_travel_time,
-                            "total_wait_time": total_wait_time,
-                            "final_time": current_time
-                        }
-                    )
+                # calculate final route cost
+                recharging_freq = sum(1 for x in full_path if x.startswith("c"))
+                route_cost = calculate_cost(
+                    recharging_freq,
+                    lbl.total_travel_time,
+                    lbl.total_dh_time,
+                    lbl.total_wait_time
                 )
+                # assemble entry
+                completed_routes[f"Route_{route_idx}"] = {
+                    "Path": full_path,
+                    "Cost": route_cost,
+                    "ReducedCost": full_cost,
+                    "Data": {
+                        "total_dh_dist": lbl.total_dh_dist,
+                        "total_dh_time": lbl.total_dh_time,
+                        "total_travel_dist": lbl.total_travel_dist,
+                        "total_travel_time": lbl.total_travel_time,
+                        "total_wait_time": lbl.total_wait_time,
+                        "final_time": lbl.current_time
+                    }
+                }
+                route_idx += 1
 
-   
     return completed_routes
