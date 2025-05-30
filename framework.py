@@ -56,8 +56,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, Z_min, K, I):
         print("Done. Results also in rmp_output.log")
 
         # Reduced costs calculations
-        graph = add_reduced_cost_info(graph, duals, dh_times_df)
-        print(graph)
+        red_cost_graph = add_reduced_cost_info(graph, duals, dh_times_df)
 
         # SPFA Run
         trip_keys = list(map(lambda x: int(x.split("_")[-1]), list(S.keys())))
@@ -69,7 +68,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, Z_min, K, I):
         for i, t in enumerate(source_nodes):
             print(f"Running SPFA for source {t} ({i+1} of {len(source_nodes)})...")
             start_time = time.time()
-            all_labels[t] = run_spfa(graph, t, D=120, T_d=19*60, dh_df=dh_df, last_route_number=last_route_number)
+            all_labels[t] = run_spfa(red_cost_graph, t, D=120, T_d=19*60, dh_df=dh_df, last_route_number=last_route_number)
             end_time = time.time()
             elapsed_time = end_time - start_time
             times.append(elapsed_time)
@@ -120,8 +119,8 @@ columns, optimal, Z_values, lens_of_s = generate_columns(
     dh_df=dh_df,
     dh_times_df=dh_times_df,
     Z_min=50,
-    K=10,
-    I=2
+    K=20,
+    I=10
 )
 
 print(Z_values)
