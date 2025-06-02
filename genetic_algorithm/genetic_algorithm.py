@@ -121,5 +121,6 @@ def run_ga(S, Lmin, Lmax, pop_size, max_gen, crossover_prob, mutation_prob, elit
     print(f"GA completed: optimal fitness = {optimal_fitness:.4f}")
 
     # Build result dict
+    # Extra comm for commit
     result = {k: S[k] for gene, k in zip(best_ind, keys) if gene}
     return result, optimal_fitness
