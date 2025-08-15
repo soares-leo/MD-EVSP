@@ -8,11 +8,11 @@ from initializer.utils import summarize_cp_locations, calculate_cp_distances, tr
 class GraphBuilder:
     """Class to build a directed graph of trips, depots, and charging stations with deadhead arcs."""
 
-    def __init__(self, timetable_path: str):
+    def __init__(self, timetable_path: str, used_depots: list):
         self.timetable_path = timetable_path
+        self.used_depots = used_depots
         # Initialize core data and graph
         self.timetables = self.load_timetables()
-        self.Ct = self.compute_charging_time()
         self.dh_df, self.dh_times_df = self.build_deadhead_data()
         self.G = self.initialize_graph()
         # Placeholders for nodes
@@ -25,11 +25,6 @@ class GraphBuilder:
     def load_timetables(self) -> pd.DataFrame:
         """Load timetables CSV with parsed departure times."""
         return pd.read_csv(self.timetable_path, parse_dates=["departure_time"])
-
-    def compute_charging_time(self) -> float:
-        """Compute charging time (Ct) in minutes using problem_params."""
-        p = problem_params
-        return (p['battery_capacity_kWh'] * (1 - p['soc_lower_bound'])) / p['charging_rate_kW_per_hour'] * 60
 
     def build_deadhead_data(self) -> tuple[pd.DataFrame, pd.DataFrame]:
         """Generate deadhead distance and time DataFrames."""
@@ -63,7 +58,8 @@ class GraphBuilder:
 
     def add_depot_and_cs_nodes(self):
         """Add depot (K) and charging station (C) nodes."""
-        self.depot_ids = list(depots.keys())
+        filtered_depots = {key: value for key, value in depots.items() if key in self.used_depots}
+        self.depot_ids = list(filtered_depots.keys())
         self.cs_ids = [d.replace('d', 'c') for d in self.depot_ids]
         for d in self.depot_ids:
             self.G.add_node(d, type='K')
@@ -80,9 +76,9 @@ class GraphBuilder:
                 time_to_d = float(self.dh_times_df.loc[data['end_cp'], d])
                 self.G.add_edge(d, tid, type='A_out', dist=dist_from_d, time=time_from_d)
                 self.G.add_edge(tid, d, type='A_in', dist=dist_to_d, time=time_to_d)
-
+    
+    """
     def add_dh_trip_arcs(self):
-        """Add deadhead arcs between sequential trips."""
         items = list(self.trip_nodes.items())
         for i, (i_id, i_data) in enumerate(items):
             for j, (j_id, j_data) in enumerate(items):
@@ -92,6 +88,36 @@ class GraphBuilder:
                 tm = float(self.dh_times_df.loc[i_data['end_cp'], j_data['start_cp']])
                 if i_data['end_time'] + timedelta(minutes=tm) <= j_data['start_time']:
                     self.G.add_edge(i_id, j_id, type='A_dh_trips', dist=dist, time=tm)
+    """
+
+    def add_dh_trip_arcs(self):
+        """Add deadhead arcs between sequential trips, pruning excessively long waits."""
+        # This is a tunable parameter. A lower value creates a sparser graph,
+        # which speeds up the subproblem, but risks pruning optimal connections.
+        # 180 minutes (3 hours) is a reasonable starting point.
+        MAX_WAIT_TIME_MINS = 960.0
+
+        items = list(self.trip_nodes.items())
+        for i, (i_id, i_data) in enumerate(items):
+            for j, (j_id, j_data) in enumerate(items):
+                if i == j:
+                    continue
+                
+                # Check for temporal precedence first
+                if i_data['end_time'] > j_data['start_time']:
+                    continue
+
+                dist = float(self.dh_df.loc[i_data['end_cp'], j_data['start_cp']])
+                tm = float(self.dh_times_df.loc[i_data['end_cp'], j_data['start_cp']])
+                
+                # Check if the connection is feasible in time
+                if i_data['end_time'] + timedelta(minutes=tm) <= j_data['start_time']:
+                    # NEW: Check if the wait time is excessive
+                    # wait_time = (j_data['start_time'] - (i_data['end_time'] + timedelta(minutes=tm))).total_seconds() / 60.0
+                    
+                    # if wait_time <= MAX_WAIT_TIME_MINS:
+                    self.G.add_edge(i_id, j_id, type='A_dh_trips', dist=dist, time=tm)
+
 
     def add_cs_arcs(self):
         """Add charging station arcs to and from trips."""

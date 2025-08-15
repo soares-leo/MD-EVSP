@@ -19,7 +19,7 @@ Label = namedtuple("Label", [
     "total_wait_time"
 ])
 
-def run_spfa(graph, source, D, T_d, dh_df, last_route_number):
+def run_spfa(graph, source, D, T_d, dh_df, last_route_number, duals):
     # initialize label‐lists
     labels = {n: [] for n in graph.nodes}
     
@@ -89,7 +89,7 @@ def run_spfa(graph, source, D, T_d, dh_df, last_route_number):
                 cost_cs = graph[u][cs]["reduced_cost"]
                 dist_cs = graph[u][cs]["dist"]
                 time_cs = graph[u][cs]["time"]
-                charge_minutes = 15.6 * (((lbl.dist_since_charge + dist_cs) / 20) * 60) / 30
+                charge_minutes = (15.6 * ((lbl.dist_since_charge + dist_cs) / 20) / 30) * 60
                 new_clock = clock + timedelta(minutes=time_cs + charge_minutes)
                 
                 new_lbl = Label(
@@ -105,6 +105,10 @@ def run_spfa(graph, source, D, T_d, dh_df, last_route_number):
                     total_travel_time=lbl.total_travel_time,
                     total_wait_time=lbl.total_wait_time
                 )
+
+                if new_lbl.time > T_d:
+                    continue
+
                 dest = cs
             else:
                 # trip extension
@@ -128,15 +132,15 @@ def run_spfa(graph, source, D, T_d, dh_df, last_route_number):
             dominated = False
             to_remove = []
             for existing in labels[dest]:
-                fixed_ct = existing.current_time or datetime.datetime.min
+                #fixed_ct = existing.current_time or datetime.datetime.min
                 if (existing.cost <= new_lbl.cost and
-                    existing.dist_since_charge <= new_lbl.dist_since_charge and
-                    fixed_ct <= new_lbl.current_time):
+                    existing.dist_since_charge >= new_lbl.dist_since_charge): #and
+                    #fixed_ct <= new_lbl.current_time):
                     dominated = True
                     break
                 if (new_lbl.cost <= existing.cost and
-                    new_lbl.dist_since_charge <= existing.dist_since_charge and
-                    new_lbl.current_time <= fixed_ct):
+                    new_lbl.dist_since_charge >= existing.dist_since_charge): #and
+                    #new_lbl.current_time <= fixed_ct):
                     to_remove.append(existing)
             if dominated:
                 continue
@@ -164,11 +168,19 @@ def run_spfa(graph, source, D, T_d, dh_df, last_route_number):
                     lbl.total_dh_time,
                     lbl.total_wait_time
                 )
+                
+                
+                ### NOVA IMPLEMENTACAO
+                trips_in_p = [trip for trip in full_path if trip.startswith("l")]
+                dep = full_path[0]
+                true_reduced_cost = route_cost - sum(duals["alpha"][trip] for trip in trips_in_p) + duals['beta'][dep]
+                ### FIM DA NOVA IMPLEMENTACAO
+                
                 # assemble entry
                 completed_routes[f"Route_{route_idx}"] = {
                     "Path": full_path,
                     "Cost": route_cost,
-                    "ReducedCost": full_cost,
+                    "ReducedCost": true_reduced_cost,
                     "Data": {
                         "total_dh_dist": lbl.total_dh_dist,
                         "total_dh_time": lbl.total_dh_time,
@@ -181,3 +193,5 @@ def run_spfa(graph, source, D, T_d, dh_df, last_route_number):
                 route_idx += 1
 
     return completed_routes
+
+# WHAT NEEDS TO BE DONE HERE IS TO ALL GENERATED ROUTES STARTING FROM A GIVEN TRIP I AND APPLY THE DOMINANCE RULES AFTER ALL ROUTES WERE GENERATED.

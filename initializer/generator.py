@@ -7,7 +7,7 @@ import pandas as pd
 # Initial parameters
 
 class Generator:
-    def __init__(self, lines_info, cp_depot_distances, depots):
+    def __init__(self, lines_info, cp_depot_distances, depots, timetables_path_to_use=None, seed=None):
         self.lines_info = lines_info
         self.cp_depot_distances = cp_depot_distances
         self.cp_locations_summary = summarize_cp_locations(lines_info)
@@ -16,31 +16,44 @@ class Generator:
         self.dh_dict = merge_distances_dicts(self.transformed_cp_depot_distances, self.cp_distances)
         self.dh_df = make_deadhead_df(self.dh_dict)
         self.dh_times_df = make_deadhead_times_df(20, self.dh_df)
+        self.seed = seed
         self.depots = depots
-        tt_l4 = generate_timetable("4", 290)
-        tt_l59 = generate_timetable("59", 100)
-        tt_l60 = generate_timetable("60", 120)
-        self.timetables = pd.concat([tt_l4, tt_l59, tt_l60], ignore_index=True)
-        self.timetables.to_csv("initializer/files/timetables.csv")
-        self.timetables['covered'] = False
+        
+        if timetables_path_to_use is None:
+            l4_trips = 290
+            l59_trips = 100
+            l60_trips = 120
+            self.instance_name = f"instance_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_l4_{l4_trips}_l59_{l59_trips}_l60_{l60_trips}"
+            tt_l4 = generate_timetable_v2(lines_info, 4, l4_trips)
+            tt_l59 = generate_timetable_v2(lines_info, 59, l59_trips, first_start_time="06:40", last_start_time="19:50") #100
+            tt_l60 = generate_timetable_v2(lines_info, 60, l60_trips, first_start_time="06:00", last_start_time="21:10") #120
+            self.timetables = pd.concat([tt_l4, tt_l59, tt_l60], ignore_index=True)
+            self.timetables_path = f"initializer/files/{self.instance_name}.csv"
+            self.timetables.to_csv(self.timetables_path)
+            self.timetables['covered'] = False
+        else:
+            self.instance_name = timetables_path_to_use.split("/")[-1].split(".")[0]
+            self.timetables_path = timetables_path_to_use
+            self.timetables = pd.read_csv(timetables_path_to_use, converters={"departure_time": pd.to_datetime})
+            self.timetables['covered'] = False
         self.ti = None
         self.dist = 0
         self.time = 0
         self.route_total_dist = 0
         self.route_total_time = 0
         self.time_since_recharge = 0
-        self.max_time = 19*60
-        self.max_dist = 120
-        self.recharging_rate = 30
-        self.consumption_rate = 15.6
+        self.max_time = 16*60 # minutes
+        self.max_dist = 120 # km
+        self.recharging_rate = 30 # kw/hour
+        self.consumption_rate = 15.6 # kw/hour
         self.route = []
         self.initial_solution = {}
-        self.total_dh_dist = 0
-        self.total_dh_time = 0
-        self.total_travel_dist = 0
-        self.total_travel_time = 0
-        self.total_wait_time = 0
-        self.total_charging_time = 0
+        self.total_dh_dist = 0 # km
+        self.total_dh_time = 0 # minutes
+        self.total_travel_dist = 0 # km
+        self.total_travel_time = 0 # minutes
+        self.total_wait_time = 0 # minutes
+        self.total_charging_time = 0 # minutes
         self.used_depots = []
 
     def generate_initial_set(self):
@@ -98,7 +111,8 @@ class Generator:
                     "total_travel_dist": self.total_travel_dist,
                     "total_travel_time": self.total_travel_time,
                     "total_wait_time": self.total_wait_time,
-                    "final_time": self.current_time
+                    "final_time": self.current_time,
+                    "total_charging_time": self.total_charging_time
                 }
             }
 
@@ -138,8 +152,8 @@ class Generator:
                 print(f"\t{_k}: {_v}")
         
         self.timetables.to_csv("initializer/files/timetables_covered.csv", index=False)
-        pd.DataFrame(self.depots).to_csv("initializer/files/depots_final_picture.csv")
-        return self.initial_solution, self.used_depots
+        pd.DataFrame(self.depots).to_csv("initializer/files/depots_initial_picture.csv")
+        return self.initial_solution, self.used_depots, self.instance_name
 
     def refresh_data(self):
         nodes = self.route[-2:]
@@ -155,7 +169,7 @@ class Generator:
             equalizer = 0
             charging_time = 0
             self.current_time = ti.departure_time + timedelta(minutes=travel_time) 
-        if (nodes[0][0] == "l" or nodes[0][0] == "c") and nodes[1][0] == "l":
+        elif (nodes[0][0] == "l" or nodes[0][0] == "c") and nodes[1][0] == "l":
             if nodes[0][0] == "c":
                 ti = self.timetables[self.timetables.trip_id == self.route[-3]].iloc[0]
             else:
@@ -176,13 +190,13 @@ class Generator:
 
             self.current_time = tj.departure_time + timedelta(minutes=travel_time) 
 
-        if nodes[0][0] == "l" and nodes[1][0] == "c":
+        elif nodes[0][0] == "l" and nodes[1][0] == "c":
             dh_dist_ij = 0
             dh_time_ij = 0
             travel_dist = 0
             travel_time = 0
             
-            charging_time = self.consumption_rate * (self.time_since_recharge / self.recharging_rate)
+            charging_time = (self.consumption_rate * (self.time_since_recharge / 60) / self.recharging_rate) * 60
             wait_time = charging_time
 
             print("Extra info - wait time:", wait_time)
@@ -192,7 +206,7 @@ class Generator:
 
             self.current_time += timedelta(minutes = dh_time_ij + travel_time + wait_time)
 
-        if nodes[0][0] == "l" and nodes[1][0] == "d":
+        else: #nodes[0][0] == "l" and nodes[1][0] == "d":
             tj = self.timetables[self.timetables.trip_id == nodes[0]].iloc[0]
             dh_dist_ij = self.dh_df.loc[tj.dest_cp_id, nodes[1]]
             dh_time_ij = self.dh_times_df.loc[tj.dest_cp_id, nodes[1]]
@@ -215,6 +229,7 @@ class Generator:
         self.time_since_recharge += dh_time_ij + travel_time - equalizer
         self.total_wait_time += wait_time
         self.total_charging_time += charging_time
+    
     def initialize(self, i):
 
         if (ti := get_earliest_trip(self.timetables)) is None:
@@ -242,9 +257,9 @@ class Generator:
     def update_route(self, ti=None):
         if ti is None:
             ti = self.timetables[self.timetables.trip_id == self.route[-1]].iloc[0]
-            tj = select_next_trip(self.current_time, self.timetables, self.dh_times_df, ti.trip_id)
+            tj = select_next_trip(eti=self.current_time, timetables=self.timetables, dh_times_df=self.dh_times_df, seed=self.seed, last_trip_id=ti.trip_id, ti=None)
         else:
-            tj = select_next_trip(self.current_time, self.timetables, self.dh_times_df, None, ti)
+            tj = select_next_trip(eti=self.current_time, timetables=self.timetables, dh_times_df=self.dh_times_df, seed=self.seed, last_trip_id=None, ti=ti)
 
         if tj is None:
             self.route.append(self.route[0])
@@ -280,7 +295,7 @@ class Generator:
 
             charging_station = depot_aka_charging_station[0].replace("d", "c")
 
-            charging_time = self.consumption_rate * (self.time_since_recharge / self.recharging_rate)
+            charging_time = (self.consumption_rate * (self.time_since_recharge / 60) / self.recharging_rate) * 60
 
             pred_current_time = self.current_time + timedelta(minutes=charging_time)
 
@@ -296,7 +311,17 @@ class Generator:
                 }
             )
 
-            tj = select_next_trip(pred_current_time, self.timetables, self.dh_times_df, None, ti)
+            #tj = select_next_trip(pred_current_time, self.timetables, self.dh_times_df, None, ti)
+
+            uncovered = self.timetables[self.timetables.covered == False].sort_values(by='departure_time', ascending=True)
+            dh_times = list(map(lambda x: self.dh_times_df.loc[ti.dest_cp_id, x], uncovered.start_cp_id))
+            uncovered['tj_cp_arrivals'] = list(map(lambda x: ti.departure_time + timedelta(minutes=x), dh_times))
+            uncovered['reachable'] = uncovered.departure_time >= uncovered.tj_cp_arrivals
+            uncovered = uncovered[uncovered.reachable == True]
+            try:
+                tj = uncovered.iloc[0]
+            except:
+                tj = None
 
             if tj is None:
                 self.route.append(self.route[0])
@@ -306,26 +331,26 @@ class Generator:
             tij_time = self.dh_times_df.loc[ti.dest_cp_id, tj.start_cp_id]
             pred_time = self.time + charging_time + tij_time + tj.planned_travel_time
 
-            if pred_time >= self.max_time:
-                #ESSE CHECKING NAO ACONTECE NO ALGORITMO OFICIAL!            
-                self.route.append(self.route[0])
-                self.refresh_data()
-                return None, False
+            # if pred_time >= self.max_time:
+            #     #ESSE CHECKING NAO ACONTECE NO ALGORITMO OFICIAL!            
+            #     self.route.append(self.route[0])
+            #     self.refresh_data()
+            #     return None, False
             
-            else:
+            # else:
 
-                self.route.append(charging_station)
-                self.refresh_data()
-                self.dist = 0
-                self.route.append(tj.trip_id)
-                self.refresh_data()
-                self.timetables.loc[self.timetables.trip_id == tj.trip_id, 'covered'] = True
-         
-                ## NÃO DELETAR A LINHA ABAIXO!!!
-                ## OBS: step 2.2 inconsistente, por isso foi modificado. Não tem re-checking de Time. Procura em todas as timetables, quando poderia procurar primeiro no cp onde está.
+            self.route.append(charging_station)
+            self.refresh_data()
+            self.dist = 0
+            self.route.append(tj.trip_id)
+            self.refresh_data()
+            self.timetables.loc[self.timetables.trip_id == tj.trip_id, 'covered'] = True
+        
+            ## NÃO DELETAR A LINHA ABAIXO!!!
+            ## OBS: step 2.2 inconsistente, por isso foi modificado. Não tem re-checking de Time. Procura em todas as timetables, quando poderia procurar primeiro no cp onde está.
 
-                #print(ti)
-                return None, True
+            #print(ti)
+            return None, True
         else:
             self.route.append(self.route[0])
             self.refresh_data()
