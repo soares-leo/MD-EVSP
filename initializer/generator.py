@@ -7,7 +7,7 @@ import pandas as pd
 # Initial parameters
 
 class Generator:
-    def __init__(self, lines_info, cp_depot_distances, depots, timetables_path_to_use=None, seed=None):
+    def __init__(self, lines_info, cp_depot_distances, depots, timetables_path_to_use=None, seed=None, tmax=15.0):
         self.lines_info = lines_info
         self.cp_depot_distances = cp_depot_distances
         self.cp_locations_summary = summarize_cp_locations(lines_info)
@@ -55,6 +55,7 @@ class Generator:
         self.total_wait_time = 0 # minutes
         self.total_charging_time = 0 # minutes
         self.used_depots = []
+        self.tmax = tmax
 
     def generate_initial_set(self):
         i = 0
@@ -257,9 +258,9 @@ class Generator:
     def update_route(self, ti=None):
         if ti is None:
             ti = self.timetables[self.timetables.trip_id == self.route[-1]].iloc[0]
-            tj = select_next_trip(eti=self.current_time, timetables=self.timetables, dh_times_df=self.dh_times_df, seed=self.seed, last_trip_id=ti.trip_id, ti=None)
+            tj = select_next_trip(eti=self.current_time, timetables=self.timetables, dh_times_df=self.dh_times_df, seed=self.seed, last_trip_id=ti.trip_id, ti=None, tmax=self.tmax)
         else:
-            tj = select_next_trip(eti=self.current_time, timetables=self.timetables, dh_times_df=self.dh_times_df, seed=self.seed, last_trip_id=None, ti=ti)
+            tj = select_next_trip(eti=self.current_time, timetables=self.timetables, dh_times_df=self.dh_times_df, seed=self.seed, last_trip_id=None, ti=ti, tmax=self.tmax)
 
         if tj is None:
             self.route.append(self.route[0])

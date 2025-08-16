@@ -399,7 +399,8 @@ def select_next_trip(
     dh_times_df: pd.DataFrame,
     seed: Optional[int] = None,
     last_trip_id: Optional[str] = None,
-    ti: Optional[pd.Series] = None
+    ti: Optional[pd.Series] = None,
+    tmax = 15.0
 ) -> str:
     if (last_trip_id is None) == (ti is None):
         raise ValueError("Exactly one of last_trip_id or trip_object must be provided.")
@@ -413,7 +414,7 @@ def select_next_trip(
     
     
     ti_line = ti.line    
-    tmax = 240.0 #timetables[(timetables.line == ti.line) & (timetables.covered == False)]["departure_interval"].max()
+    #tmax = 20.0 #timetables[(timetables.line == ti.line) & (timetables.covered == False)]["departure_interval"].max()
     # try:
     #     int(tmax)
     # except:
@@ -456,7 +457,7 @@ def select_next_trip(
 
         tj_pre_candidates['lower_bound'] = eti + tj_pre_candidates['dh_time']
 
-        tj_pre_candidates['tmax'] = [timedelta(minutes=180.01)] * len(tj_pre_candidates) #tj_pre_candidates.apply(
+        tj_pre_candidates['tmax'] = [timedelta(minutes=tmax)] * len(tj_pre_candidates) #tj_pre_candidates.apply(
         #    lambda row: timedelta(minutes=tmax_per_line[row['line']]), axis=1
         #)
 

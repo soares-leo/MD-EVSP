@@ -1,7 +1,6 @@
 import sys
 import pulp as pl
 import pandas as pd
-from initializer.generator import Generator
 from initializer.utils import group_routes_by_depot
 
 

@@ -5,7 +5,7 @@ from initializer.conn_network_builder import GraphBuilder
 from column_generator.utils import add_reduced_cost_info
 from column_generator.rmp_solver import run_rmp
 #from column_generator.spfa import run_spfa
-from column_generator.spfa_v2 import run_spfa
+from column_generator.spfa_v9 import run_spfa
 #from genetic_algorithm.genetic_algorithm import run_ga
 from collections import deque, namedtuple
 from datetime import timedelta
@@ -42,9 +42,9 @@ dh_df = make_deadhead_df(dh_dict)
 dh_times_df = make_deadhead_times_df(20, dh_df)
 
 path_1 = None
-path_alt = "initializer/files/instance_2025-08-12_21-38-43_l4_60_l59_20_l60_24.csv"
+path_alt = "initializer/files/instance_2025-08-16_00-10-31_l4_290_l59_100_l60_120.csv"
 
-gen = Generator(lines_info, cp_depot_distances, depots, timetables_path_to_use=path_1, seed=1)
+gen = Generator(lines_info, cp_depot_distances, depots, timetables_path_to_use=path_alt, seed=1)
 initial_solution, used_depots, instance_name = gen.generate_initial_set()
 
 depots = {key: value for key, value in depots.items() if key in used_depots}
@@ -154,7 +154,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, Z_min, K, I, exp_numb
         for i, t in enumerate(source_nodes):
             print(f"Running SPFA for source {t} ({i+1} of {len(source_nodes)})...")
             start_time = time.time()
-            all_labels[t] = run_spfa(red_cost_graph, t, D=120, T_d=16*60, dh_df=dh_df, duals=duals, last_route_number=last_route_number, filter_graph=filter_graph) #, last_route_number=last_route_number, duals=duals)
+            all_labels[t] = run_spfa(red_cost_graph, t, D=120, T_d=16*60, dh_df=dh_df, duals=duals, filter_graph=filter_graph) #, last_route_number=last_route_number, duals=duals)
             end_time = time.time()
             elapsed_time = end_time - start_time
             times.append(elapsed_time)
@@ -295,10 +295,10 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, Z_min, K, I, exp_numb
 #exp_nums = [1,2,3,4,5,6,7,8,9,10,11,12]
 exp_nums = [3]
 #filter_options = [True, True, True, False, False, False, True, True, True, False, False, False]
-filter_options = [False]
+filter_options = [True]
 #Ks = [30,30,30,30,30,30,100,100,100,100,100,100]
-Ks = [10]
-exp_set_id = "comparision_v2_v2"
+Ks = [100]
+exp_set_id = "comparision_new_instance_10_min_interval_v2"
 #exp_set_id = "ga_test"
 exp_set_ids = [exp_set_id] * len(exp_nums)
 notes = """
