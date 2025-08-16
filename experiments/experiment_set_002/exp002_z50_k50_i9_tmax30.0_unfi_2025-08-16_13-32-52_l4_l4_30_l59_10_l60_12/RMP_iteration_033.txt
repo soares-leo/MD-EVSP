@@ -1,0 +1,684 @@
+RestrictedMasterProblem:
+MINIMIZE
+953.44*d1_4_col0 + 971.04*d1_4_col1 + 975.8399999999999*d1_4_col10 + 937.44*d1_4_col11 + 934.24*d1_4_col12 + 1848.9*d1_4_col13 + 1791.3301373592299*d1_4_col14 + 832.8*d1_4_col15 + 1819.4406728304386*d1_4_col16 + 1802.925152930374*d1_4_col17 + 1942.4232123167903*d1_4_col18 + 1818.9691484553996*d1_4_col19 + 990.24*d1_4_col2 + 1655.7820756188094*d1_4_col20 + 1823.8939400062025*d1_4_col21 + 1778.2873387765076*d1_4_col22 + 1479.0247297970711*d1_4_col23 + 1694.4508592819652*d1_4_col24 + 1699.7313310321554*d1_4_col25 + 1505.2046768485045*d1_4_col26 + 1736.6563801543455*d1_4_col27 + 1529.5353310267662*d1_4_col28 + 1829.596*d1_4_col29 + 1075.4439085370484*d1_4_col3 + 1783.9893987703051*d1_4_col30 + 1995.7286768485044*d1_4_col31 + 1699.1373073073532*d1_4_col32 + 1491.6501373621527*d1_4_col33 + 1689.1*d1_4_col34 + 1881.9113310267662*d1_4_col35 + 1865.28*d1_4_col36 + 1597.750859283953*d1_4_col37 + 1473.1501373621527*d1_4_col38 + 1514.9414605136483*d1_4_col39 + 972.64*d1_4_col4 + 1593.6501373621527*d1_4_col40 + 1750.3379829861888*d1_4_col41 + 1308.2501373621528*d1_4_col42 + 1796.2189210267982*d1_4_col43 + 1181.3246768485046*d1_4_col44 + 1609.1501373621527*d1_4_col45 + 1654.435331026766*d1_4_col46 + 1702.1174066455756*d1_4_col47 + 1711.1174066455756*d1_4_col48 + 1707.5174066455754*d1_4_col49 + 966.24*d1_4_col5 + 1707.5174066455754*d1_4_col50 + 1707.5174066455754*d1_4_col51 + 1707.5174066455754*d1_4_col52 + 931.04*d1_4_col6 + 953.44*d1_4_col7 + 961.1*d1_4_col8 + 967.7*d1_4_col9 + 842.3*d1_59_col0 + 839.264*d1_59_col1 + 1823.6944286518958*d1_59_col10 + 1852.3097518033915*d1_59_col11 + 1829.390996200655*d1_59_col12 + 1329.0766768485046*d1_59_col13 + 1409.8192240794574*d1_59_col14 + 1808.7250570001763*d1_59_col15 + 1823.1127915455547*d1_59_col16 + 1371.9934605136484*d1_59_col17 + 1648.825398770305*d1_59_col18 + 1866.9550773203423*d1_59_col19 + 826.4639999999999*d1_59_col2 + 1722.3246768485046*d1_59_col20 + 1564.025398770305*d1_59_col21 + 1549.4173061406073*d1_59_col22 + 1565.117306140607*d1_59_col23 + 1658.9766768485044*d1_59_col24 + 1720.792*d1_59_col25 + 1756.177398770305*d1_59_col26 + 1590.9*d1_59_col27 + 804.0*d1_59_col28 + 1533.2666620535322*d1_59_col29 + 828.0640000000001*d1_59_col3 + 1703.5040078752706*d1_59_col30 + 1732.119331026766*d1_59_col31 + 1528.9330569976964*d1_59_col32 + 966.6800000000001*d1_59_col33 + 1817.3860305401663*d1_59_col34 + 1813.7993310321554*d1_59_col35 + 1485.167331026766*d1_59_col36 + 1799.1185627206994*d1_59_col37 + 962.0799999999999*d1_59_col38 + 1812.373460513399*d1_59_col39 + 1425.4611563359185*d1_59_col4 + 1588.6246768485046*d1_59_col40 + 1917.4239085357838*d1_59_col41 + 1777.7371484553994*d1_59_col42 + 1882.6738253039039*d1_59_col43 + 1736.8757111748341*d1_59_col44 + 1685.582481596032*d1_59_col45 + 1693.4766768485044*d1_59_col46 + 1698.161353697009*d1_59_col47 + 1746.5097517989611*d1_59_col48 + 1967.1639085331103*d1_59_col49 + 1536.6246768485044*d1_59_col5 + 1560.02*d1_59_col50 + 1736.5620756188093*d1_59_col51 + 1841.4*d1_59_col52 + 1679.1862969212957*d1_59_col53 + 1269.6626089742963*d1_59_col54 + 1804.5889940823583*d1_59_col55 + 1987.7662969160474*d1_59_col56 + 1227.2738253091525*d1_59_col57 + 1490.0501373621528*d1_59_col58 + 1690.0701373621528*d1_59_col59 + 1792.9926847238173*d1_59_col6 + 1105.0*d1_59_col60 + 1571.9934605136482*d1_59_col61 + 1674.5246768485047*d1_59_col62 + 1240.2*d1_59_col63 + 1723.2738253091525*d1_59_col64 + 1457.8766768485045*d1_59_col65 + 1227.2738253091525*d1_59_col66 + 1536.8666620535323*d1_59_col67 + 1227.2738253091525*d1_59_col68 + 1227.2738253091525*d1_59_col69 + 762.4*d1_59_col7 + 1227.2738253091525*d1_59_col70 + 1784.0472123170396*d1_59_col8 + 1674.338996200655*d1_59_col9 + 963.04*d2_4_col0 + 973.813398770305*d2_4_col1 + 934.24*d2_4_col10 + 1758.543845626959*d2_4_col100 + 1788.7886768485046*d2_4_col101 + 1479.712692202192*d2_4_col102 + 955.04*d2_4_col11 + 859.104*d2_4_col12 + 1367.8839085370485*d2_4_col13 + 969.44*d2_4_col14 + 857.504*d2_4_col15 + 934.24*d2_4_col16 + 1784.232692201943*d2_4_col17 + 1961.597460513399*d2_4_col18 + 2026.7901373619036*d2_4_col19 + 1008.2239999999999*d2_4_col2 + 1392.8*d2_4_col20 + 1764.9385433375285*d2_4_col21 + 1793.4570828238802*d2_4_col22 + 1469.265468388919*d2_4_col23 + 1625.252676845831*d2_4_col24 + 1838.3811099509421*d2_4_col25 + 1893.6272240841367*d2_4_col26 + 1627.9326768485043*d2_4_col27 + 1412.0439085370485*d2_4_col28 + 1787.4866620526443*d2_4_col29 + 873.504*d2_4_col3 + 1824.5178937411881*d2_4_col30 + 2023.3887376714536*d2_4_col31 + 1645.057082825727*d2_4_col32 + 1731.1327915404145*d2_4_col33 + 1663.7865627194349*d2_4_col34 + 1952.0265627194349*d2_4_col35 + 1373.3*d2_4_col36 + 1819.5239085331104*d2_4_col37 + 2032.6133073034155*d2_4_col38 + 1641.035231688544*d2_4_col39 + 924.5*d2_4_col4 + 1854.097460513399*d2_4_col40 + 1495.8439085370485*d2_4_col41 + 1045.0726768485044*d2_4_col42 + 2037.968676845831*d2_4_col43 + 1565.3414605136481*d2_4_col44 + 1491.9726768485045*d2_4_col45 + 1456.3126922021922*d2_4_col46 + 1569.84*d2_4_col47 + 1770.719231688544*d2_4_col48 + 1755.54*d2_4_col49 + 963.04*d2_4_col5 + 1045.0726768485044*d2_4_col50 + 1867.569398770305*d2_4_col51 + 2010.6632395679394*d2_4_col52 + 1606.2512316885438*d2_4_col53 + 1045.0726768485044*d2_4_col54 + 1591.8000000000002*d2_4_col55 + 1655.3000000000002*d2_4_col56 + 1415.6526768485046*d2_4_col57 + 1757.555331026766*d2_4_col58 + 1988.1326768485046*d2_4_col59 + 967.8399999999999*d2_4_col6 + 1853.2*d2_4_col60 + 1552.3963801491918*d2_4_col61 + 1470.0726768485047*d2_4_col62 + 1663.835231688544*d2_4_col63 + 1790.3220756188093*d2_4_col64 + 1664.5508592839533*d2_4_col65 + 1423.4153310267661*d2_4_col66 + 1507.336479487414*d2_4_col67 + 1397.0240078752706*d2_4_col68 + 1782.4886768485044*d2_4_col69 + 992.2639999999999*d2_4_col7 + 1985.4326768485043*d2_4_col70 + 1828.3152316872793*d2_4_col71 + 1423.4153310267661*d2_4_col72 + 1212.9*d2_4_col73 + 1392.5501373621528*d2_4_col74 + 1450.7247297970712*d2_4_col75 + 1750.551231688544*d2_4_col76 + 1754.8553310267662*d2_4_col77 + 1856.08*d2_4_col78 + 1985.4326768485043*d2_4_col79 + 974.24*d2_4_col8 + 1827.6686768485044*d2_4_col80 + 1680.2501373621528*d2_4_col81 + 1768.9053061403579*d2_4_col82 + 1799.1501373619037*d2_4_col83 + 2032.1901373619035*d2_4_col84 + 1384.2*d2_4_col85 + 1118.5*d2_4_col86 + 1660.2*d2_4_col87 + 1951.14*d2_4_col88 + 1824.6814605136483*d2_4_col89 + 969.8240000000001*d2_4_col9 + 1856.8*d2_4_col90 + 1676.6501373621527*d2_4_col91 + 1657.5*d2_4_col92 + 1660.2*d2_4_col93 + 1397.9501373621529*d2_4_col94 + 1853.2*d2_4_col95 + 1616.3791766537252*d2_4_col96 + 1676.6501373621527*d2_4_col97 + 1646.6240078752705*d2_4_col98 + 1599.0501373621528*d2_4_col99 + 961.504*d2_59_col0 + 979.104*d2_59_col1 + 1738.185751798961*d2_59_col10 + 1774.613406641163*d2_59_col11 + 1702.6200000000001*d2_59_col12 + 1899.678075614397*d2_59_col13 + 1773.157398768566*d2_59_col14 + 1988.9173073060888*d2_59_col15 + 1879.4526922019431*d2_59_col16 + 1838.576676845831*d2_59_col17 + 1430.744*d2_59_col18 + 1865.5474743847017*d2_59_col19 + 1803.0680078779862*d2_59_col2 + 1899.678075614397*d2_59_col20 + 1795.4399085331104*d2_59_col21 + 1762.408676845831*d2_59_col22 + 1802.9200078725971*d2_59_col23 + 1858.22*d2_59_col24 + 1883.5763815404466*d2_59_col25 + 1966.2389210267982*d2_59_col26 + 1716.713398770305*d2_59_col27 + 1746.42*d2_59_col28 + 1758.9553310321553*d2_59_col3 + 1901.4708592819652*d2_59_col4 + 1528.6200000000001*d2_59_col5 + 1531.7200000000003*d2_59_col6 + 1505.731231688544*d2_59_col7 + 1705.3200000000002*d2_59_col8 + 1777.508676845831*d2_59_col9 + 821.28*d2_60_col0 + 853.28*d2_60_col1 + 1364.544*d2_60_col10 + 1685.173398768566*d2_60_col11 + 1805.493398768566*d2_60_col12 + 1915.5260756170705*d2_60_col13 + 1234.5240078752706*d2_60_col14 + 1790.2553310321555*d2_60_col15 + 1881.926075614397*d2_60_col16 + 1801.8613536943353*d2_60_col17 + 2003.6752316872794*d2_60_col18 + 1290.1926768485046*d2_60_col19 + 838.88*d2_60_col2 + 1902.836585381615*d2_60_col20 + 1862.9508142077345*d2_60_col21 + 1787.6280078779864*d2_60_col22 + 1692.981353697009*d2_60_col23 + 1589.7040078752707*d2_60_col24 + 1696.5813536970088*d2_60_col25 + 1262.1926768485046*d2_60_col26 + 898.7*d2_60_col3 + 1200.0738253091524*d2_60_col4 + 1672.5479085370484*d2_60_col5 + 1557.733398770305*d2_60_col6 + 1818.524479487555*d2_60_col7 + 1666.705148460648*d2_60_col8 + 1557.8051484606478*d2_60_col9 + 0.0
+SUBJECT TO
+alpha_trip_l4_cp1_1: d1_4_col0 + d1_4_col13 + d1_4_col16 + d1_4_col18
+ + d1_4_col19 + d1_4_col21 + d1_4_col22 + d1_4_col24 + d1_4_col28 + d1_4_col29
+ + d1_4_col30 + d1_4_col31 + d1_4_col33 + d1_4_col35 + d1_4_col36 + d1_4_col39
+ + d1_4_col42 + d1_4_col43 + d1_4_col44 + d1_4_col45 + d1_59_col16
+ + d1_59_col22 + d1_59_col23 + d1_59_col52 + d1_59_col58 + d1_59_col59
+ + d2_4_col37 + d2_4_col38 + d2_4_col49 + d2_59_col11 + d2_59_col13
+ + d2_59_col19 + d2_59_col20 + d2_59_col21 + d2_59_col22 + d2_59_col23
+ + d2_59_col25 + d2_59_col26 + d2_59_col4 + d2_60_col22 = 1
+
+alpha_trip_l4_cp1_3: d1_4_col1 + d1_4_col15 + d1_4_col27 + d1_4_col32
+ + d1_4_col34 + d1_4_col37 + d1_4_col38 + d1_4_col40 + d1_4_col41 + d1_4_col46
+ + d1_4_col47 + d1_4_col48 + d1_4_col49 + d1_4_col50 + d1_4_col51 + d1_4_col52
+ + d1_59_col34 + d1_59_col49 + d2_4_col43 + d2_59_col12 + d2_59_col24
+ + d2_59_col8 + d2_59_col9 + d2_60_col16 + d2_60_col20 + d2_60_col21 = 1
+
+alpha_trip_l4_cp1_5: d1_4_col14 + d1_4_col17 + d1_4_col2 + d1_4_col20
+ + d1_4_col25 + d1_59_col29 + d1_59_col30 + d1_59_col31 + d1_59_col44
+ + d1_59_col54 + d1_59_col55 + d1_59_col56 + d1_59_col67 + d2_4_col100
+ + d2_4_col101 + d2_4_col17 + d2_4_col18 + d2_4_col19 + d2_4_col27
+ + d2_4_col28 + d2_4_col56 + d2_4_col58 + d2_4_col59 + d2_4_col60 + d2_4_col61
+ + d2_4_col69 + d2_4_col70 + d2_4_col71 + d2_4_col73 + d2_4_col74 + d2_4_col76
+ + d2_4_col77 + d2_4_col78 + d2_4_col79 + d2_4_col80 + d2_4_col82 + d2_4_col83
+ + d2_4_col84 + d2_4_col87 + d2_4_col88 + d2_4_col89 + d2_4_col90 + d2_4_col92
+ + d2_4_col93 + d2_4_col94 + d2_4_col95 + d2_4_col99 + d2_60_col11
+ + d2_60_col12 + d2_60_col13 + d2_60_col5 = 1
+
+alpha_trip_l4_cp1_7: d1_4_col13 + d1_4_col21 + d1_4_col22 + d1_4_col23
+ + d1_4_col3 + d1_59_col16 + d1_59_col5 + d1_59_col57 + d1_59_col66
+ + d1_59_col68 + d1_59_col69 + d1_59_col70 + d2_4_col29 + d2_4_col30
+ + d2_4_col31 + d2_59_col3 + d2_60_col14 + d2_60_col4 + d2_60_col7 = 1
+
+alpha_trip_l4_cp1_9: d1_4_col42 + d1_59_col37 + d1_59_col42 + d1_59_col43
+ + d1_59_col49 + d1_59_col50 + d1_59_col56 + d2_4_col4 + d2_4_col48
+ + d2_4_col49 + d2_4_col91 + d2_59_col14 + d2_59_col19 + d2_59_col20
+ + d2_59_col24 + d2_59_col28 + d2_60_col15 + d2_60_col20 + d2_60_col26 = 1
+
+alpha_trip_l4_cp1_11: d1_4_col24 + d1_4_col35 + d1_4_col36 + d1_4_col4
+ + d1_59_col18 + d1_59_col27 + d1_59_col39 + d1_59_col52 + d1_59_col53
+ + d2_4_col51 + d2_4_col52 + d2_4_col53 + d2_4_col80 + d2_4_col81 + d2_4_col90
+ + d2_59_col15 + d2_59_col16 + d2_59_col25 + d2_59_col26 + d2_59_col27
+ + d2_59_col4 + d2_59_col5 + d2_60_col8 = 1
+
+alpha_trip_l4_cp1_13: d1_4_col5 + d1_59_col21 + d1_59_col35 + d1_59_col36
+ + d1_59_col40 + d1_59_col41 + d2_4_col40 + d2_4_col55 + d2_4_col56
+ + d2_4_col58 + d2_4_col59 + d2_4_col60 + d2_4_col87 + d2_4_col88 + d2_4_col89
+ + d2_4_col95 + d2_4_col97 + d2_59_col11 + d2_59_col13 + d2_59_col17
+ + d2_60_col17 + d2_60_col18 + d2_60_col19 + d2_60_col9 = 1
+
+alpha_trip_l4_cp1_15: d1_4_col27 + d1_4_col34 + d1_4_col43 + d1_4_col6
+ + d1_59_col14 + d1_59_col17 + d1_59_col19 + d1_59_col4 + d1_59_col42
+ + d1_59_col43 + d1_59_col44 + d2_4_col25 + d2_4_col26 + d2_4_col34
+ + d2_4_col35 + d2_4_col44 + d2_4_col61 + d2_4_col70 + d2_4_col77 + d2_4_col79
+ + d2_4_col92 + d2_4_col93 + d2_60_col22 = 1
+
+alpha_trip_l4_cp1_17: d1_4_col13 + d1_4_col14 + d1_4_col19 + d1_4_col26
+ + d1_4_col33 + d1_4_col35 + d1_4_col36 + d1_4_col38 + d1_4_col7 + d1_59_col13
+ + d1_59_col35 + d1_59_col36 + d1_59_col5 + d1_59_col62 + d2_4_col17
+ + d2_4_col18 + d2_4_col19 + d2_4_col24 + d2_4_col43 + d2_4_col47 + d2_4_col84
+ + d2_59_col23 + d2_59_col9 = 1
+
+alpha_trip_l4_cp1_19: d1_4_col8 + d1_59_col16 + d1_59_col20 + d1_59_col21
+ + d1_59_col52 + d1_59_col56 + d2_59_col2 + d2_59_col22 + d2_59_col6
+ + d2_60_col10 + d2_60_col9 = 1
+
+alpha_trip_l4_cp1_21: d1_4_col16 + d1_4_col18 + d1_4_col45 + d1_4_col9
+ + d1_59_col11 + d1_59_col26 + d1_59_col30 + d1_59_col31 + d1_59_col32
+ + d1_59_col40 + d1_59_col49 + d1_59_col61 + d1_59_col8 + d2_4_col102
+ + d2_4_col21 + d2_4_col22 + d2_4_col41 + d2_4_col46 + d2_4_col55 + d2_4_col60
+ + d2_4_col78 + d2_4_col89 + d2_4_col90 + d2_4_col95 + d2_59_col12
+ + d2_59_col17 + d2_59_col24 + d2_59_col25 + d2_59_col26 + d2_59_col4
+ + d2_59_col8 + d2_60_col16 + d2_60_col18 + d2_60_col20 = 1
+
+alpha_trip_l4_cp1_23: d1_4_col10 + d1_4_col22 + d1_4_col24 + d1_4_col30
+ + d1_4_col32 + d1_4_col37 + d1_4_col40 + d1_4_col48 + d1_4_col49 + d1_4_col50
+ + d1_4_col51 + d1_4_col52 + d1_59_col10 + d1_59_col18 + d1_59_col47
+ + d1_59_col51 + d2_4_col31 + d2_4_col33 + d2_4_col36 + d2_4_col38
+ + d2_59_col19 + d2_59_col3 + d2_60_col23 + d2_60_col25 + d2_60_col8 = 1
+
+alpha_trip_l4_cp1_25: d1_4_col13 + d1_4_col19 + d1_4_col27 + d1_4_col34
+ + d1_4_col36 + d1_4_col43 + d1_4_col47 + d1_59_col34 + d1_59_col41
+ + d1_59_col42 + d1_59_col43 + d1_59_col48 + d1_59_col62 + d2_4_col13
+ + d2_4_col18 + d2_4_col19 + d2_4_col20 + d2_4_col26 + d2_4_col43 + d2_4_col51
+ + d2_4_col52 + d2_4_col59 + d2_4_col70 + d2_4_col79 + d2_4_col84
+ + d2_59_col13 + d2_59_col15 + d2_59_col20 + d2_59_col5 + d2_60_col17
+ + d2_60_col22 = 1
+
+alpha_trip_l4_cp1_27: d1_4_col11 + d1_4_col17 + d1_4_col20 + d1_4_col23
+ + d1_59_col12 + d1_59_col37 + d1_59_col39 + d1_59_col50 + d1_59_col9
+ + d2_4_col24 + d2_4_col45 + d2_4_col47 + d2_4_col62 + d2_4_col66 + d2_4_col67
+ + d2_4_col72 + d2_4_col75 + d2_4_col85 + d2_4_col86 + d2_59_col10
+ + d2_59_col18 + d2_60_col10 + d2_60_col5 + d2_60_col6 + d2_60_col7 = 1
+
+alpha_trip_l4_cp1_29: d1_4_col12 + d1_4_col14 + d1_4_col25 + d1_59_col20
+ + d1_59_col25 + d1_59_col45 + d2_4_col40 + d2_4_col64 + d2_59_col28
+ + d2_59_col6 + d2_59_col7 = 1
+
+alpha_trip_l4_cp2_2: d2_4_col0 + d2_4_col100 + d2_4_col101 + d2_4_col17
+ + d2_4_col18 + d2_4_col19 + d2_4_col21 + d2_4_col22 + d2_4_col27 + d2_4_col28
+ + d2_4_col29 + d2_4_col30 + d2_4_col31 + d2_4_col32 + d2_4_col33 + d2_4_col34
+ + d2_4_col35 + d2_4_col52 + d2_4_col56 + d2_4_col58 + d2_4_col59 + d2_4_col60
+ + d2_4_col61 + d2_4_col68 + d2_4_col69 + d2_4_col70 + d2_4_col71 + d2_4_col73
+ + d2_4_col74 + d2_4_col76 + d2_4_col77 + d2_4_col78 + d2_4_col79 + d2_4_col80
+ + d2_4_col82 + d2_4_col83 + d2_4_col84 + d2_4_col87 + d2_4_col88 + d2_4_col89
+ + d2_4_col90 + d2_4_col92 + d2_4_col93 + d2_4_col94 + d2_4_col95 + d2_4_col96
+ + d2_4_col98 + d2_4_col99 = 1
+
+alpha_trip_l4_cp2_4: d1_4_col13 + d1_4_col19 + d1_4_col28 + d1_4_col29
+ + d1_4_col30 + d1_4_col31 + d1_4_col35 + d1_4_col36 + d1_59_col14
+ + d1_59_col15 + d1_59_col4 + d1_59_col5 + d1_59_col52 + d1_59_col6
+ + d2_4_col1 + d2_4_col25 + d2_4_col26 + d2_4_col40 + d2_4_col42 + d2_4_col48
+ + d2_4_col49 + d2_4_col50 + d2_4_col51 + d2_4_col54 + d2_4_col64 + d2_4_col65
+ + d2_4_col81 + d2_4_col91 + d2_4_col97 + d2_59_col2 + d2_59_col28 = 1
+
+alpha_trip_l4_cp2_6: d1_4_col42 + d1_59_col39 + d1_59_col40 + d1_59_col41
+ + d1_59_col49 + d1_59_col56 + d2_4_col4 + d2_4_col51 + d2_4_col52
+ + d2_4_col53 + d2_4_col55 + d2_4_col56 + d2_4_col58 + d2_4_col59 + d2_4_col60
+ + d2_4_col80 + d2_4_col87 + d2_4_col88 + d2_4_col89 + d2_4_col90 + d2_4_col95
+ + d2_59_col15 + d2_59_col16 + d2_59_col17 + d2_59_col24 + d2_59_col25
+ + d2_59_col26 + d2_60_col16 + d2_60_col17 + d2_60_col18 + d2_60_col19
+ + d2_60_col20 + d2_60_col26 = 1
+
+alpha_trip_l4_cp2_8: d1_4_col29 + d1_4_col30 + d1_4_col31 + d1_4_col34
+ + d1_59_col19 + d2_4_col35 + d2_4_col44 + d2_4_col46 + d2_4_col47 + d2_4_col5
+ + d2_4_col67 + d2_4_col69 + d2_4_col70 + d2_4_col73 + d2_4_col77 + d2_4_col79
+ + d2_4_col92 + d2_59_col12 + d2_59_col21 = 1
+
+alpha_trip_l4_cp2_10: d1_4_col25 + d1_4_col43 + d1_4_col46 + d1_4_col47
+ + d1_4_col49 + d1_4_col50 + d1_4_col51 + d1_4_col52 + d1_59_col29
+ + d1_59_col30 + d1_59_col31 + d1_59_col55 + d1_59_col62 + d2_4_col34
+ + d2_4_col36 + d2_4_col41 + d2_4_col6 + d2_4_col75 + d2_4_col76 + d2_4_col78
+ + d2_4_col85 + d2_4_col93 + d2_59_col8 + d2_60_col11 + d2_60_col12
+ + d2_60_col13 + d2_60_col23 = 1
+
+alpha_trip_l4_cp2_12: d1_4_col48 + d1_59_col17 + d1_59_col20 + d1_59_col67
+ + d2_4_col100 + d2_4_col101 + d2_4_col102 + d2_4_col20 + d2_4_col37
+ + d2_4_col38 + d2_4_col8 + d2_59_col18 + d2_59_col6 + d2_60_col24
+ + d2_60_col25 = 1
+
+alpha_trip_l4_cp2_14: d1_4_col16 + d1_4_col17 + d1_4_col18 + d1_4_col3
+ + d1_4_col33 + d1_4_col41 + d1_59_col10 + d1_59_col11 + d1_59_col12
+ + d1_59_col13 + d1_59_col21 + d1_59_col37 + d1_59_col39 + d1_59_col58
+ + d1_59_col65 + d1_59_col8 + d1_59_col9 + d2_4_col21 + d2_4_col22
+ + d2_4_col23 + d2_4_col24 + d2_4_col48 + d2_4_col53 + d2_4_col74 + d2_4_col94
+ + d2_59_col14 + d2_60_col15 + d2_60_col16 + d2_60_col21 + d2_60_col9 = 1
+
+alpha_trip_l4_cp2_16: d1_4_col13 + d1_4_col14 + d1_4_col21 + d1_4_col22
+ + d1_4_col23 + d1_4_col26 + d1_4_col38 + d1_4_col40 + d1_59_col16
+ + d1_59_col34 + d1_59_col35 + d1_59_col36 + d1_59_col40 + d1_59_col5
+ + d2_4_col10 + d2_4_col28 + d2_4_col29 + d2_4_col30 + d2_4_col31 + d2_4_col55
+ + d2_4_col57 + d2_4_col68 + d2_59_col2 + d2_60_col7 = 1
+
+alpha_trip_l4_cp2_18: d1_4_col24 + d1_4_col45 + d1_59_col15 + d1_59_col18
+ + d1_59_col45 + d1_59_col47 + d1_59_col48 + d1_59_col49 + d1_59_col6
+ + d1_59_col61 + d2_4_col11 + d2_4_col33 + d2_4_col60 + d2_4_col78
+ + d2_4_col89 + d2_4_col90 + d2_4_col95 + d2_59_col17 + d2_59_col24
+ + d2_59_col25 + d2_59_col26 + d2_59_col3 + d2_59_col4 + d2_59_col5
+ + d2_60_col18 + d2_60_col20 + d2_60_col8 = 1
+
+alpha_trip_l4_cp2_20: d1_4_col13 + d1_4_col19 + d1_4_col27 + d1_4_col34
+ + d1_4_col35 + d1_4_col36 + d1_4_col43 + d1_59_col13 + d1_59_col41
+ + d1_59_col42 + d1_59_col43 + d1_59_col50 + d1_59_col62 + d2_4_col13
+ + d2_4_col18 + d2_4_col19 + d2_4_col25 + d2_4_col26 + d2_4_col43 + d2_4_col47
+ + d2_4_col56 + d2_4_col58 + d2_4_col59 + d2_4_col70 + d2_4_col77 + d2_4_col79
+ + d2_4_col84 + d2_59_col11 + d2_59_col13 + d2_59_col20 + d2_59_col23
+ + d2_60_col17 + d2_60_col22 = 1
+
+alpha_trip_l4_cp2_22: d1_4_col8 + d1_59_col16 + d1_59_col19 + d1_59_col24
+ + d1_59_col27 + d1_59_col44 + d1_59_col52 + d1_59_col53 + d1_59_col56
+ + d1_59_col59 + d1_59_col64 + d2_4_col34 + d2_4_col35 + d2_4_col39
+ + d2_4_col49 + d2_4_col86 + d2_4_col87 + d2_4_col88 + d2_4_col92 + d2_4_col93
+ + d2_4_col99 + d2_59_col22 + d2_59_col27 + d2_59_col28 = 1
+
+alpha_trip_l4_cp2_24: d1_59_col20 + d1_59_col37 + d1_59_col39 + d2_4_col14
+ + d2_4_col30 + d2_4_col45 + d2_4_col76 + d2_59_col10 + d2_59_col14
+ + d2_59_col16 + d2_59_col6 + d2_59_col7 + d2_59_col9 + d2_60_col10
+ + d2_60_col5 = 1
+
+alpha_trip_l4_cp2_26: d1_4_col18 + d1_4_col31 + d1_4_col9 + d1_59_col11
+ + d1_59_col26 + d1_59_col31 + d1_59_col46 + d1_59_col49 + d2_4_col101
+ + d2_4_col22 + d2_4_col32 + d2_4_col60 + d2_4_col62 + d2_4_col63 + d2_4_col64
+ + d2_4_col69 + d2_4_col78 + d2_4_col80 + d2_4_col83 + d2_4_col90 + d2_4_col95
+ + d2_4_col98 + d2_59_col12 + d2_59_col17 + d2_59_col24 + d2_59_col26
+ + d2_59_col4 + d2_59_col8 + d2_60_col13 + d2_60_col16 + d2_60_col18
+ + d2_60_col21 = 1
+
+alpha_trip_l4_cp2_28: d1_59_col35 + d1_59_col48 + d2_4_col16 + d2_4_col23
+ + d2_4_col25 + d2_4_col36 + d2_4_col46 + d2_4_col48 + d2_4_col51 + d2_4_col65
+ + d2_4_col81 + d2_4_col91 + d2_4_col97 + d2_59_col2 + d2_59_col27
+ + d2_59_col5 = 1
+
+alpha_trip_l4_cp2_30: d1_59_col12 + d1_59_col27 + d1_59_col32 + d1_59_col50
+ + d2_4_col102 + d2_4_col13 + d2_4_col20 + d2_4_col24 + d2_4_col41
+ + d2_4_col45 + d2_4_col53 + d2_4_col55 + d2_4_col62 + d2_4_col66 + d2_4_col67
+ + d2_4_col72 + d2_4_col75 + d2_4_col85 + d2_4_col86 + d2_59_col18
+ + d2_59_col3 + d2_60_col10 + d2_60_col6 + d2_60_col7 = 1
+
+alpha_trip_l59_cp1_1: d1_4_col26 + d1_59_col0 + d1_59_col29 + d1_59_col30
+ + d1_59_col31 + d1_59_col36 + d1_59_col44 + d1_59_col46 + d1_59_col47
+ + d1_59_col67 + d1_59_col7 + d2_4_col57 + d2_4_col63 + d2_59_col14
+ + d2_59_col15 = 1
+
+alpha_trip_l59_cp1_3: d1_59_col1 + d1_59_col25 + d1_59_col35 + d1_59_col37
+ + d1_59_col39 + d1_59_col45 + d1_59_col48 + d2_4_col44 + d2_59_col10
+ + d2_59_col16 + d2_60_col14 + d2_60_col15 = 1
+
+alpha_trip_l59_cp1_5: d1_4_col16 + d1_4_col18 + d1_4_col21 + d1_4_col22
+ + d1_4_col42 + d1_4_col43 + d1_59_col10 + d1_59_col11 + d1_59_col12
+ + d1_59_col16 + d1_59_col17 + d1_59_col24 + d1_59_col25 + d1_59_col26
+ + d1_59_col35 + d1_59_col36 + d1_59_col59 + d1_59_col63 + d1_59_col65
+ + d1_59_col8 + d1_59_col9 + d2_4_col1 + d2_4_col21 + d2_4_col22 + d2_4_col29
+ + d2_4_col30 + d2_4_col31 + d2_4_col39 + d2_4_col68 + d2_59_col25
+ + d2_59_col26 + d2_59_col3 + d2_60_col7 = 1
+
+alpha_trip_l59_cp1_7: d1_4_col32 + d1_4_col40 + d1_4_col41 + d1_4_col44
+ + d1_4_col45 + d1_59_col2 + d1_59_col22 + d1_59_col23 + d1_59_col51
+ + d1_59_col60 + d1_59_col61 + d2_4_col32 + d2_4_col33 + d2_4_col66
+ + d2_4_col71 + d2_4_col72 + d2_4_col96 + d2_4_col98 + d2_60_col21
+ + d2_60_col22 = 1
+
+alpha_trip_l59_cp1_9: d1_4_col21 + d1_4_col23 + d1_4_col29 + d1_59_col22
+ + d1_59_col3 + d2_4_col17 + d2_4_col23 + d2_4_col29 + d2_4_col48 + d2_4_col65
+ + d2_4_col67 + d2_59_col21 = 1
+
+alpha_trip_l59_cp2_2: d1_4_col26 + d1_4_col33 + d1_4_col43 + d1_59_col0
+ + d1_59_col22 + d1_59_col23 + d1_59_col46 + d1_59_col47 + d2_4_col57
+ + d2_4_col63 + d2_59_col25 + d2_59_col26 + d2_59_col27 = 1
+
+alpha_trip_l59_cp2_4: d1_4_col16 + d1_4_col18 + d1_4_col21 + d1_4_col22
+ + d1_4_col24 + d1_4_col39 + d1_59_col16 + d1_59_col19 + d1_59_col36
+ + d1_59_col58 + d1_59_col59 + d2_4_col21 + d2_4_col22 + d2_4_col29
+ + d2_4_col3 + d2_4_col30 + d2_4_col31 + d2_4_col32 + d2_4_col33 + d2_4_col34
+ + d2_4_col35 + d2_4_col52 + d2_4_col68 + d2_4_col96 + d2_4_col98
+ + d2_59_col14 + d2_59_col15 + d2_59_col3 + d2_59_col4 = 1
+
+alpha_trip_l59_cp2_6: d1_4_col14 + d1_4_col26 + d1_4_col28 + d1_4_col37
+ + d1_4_col38 + d1_4_col39 + d1_59_col24 + d1_59_col25 + d1_59_col26
+ + d1_59_col4 + d1_59_col54 + d1_59_col58 + d1_59_col59 + d1_59_col6
+ + d1_59_col63 + d1_59_col65 + d2_4_col17 + d2_4_col18 + d2_4_col19
+ + d2_4_col39 + d2_4_col57 + d2_4_col68 + d2_4_col7 + d2_4_col74 + d2_4_col82
+ + d2_4_col83 + d2_4_col84 + d2_4_col94 + d2_4_col99 + d2_59_col2 + d2_59_col7
+ = 1
+
+alpha_trip_l59_cp2_8: d1_4_col23 + d1_4_col25 + d1_4_col32 + d1_4_col46
+ + d1_4_col47 + d1_4_col48 + d1_4_col49 + d1_4_col50 + d1_4_col51 + d1_4_col52
+ + d1_59_col25 + d1_59_col29 + d1_59_col51 + d1_59_col67 + d2_4_col12
+ + d2_4_col23 + d2_4_col40 + d2_4_col51 + d2_4_col52 + d2_4_col71 + d2_4_col75
+ + d2_4_col80 + d2_4_col81 + d2_4_col91 + d2_4_col96 + d2_4_col97 + d2_4_col98
+ + d2_59_col15 + d2_59_col16 + d2_59_col19 + d2_59_col7 + d2_60_col11
+ + d2_60_col12 + d2_60_col13 + d2_60_col24 = 1
+
+alpha_trip_l59_cp2_10: d1_4_col16 + d1_4_col17 + d1_4_col21 + d1_4_col23
+ + d1_4_col29 + d1_4_col35 + d1_4_col41 + d1_59_col12 + d1_59_col45
+ + d1_59_col55 + d1_59_col8 + d1_59_col9 + d2_4_col100 + d2_4_col102
+ + d2_4_col15 + d2_4_col17 + d2_4_col21 + d2_4_col25 + d2_4_col29 + d2_4_col46
+ + d2_4_col48 + d2_4_col58 + d2_4_col77 + d2_4_col82 + d2_4_col89 + d2_4_col96
+ + d2_59_col11 + d2_59_col21 + d2_59_col23 + d2_59_col25 + d2_60_col15 = 1
+
+alpha_trip_l60_cp1_1: d1_59_col14 + d1_59_col15 + d1_59_col19 + d1_59_col21
+ + d1_59_col24 + d1_59_col26 + d1_59_col38 + d1_59_col4 + d1_59_col41
+ + d1_59_col5 + d1_59_col51 + d1_59_col54 + d1_59_col55 + d1_59_col56
+ + d1_59_col6 + d1_59_col63 + d1_59_col64 + d1_59_col65 + d2_4_col39
+ + d2_4_col42 + d2_4_col50 + d2_4_col54 + d2_59_col0 + d2_60_col18 = 1
+
+alpha_trip_l60_cp1_3: d1_59_col10 + d1_59_col11 + d1_59_col17 + d1_59_col18
+ + d1_59_col28 + d1_59_col33 + d1_59_col40 + d1_59_col42 + d1_59_col43
+ + d1_59_col53 + d1_59_col57 + d1_59_col60 + d1_59_col61 + d1_59_col62
+ + d1_59_col66 + d1_59_col68 + d1_59_col69 + d1_59_col70 + d1_59_col8
+ + d2_59_col1 + d2_59_col17 + d2_60_col17 = 1
+
+alpha_trip_l60_cp1_5: d1_59_col20 + d2_4_col2 + d2_60_col19 + d2_60_col23
+ + d2_60_col24 + d2_60_col25 + d2_60_col26 + d2_60_col4 + d2_60_col8
+ + d2_60_col9 = 1
+
+alpha_trip_l60_cp1_7: d1_4_col16 + d1_4_col17 + d1_4_col18 + d1_4_col26
+ + d1_4_col27 + d1_4_col28 + d1_4_col37 + d1_4_col38 + d1_4_col39
+ + d1_59_col10 + d1_59_col11 + d1_59_col12 + d1_59_col13 + d1_59_col34
+ + d1_59_col44 + d1_59_col54 + d1_59_col58 + d1_59_col59 + d1_59_col63
+ + d1_59_col64 + d1_59_col65 + d1_59_col8 + d1_59_col9 + d2_4_col21
+ + d2_4_col22 + d2_4_col23 + d2_4_col24 + d2_4_col43 + d2_4_col45 + d2_4_col57
+ + d2_4_col61 + d2_4_col68 + d2_4_col7 + d2_4_col82 + d2_4_col83 + d2_4_col84
+ + d2_4_col94 + d2_59_col10 + d2_59_col22 + d2_59_col23 + d2_59_col9 = 1
+
+alpha_trip_l60_cp1_9: d1_4_col14 + d1_4_col33 + d1_59_col24 + d1_59_col32
+ + d1_59_col4 + d1_59_col45 + d1_59_col46 + d1_59_col47 + d1_59_col48
+ + d1_59_col6 + d2_4_col17 + d2_4_col18 + d2_4_col19 + d2_4_col62 + d2_4_col63
+ + d2_4_col64 + d2_4_col65 + d2_4_col74 + d2_4_col9 + d2_4_col99 + d2_59_col2
+ + d2_60_col16 = 1
+
+alpha_trip_l60_cp1_11: d1_4_col17 + d1_4_col25 + d1_4_col31 + d1_4_col41
+ + d1_4_col46 + d1_59_col12 + d1_59_col23 + d1_59_col25 + d1_59_col29
+ + d1_59_col46 + d1_59_col55 + d1_59_col67 + d1_59_col9 + d2_4_col100
+ + d2_4_col101 + d2_4_col32 + d2_4_col40 + d2_4_col69 + d2_4_col80
+ + d2_4_col81 + d2_4_col82 + d2_4_col83 + d2_4_col91 + d2_4_col96 + d2_4_col97
+ + d2_4_col98 + d2_60_col11 + d2_60_col12 + d2_60_col13 + d2_60_col21
+ + d2_60_col24 + d2_60_col3 = 1
+
+alpha_trip_l60_cp2_2: d2_4_col44 + d2_59_col16 + d2_60_col0 + d2_60_col11
+ + d2_60_col12 + d2_60_col13 + d2_60_col14 + d2_60_col15 + d2_60_col19
+ + d2_60_col23 + d2_60_col24 + d2_60_col25 + d2_60_col26 + d2_60_col8
+ + d2_60_col9 = 1
+
+alpha_trip_l60_cp2_4: d1_4_col42 + d1_4_col44 + d1_4_col45 + d1_59_col21
+ + d1_59_col24 + d1_59_col26 + d1_59_col38 + d1_59_col41 + d1_59_col51
+ + d1_59_col63 + d1_59_col64 + d1_59_col65 + d2_4_col37 + d2_4_col38
+ + d2_4_col39 + d2_59_col11 + d2_59_col13 + d2_59_col19 + d2_59_col20
+ + d2_59_col21 + d2_59_col22 + d2_59_col23 + d2_60_col1 + d2_60_col18
+ + d2_60_col22 = 1
+
+alpha_trip_l60_cp2_6: d1_4_col40 + d1_4_col41 + d1_59_col10 + d1_59_col11
+ + d1_59_col17 + d1_59_col18 + d1_59_col33 + d1_59_col34 + d1_59_col49
+ + d1_59_col60 + d1_59_col61 + d1_59_col8 + d2_4_col43 + d2_59_col9
+ + d2_60_col2 + d2_60_col20 + d2_60_col21 = 1
+
+alpha_trip_l60_cp2_8: d1_4_col19 + d1_4_col20 + d1_4_col3 + d1_59_col14
+ + d1_59_col15 + d1_59_col57 + d1_59_col66 + d1_59_col68 + d1_59_col69
+ + d1_59_col70 + d2_4_col25 + d2_4_col26 + d2_4_col27 + d2_4_col28
+ + d2_60_col14 + d2_60_col4 + d2_60_col5 + d2_60_col6 = 1
+
+alpha_trip_l60_cp2_10: d1_4_col20 + d1_4_col21 + d1_4_col22 + d1_4_col28
+ + d1_4_col29 + d1_4_col30 + d1_4_col31 + d1_4_col37 + d1_4_col39
+ + d1_59_col22 + d1_59_col23 + d1_59_col37 + d1_59_col46 + d1_59_col55
+ + d2_4_col100 + d2_4_col101 + d2_4_col27 + d2_4_col29 + d2_4_col30
+ + d2_4_col31 + d2_4_col37 + d2_4_col38 + d2_4_col63 + d2_4_col65 + d2_4_col67
+ + d2_4_col69 + d2_4_col76 + d2_4_col82 + d2_4_col83 + d2_59_col21
+ + d2_60_col3 + d2_60_col6 + d2_60_col7 = 1
+
+alpha_trip_l60_cp2_12: d1_4_col32 + d1_4_col46 + d1_4_col47 + d1_4_col48
+ + d1_4_col49 + d1_4_col50 + d1_4_col51 + d1_4_col52 + d1_59_col10
+ + d1_59_col15 + d1_59_col19 + d1_59_col30 + d1_59_col32 + d1_59_col34
+ + d1_59_col41 + d1_59_col43 + d1_59_col47 + d1_59_col51 + d1_59_col53
+ + d1_59_col56 + d1_59_col6 + d1_59_col64 + d2_4_col13 + d2_4_col19
+ + d2_4_col26 + d2_4_col31 + d2_4_col35 + d2_4_col41 + d2_4_col52 + d2_4_col53
+ + d2_4_col59 + d2_4_col70 + d2_4_col71 + d2_4_col79 + d2_4_col84 + d2_4_col88
+ + d2_59_col15 + d2_60_col12 + d2_60_col15 + d2_60_col17 + d2_60_col20
+ + d2_60_col23 + d2_60_col25 = 1
+
+beta_depot_d1_4: d1_4_col0 + d1_4_col1 + d1_4_col10 + d1_4_col11 + d1_4_col12
+ + d1_4_col13 + d1_4_col14 + d1_4_col15 + d1_4_col16 + d1_4_col17 + d1_4_col18
+ + d1_4_col19 + d1_4_col2 + d1_4_col20 + d1_4_col21 + d1_4_col22 + d1_4_col23
+ + d1_4_col24 + d1_4_col25 + d1_4_col26 + d1_4_col27 + d1_4_col28 + d1_4_col29
+ + d1_4_col3 + d1_4_col30 + d1_4_col31 + d1_4_col32 + d1_4_col33 + d1_4_col34
+ + d1_4_col35 + d1_4_col36 + d1_4_col37 + d1_4_col38 + d1_4_col39 + d1_4_col4
+ + d1_4_col40 + d1_4_col41 + d1_4_col42 + d1_4_col43 + d1_4_col44 + d1_4_col45
+ + d1_4_col46 + d1_4_col47 + d1_4_col48 + d1_4_col49 + d1_4_col5 + d1_4_col50
+ + d1_4_col51 + d1_4_col52 + d1_4_col6 + d1_4_col7 + d1_4_col8 + d1_4_col9
+ <= 90
+
+beta_depot_d2_59: d2_59_col0 + d2_59_col1 + d2_59_col10 + d2_59_col11
+ + d2_59_col12 + d2_59_col13 + d2_59_col14 + d2_59_col15 + d2_59_col16
+ + d2_59_col17 + d2_59_col18 + d2_59_col19 + d2_59_col2 + d2_59_col20
+ + d2_59_col21 + d2_59_col22 + d2_59_col23 + d2_59_col24 + d2_59_col25
+ + d2_59_col26 + d2_59_col27 + d2_59_col28 + d2_59_col3 + d2_59_col4
+ + d2_59_col5 + d2_59_col6 + d2_59_col7 + d2_59_col8 + d2_59_col9 <= 11
+
+beta_depot_d2_60: d2_60_col0 + d2_60_col1 + d2_60_col10 + d2_60_col11
+ + d2_60_col12 + d2_60_col13 + d2_60_col14 + d2_60_col15 + d2_60_col16
+ + d2_60_col17 + d2_60_col18 + d2_60_col19 + d2_60_col2 + d2_60_col20
+ + d2_60_col21 + d2_60_col22 + d2_60_col23 + d2_60_col24 + d2_60_col25
+ + d2_60_col26 + d2_60_col3 + d2_60_col4 + d2_60_col5 + d2_60_col6
+ + d2_60_col7 + d2_60_col8 + d2_60_col9 <= 10
+
+beta_depot_d2_4: d2_4_col0 + d2_4_col1 + d2_4_col10 + d2_4_col100
+ + d2_4_col101 + d2_4_col102 + d2_4_col11 + d2_4_col12 + d2_4_col13
+ + d2_4_col14 + d2_4_col15 + d2_4_col16 + d2_4_col17 + d2_4_col18 + d2_4_col19
+ + d2_4_col2 + d2_4_col20 + d2_4_col21 + d2_4_col22 + d2_4_col23 + d2_4_col24
+ + d2_4_col25 + d2_4_col26 + d2_4_col27 + d2_4_col28 + d2_4_col29 + d2_4_col3
+ + d2_4_col30 + d2_4_col31 + d2_4_col32 + d2_4_col33 + d2_4_col34 + d2_4_col35
+ + d2_4_col36 + d2_4_col37 + d2_4_col38 + d2_4_col39 + d2_4_col4 + d2_4_col40
+ + d2_4_col41 + d2_4_col42 + d2_4_col43 + d2_4_col44 + d2_4_col45 + d2_4_col46
+ + d2_4_col47 + d2_4_col48 + d2_4_col49 + d2_4_col5 + d2_4_col50 + d2_4_col51
+ + d2_4_col52 + d2_4_col53 + d2_4_col54 + d2_4_col55 + d2_4_col56 + d2_4_col57
+ + d2_4_col58 + d2_4_col59 + d2_4_col6 + d2_4_col60 + d2_4_col61 + d2_4_col62
+ + d2_4_col63 + d2_4_col64 + d2_4_col65 + d2_4_col66 + d2_4_col67 + d2_4_col68
+ + d2_4_col69 + d2_4_col7 + d2_4_col70 + d2_4_col71 + d2_4_col72 + d2_4_col73
+ + d2_4_col74 + d2_4_col75 + d2_4_col76 + d2_4_col77 + d2_4_col78 + d2_4_col79
+ + d2_4_col8 + d2_4_col80 + d2_4_col81 + d2_4_col82 + d2_4_col83 + d2_4_col84
+ + d2_4_col85 + d2_4_col86 + d2_4_col87 + d2_4_col88 + d2_4_col89 + d2_4_col9
+ + d2_4_col90 + d2_4_col91 + d2_4_col92 + d2_4_col93 + d2_4_col94 + d2_4_col95
+ + d2_4_col96 + d2_4_col97 + d2_4_col98 + d2_4_col99 <= 61
+
+beta_depot_d1_59: d1_59_col0 + d1_59_col1 + d1_59_col10 + d1_59_col11
+ + d1_59_col12 + d1_59_col13 + d1_59_col14 + d1_59_col15 + d1_59_col16
+ + d1_59_col17 + d1_59_col18 + d1_59_col19 + d1_59_col2 + d1_59_col20
+ + d1_59_col21 + d1_59_col22 + d1_59_col23 + d1_59_col24 + d1_59_col25
+ + d1_59_col26 + d1_59_col27 + d1_59_col28 + d1_59_col29 + d1_59_col3
+ + d1_59_col30 + d1_59_col31 + d1_59_col32 + d1_59_col33 + d1_59_col34
+ + d1_59_col35 + d1_59_col36 + d1_59_col37 + d1_59_col38 + d1_59_col39
+ + d1_59_col4 + d1_59_col40 + d1_59_col41 + d1_59_col42 + d1_59_col43
+ + d1_59_col44 + d1_59_col45 + d1_59_col46 + d1_59_col47 + d1_59_col48
+ + d1_59_col49 + d1_59_col5 + d1_59_col50 + d1_59_col51 + d1_59_col52
+ + d1_59_col53 + d1_59_col54 + d1_59_col55 + d1_59_col56 + d1_59_col57
+ + d1_59_col58 + d1_59_col59 + d1_59_col6 + d1_59_col60 + d1_59_col61
+ + d1_59_col62 + d1_59_col63 + d1_59_col64 + d1_59_col65 + d1_59_col66
+ + d1_59_col67 + d1_59_col68 + d1_59_col69 + d1_59_col7 + d1_59_col70
+ + d1_59_col8 + d1_59_col9 <= 120
+
+VARIABLES
+d1_4_col0 Continuous
+d1_4_col1 Continuous
+d1_4_col10 Continuous
+d1_4_col11 Continuous
+d1_4_col12 Continuous
+d1_4_col13 Continuous
+d1_4_col14 Continuous
+d1_4_col15 Continuous
+d1_4_col16 Continuous
+d1_4_col17 Continuous
+d1_4_col18 Continuous
+d1_4_col19 Continuous
+d1_4_col2 Continuous
+d1_4_col20 Continuous
+d1_4_col21 Continuous
+d1_4_col22 Continuous
+d1_4_col23 Continuous
+d1_4_col24 Continuous
+d1_4_col25 Continuous
+d1_4_col26 Continuous
+d1_4_col27 Continuous
+d1_4_col28 Continuous
+d1_4_col29 Continuous
+d1_4_col3 Continuous
+d1_4_col30 Continuous
+d1_4_col31 Continuous
+d1_4_col32 Continuous
+d1_4_col33 Continuous
+d1_4_col34 Continuous
+d1_4_col35 Continuous
+d1_4_col36 Continuous
+d1_4_col37 Continuous
+d1_4_col38 Continuous
+d1_4_col39 Continuous
+d1_4_col4 Continuous
+d1_4_col40 Continuous
+d1_4_col41 Continuous
+d1_4_col42 Continuous
+d1_4_col43 Continuous
+d1_4_col44 Continuous
+d1_4_col45 Continuous
+d1_4_col46 Continuous
+d1_4_col47 Continuous
+d1_4_col48 Continuous
+d1_4_col49 Continuous
+d1_4_col5 Continuous
+d1_4_col50 Continuous
+d1_4_col51 Continuous
+d1_4_col52 Continuous
+d1_4_col6 Continuous
+d1_4_col7 Continuous
+d1_4_col8 Continuous
+d1_4_col9 Continuous
+d1_59_col0 Continuous
+d1_59_col1 Continuous
+d1_59_col10 Continuous
+d1_59_col11 Continuous
+d1_59_col12 Continuous
+d1_59_col13 Continuous
+d1_59_col14 Continuous
+d1_59_col15 Continuous
+d1_59_col16 Continuous
+d1_59_col17 Continuous
+d1_59_col18 Continuous
+d1_59_col19 Continuous
+d1_59_col2 Continuous
+d1_59_col20 Continuous
+d1_59_col21 Continuous
+d1_59_col22 Continuous
+d1_59_col23 Continuous
+d1_59_col24 Continuous
+d1_59_col25 Continuous
+d1_59_col26 Continuous
+d1_59_col27 Continuous
+d1_59_col28 Continuous
+d1_59_col29 Continuous
+d1_59_col3 Continuous
+d1_59_col30 Continuous
+d1_59_col31 Continuous
+d1_59_col32 Continuous
+d1_59_col33 Continuous
+d1_59_col34 Continuous
+d1_59_col35 Continuous
+d1_59_col36 Continuous
+d1_59_col37 Continuous
+d1_59_col38 Continuous
+d1_59_col39 Continuous
+d1_59_col4 Continuous
+d1_59_col40 Continuous
+d1_59_col41 Continuous
+d1_59_col42 Continuous
+d1_59_col43 Continuous
+d1_59_col44 Continuous
+d1_59_col45 Continuous
+d1_59_col46 Continuous
+d1_59_col47 Continuous
+d1_59_col48 Continuous
+d1_59_col49 Continuous
+d1_59_col5 Continuous
+d1_59_col50 Continuous
+d1_59_col51 Continuous
+d1_59_col52 Continuous
+d1_59_col53 Continuous
+d1_59_col54 Continuous
+d1_59_col55 Continuous
+d1_59_col56 Continuous
+d1_59_col57 Continuous
+d1_59_col58 Continuous
+d1_59_col59 Continuous
+d1_59_col6 Continuous
+d1_59_col60 Continuous
+d1_59_col61 Continuous
+d1_59_col62 Continuous
+d1_59_col63 Continuous
+d1_59_col64 Continuous
+d1_59_col65 Continuous
+d1_59_col66 Continuous
+d1_59_col67 Continuous
+d1_59_col68 Continuous
+d1_59_col69 Continuous
+d1_59_col7 Continuous
+d1_59_col70 Continuous
+d1_59_col8 Continuous
+d1_59_col9 Continuous
+d2_4_col0 Continuous
+d2_4_col1 Continuous
+d2_4_col10 Continuous
+d2_4_col100 Continuous
+d2_4_col101 Continuous
+d2_4_col102 Continuous
+d2_4_col11 Continuous
+d2_4_col12 Continuous
+d2_4_col13 Continuous
+d2_4_col14 Continuous
+d2_4_col15 Continuous
+d2_4_col16 Continuous
+d2_4_col17 Continuous
+d2_4_col18 Continuous
+d2_4_col19 Continuous
+d2_4_col2 Continuous
+d2_4_col20 Continuous
+d2_4_col21 Continuous
+d2_4_col22 Continuous
+d2_4_col23 Continuous
+d2_4_col24 Continuous
+d2_4_col25 Continuous
+d2_4_col26 Continuous
+d2_4_col27 Continuous
+d2_4_col28 Continuous
+d2_4_col29 Continuous
+d2_4_col3 Continuous
+d2_4_col30 Continuous
+d2_4_col31 Continuous
+d2_4_col32 Continuous
+d2_4_col33 Continuous
+d2_4_col34 Continuous
+d2_4_col35 Continuous
+d2_4_col36 Continuous
+d2_4_col37 Continuous
+d2_4_col38 Continuous
+d2_4_col39 Continuous
+d2_4_col4 Continuous
+d2_4_col40 Continuous
+d2_4_col41 Continuous
+d2_4_col42 Continuous
+d2_4_col43 Continuous
+d2_4_col44 Continuous
+d2_4_col45 Continuous
+d2_4_col46 Continuous
+d2_4_col47 Continuous
+d2_4_col48 Continuous
+d2_4_col49 Continuous
+d2_4_col5 Continuous
+d2_4_col50 Continuous
+d2_4_col51 Continuous
+d2_4_col52 Continuous
+d2_4_col53 Continuous
+d2_4_col54 Continuous
+d2_4_col55 Continuous
+d2_4_col56 Continuous
+d2_4_col57 Continuous
+d2_4_col58 Continuous
+d2_4_col59 Continuous
+d2_4_col6 Continuous
+d2_4_col60 Continuous
+d2_4_col61 Continuous
+d2_4_col62 Continuous
+d2_4_col63 Continuous
+d2_4_col64 Continuous
+d2_4_col65 Continuous
+d2_4_col66 Continuous
+d2_4_col67 Continuous
+d2_4_col68 Continuous
+d2_4_col69 Continuous
+d2_4_col7 Continuous
+d2_4_col70 Continuous
+d2_4_col71 Continuous
+d2_4_col72 Continuous
+d2_4_col73 Continuous
+d2_4_col74 Continuous
+d2_4_col75 Continuous
+d2_4_col76 Continuous
+d2_4_col77 Continuous
+d2_4_col78 Continuous
+d2_4_col79 Continuous
+d2_4_col8 Continuous
+d2_4_col80 Continuous
+d2_4_col81 Continuous
+d2_4_col82 Continuous
+d2_4_col83 Continuous
+d2_4_col84 Continuous
+d2_4_col85 Continuous
+d2_4_col86 Continuous
+d2_4_col87 Continuous
+d2_4_col88 Continuous
+d2_4_col89 Continuous
+d2_4_col9 Continuous
+d2_4_col90 Continuous
+d2_4_col91 Continuous
+d2_4_col92 Continuous
+d2_4_col93 Continuous
+d2_4_col94 Continuous
+d2_4_col95 Continuous
+d2_4_col96 Continuous
+d2_4_col97 Continuous
+d2_4_col98 Continuous
+d2_4_col99 Continuous
+d2_59_col0 Continuous
+d2_59_col1 Continuous
+d2_59_col10 Continuous
+d2_59_col11 Continuous
+d2_59_col12 Continuous
+d2_59_col13 Continuous
+d2_59_col14 Continuous
+d2_59_col15 Continuous
+d2_59_col16 Continuous
+d2_59_col17 Continuous
+d2_59_col18 Continuous
+d2_59_col19 Continuous
+d2_59_col2 Continuous
+d2_59_col20 Continuous
+d2_59_col21 Continuous
+d2_59_col22 Continuous
+d2_59_col23 Continuous
+d2_59_col24 Continuous
+d2_59_col25 Continuous
+d2_59_col26 Continuous
+d2_59_col27 Continuous
+d2_59_col28 Continuous
+d2_59_col3 Continuous
+d2_59_col4 Continuous
+d2_59_col5 Continuous
+d2_59_col6 Continuous
+d2_59_col7 Continuous
+d2_59_col8 Continuous
+d2_59_col9 Continuous
+d2_60_col0 Continuous
+d2_60_col1 Continuous
+d2_60_col10 Continuous
+d2_60_col11 Continuous
+d2_60_col12 Continuous
+d2_60_col13 Continuous
+d2_60_col14 Continuous
+d2_60_col15 Continuous
+d2_60_col16 Continuous
+d2_60_col17 Continuous
+d2_60_col18 Continuous
+d2_60_col19 Continuous
+d2_60_col2 Continuous
+d2_60_col20 Continuous
+d2_60_col21 Continuous
+d2_60_col22 Continuous
+d2_60_col23 Continuous
+d2_60_col24 Continuous
+d2_60_col25 Continuous
+d2_60_col26 Continuous
+d2_60_col3 Continuous
+d2_60_col4 Continuous
+d2_60_col5 Continuous
+d2_60_col6 Continuous
+d2_60_col7 Continuous
+d2_60_col8 Continuous
+d2_60_col9 Continuous

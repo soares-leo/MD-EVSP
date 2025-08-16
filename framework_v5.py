@@ -6,252 +6,21 @@ This module implements a column generation algorithm for vehicle scheduling opti
 import os
 import sys
 import time
-import json
 import datetime
-import numpy as np
 import pandas as pd
-import pprint
-from collections import deque, namedtuple
-from datetime import timedelta
 
 # Import project modules
 from initializer.inputs import *
-from initializer.generator import Generator
 from initializer.utils import *
-from initializer.conn_network_builder import GraphBuilder
 from column_generator.utils import add_reduced_cost_info
 from column_generator.rmp_solver import run_rmp
 from column_generator.spfa_v9 import run_spfa
-
-# ============================================================================
-# CONFIGURATION SECTION - All main parameters in CAPS
-# ============================================================================
-
-# Paths and Files
-CPLEX_PATH = "C:/Program Files/IBM/ILOG/CPLEX_Studio2211/cplex/bin/x64_win64/cplex.exe"
-DEFAULT_INSTANCE_PATH = None
-ALTERNATIVE_INSTANCE_PATH = "initializer/files/instance_2025-08-16_00-10-31_l4_290_l59_100_l60_120.csv"
-
-# Algorithm Parameters
-DEADHEAD_SPEED = 20  # km/h for deadhead calculations
-RANDOM_SEED = 1
-MAX_DRIVING_TIME = 120  # D parameter in minutes
-MAX_TOTAL_TIME = 16 * 60  # T_d parameter in minutes
-
-# Experiment Sets Configuration
-NUM_EXPERIMENT_SETS = 30  # Number of experiment sets to run
-K_VALUES_PER_SET = [50, 50, 50]  # K values to test in each set
-TMAX_LIST = [10.0, 15.0, 30.0]
-
-# Generate experiment set IDs and notes automatically
-EXP_SET_IDS = [f"experiment_set_{i+1:03d}" for i in range(NUM_EXPERIMENT_SETS)]
-EXP_NOTES = [f"Experiment set {i+1} with K values {K_VALUES_PER_SET}" for i in range(NUM_EXPERIMENT_SETS)]
-
-# Experiment Parameters for each experiment within a set
-EXPERIMENTS_PER_SET = len(K_VALUES_PER_SET)  # 3 experiments per set
-FILTER_GRAPH = False  # Same for all experiments
-Z_MIN = 50  # Convergence threshold
-MAX_ITER = 9  # Maximum iterations
-
-# ============================================================================
-# UTILITY CLASSES
-# ============================================================================
-
-class Logger:
-    """Custom logger that writes to both console and file."""
-    
-    def __init__(self, filename="output.log"):
-        self.terminal = sys.stdout
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
-        self.log = open(filename, "w", encoding="utf-8")
-
-    def write(self, message):
-        self.terminal.write(message)
-        self.log.write(message)
-
-    def flush(self):
-        self.terminal.flush()
-        self.log.flush()
-        
-    def close(self):
-        self.log.close()
-
-
-# ============================================================================
-# CORE FUNCTIONS
-# ============================================================================
-
-def initialize_data():
-    """Initialize all base data structures needed for the algorithm."""
-    
-    print("="*80)
-    print("INITIALIZING BASE DATA STRUCTURES")
-    print("="*80)
-    
-    cp_locations_summary = summarize_cp_locations(lines_info)
-    cp_distances = calculate_cp_distances(cp_locations_summary, lines_info)
-    transformed_cp_depot_distances = transform_cp_depot_distances(cp_depot_distances)
-    dh_dict = merge_distances_dicts(transformed_cp_depot_distances, cp_distances)
-    dh_df = make_deadhead_df(dh_dict)
-    dh_times_df = make_deadhead_times_df(DEADHEAD_SPEED, dh_df)
-    
-    print("✓ Data structures initialized successfully\n")
-    
-    return dh_df, dh_times_df
-
-
-def generate_instance(tmax, instance_path=None):
-    """
-    Generate or load an instance for the optimization problem.
-    
-    Args:
-        tmax: Tmax value for initial solution generation
-        instance_path: Path to existing instance. If None, generates a new one.
-        
-    Returns:
-        tuple: (generator, initial_solution, used_depots, instance_name, generation_time)
-    """
-    
-    print("="*80)
-    print("INSTANCE GENERATION/LOADING")
-    print("="*80)
-    
-    start_time = time.time()
-    
-    # CORRECTED LOGIC: Now it will correctly show "Generating new instance"
-    # when instance_path is None.
-    print(f"Instance path: {instance_path if instance_path else 'Generating new instance'}")
-    
-    # By passing 'instance_path' (which is None), we tell the Generator to create a new file.
-    gen = Generator(
-        lines_info, 
-        cp_depot_distances, 
-        depots, 
-        timetables_path_to_use=instance_path, # FIX IS HERE
-        seed=RANDOM_SEED,
-        tmax=tmax
-    )
-    
-    print("Generating initial solution...")
-    initial_solution, used_depots, instance_name = gen.generate_initial_set()
-    
-    generation_time = time.time() - start_time
-    
-    print(f"✓ Instance ready: {instance_name}")
-    print(f"✓ Generation time: {generation_time:.2f} seconds")
-    print(f"✓ Used depots: {list(used_depots)}")
-    print(f"✓ Initial solution size: {len(initial_solution)} routes\n")
-    
-    return gen, initial_solution, used_depots, instance_name, generation_time
-
-
-def build_connection_network(timetables_path, used_depots):
-    """
-    Build the connection network graph.
-    
-    Returns:
-        tuple: (graph, build_time)
-    """
-    
-    print("="*80)
-    print("BUILDING CONNECTION NETWORK")
-    print("="*80)
-    
-    start_time = time.time()
-    
-    graph_builder = GraphBuilder(timetables_path, used_depots)
-    graph = graph_builder.build_graph()
-    
-    build_time = time.time() - start_time
-    
-    print(f"✓ Graph built successfully")
-    print(f"✓ Nodes: {graph.number_of_nodes()}")
-    print(f"✓ Edges: {graph.number_of_edges()}")
-    print(f"✓ Build time: {build_time:.2f} seconds\n")
-    
-    return graph, build_time
-
-def generate_initial_solution_with_tmax(gen, tmax):
-    """
-    Generate initial solution with a specific tmax value using an existing generator.
-    
-    Args:
-        gen: Generator instance with loaded timetables
-        tmax: Maximum time parameter for initial solution generation
-        
-    Returns:
-        tuple: (initial_solution, generation_time)
-    """
-    
-    print(f"  Generating initial solution with tmax={tmax}...")
-    start_time = time.time()
-    
-    # Update the generator's tmax parameter
-    gen.tmax = tmax
-    
-    # Generate initial solution with the new tmax
-    initial_solution, used_depots, instance_name = gen.generate_initial_set()
-    
-    generation_time = time.time() - start_time
-    print(f"  ✓ Initial solution generated in {generation_time:.2f}s")
-    print(f"  ✓ Solution size: {len(initial_solution)} routes")
-    
-    return initial_solution, generation_time
-
-
-def create_experiment_name(exp_number, z_min, k, max_iter, filter_graph, instance_name):
-    """
-    Create a standardized experiment name.
-    """
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    filter_str = "filtered" if filter_graph else "unfiltered"
-    
-    # Extract key instance info and sanitize it for use in a directory path
-    # THIS LINE IS THE FIX: It replaces forbidden ":" characters with "-"
-    instance_info = instance_name.replace("instance_", "").replace(".csv", "").replace(":", "-")
-    
-    return f"exp{exp_number:03d}_{timestamp}_z{z_min}_k{k}_i{max_iter}_{filter_str}_{instance_info}"
-
-
-def filter_routes_by_dominance(flat):
-    """
-    Filter routes based on dominance criteria.
-    
-    A route is discarded if another route has lower/equal cost 
-    AND higher/equal distance.
-    """
-    
-    new_flat = []
-    
-    for k, routes_in_group in flat.items():
-        if not routes_in_group:
-            continue
-
-        routes_to_keep = []
-        
-        for route_b in routes_in_group:
-            is_discarded = False
-            
-            for route_a in routes_in_group:
-                if route_a is route_b:
-                    continue
-
-                if (route_a["ReducedCost"] <= route_b["ReducedCost"] and 
-                    route_a["Data"]["total_travel_dist"] >= route_b["Data"]["total_travel_dist"]):
-                    is_discarded = True
-                    break
-
-            if not is_discarded:
-                routes_to_keep.append(route_b)
-
-        new_flat.extend(routes_to_keep)
-    
-    return new_flat
+from utils import *
 
 
 def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter, 
                     exp_number, filter_graph, timetables_path, exp_set_id, 
-                    instance_name):
+                    instance_name, tmax):
     """
     Main column generation algorithm.
     
@@ -260,7 +29,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     """
     
     experiment_name = create_experiment_name(
-        exp_number, z_min, k, max_iter, filter_graph, instance_name
+        exp_number, z_min, k, max_iter, filter_graph, instance_name, tmax
     )
     
     exp_dir = f"experiments/{exp_set_id}/{experiment_name}"
@@ -471,20 +240,6 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     return S, min(z_values), z_values, column_counts, results, experiment_name
 
 
-def save_columns_data(columns, exp_set_id, experiment_name):
-    """Save the columns dictionary to a Python file."""
-    
-    output_filename = f"experiments/{exp_set_id}/{experiment_name}/columns_data.py"
-    
-    with open(output_filename, "w", encoding="utf-8") as f:
-        f.write("import pandas as pd\n")
-        f.write("import numpy as np\n\n")
-        f.write("columns = ")
-        pprint.pprint(columns, stream=f, indent=4)
-    
-    print(f"✓ Columns data saved to: {output_filename}")
-
-
 # ============================================================================
 # MAIN FUNCTION
 # ============================================================================
@@ -514,12 +269,7 @@ def main(tmax_values_per_set=None,
     """
     
     # Use default values if not provided
-    tmax_values_per_set = tmax_values_per_set or TMAX_VALUES_PER_SET
-    num_experiment_sets = num_experiment_sets or NUM_EXPERIMENT_SETS
-    k_values_per_set = k_values_per_set or K_VALUES_PER_SET
     filter_graph = filter_graph if filter_graph is not None else FILTER_GRAPH
-    z_min = z_min or Z_MIN
-    max_iter = max_iter or MAX_ITER
     
     # Validate that tmax and k lists have the same length
     if len(tmax_values_per_set) != len(k_values_per_set):
@@ -633,7 +383,8 @@ def main(tmax_values_per_set=None,
                 filter_graph=filter_graph,
                 timetables_path=gen.timetables_path,  # Same timetables for all experiments in set
                 exp_set_id=exp_set_id,
-                instance_name=instance_name
+                instance_name=instance_name,
+                tmax=tmax_value
             )
             
             # Save columns data
@@ -735,25 +486,3 @@ def main(tmax_values_per_set=None,
     
     # Return the last experiment's results for compatibility
     return columns, optimal
-
-
-# ============================================================================
-# SCRIPT EXECUTION
-# ============================================================================
-
-if __name__ == "__main__":
-    # Run 30 experiment sets, each with 3 experiments using different K values
-    # Each set generates its own instance that is shared among its 3 experiments
-    
-    final_columns, final_objective = main(
-        tmax_values_per_set=TMAX_LIST,
-        base_instance_path=None,  # None means generate new instances
-        num_experiment_sets=NUM_EXPERIMENT_SETS,  # 30 sets
-        k_values_per_set=K_VALUES_PER_SET,  # [10, 30, 50] for each set
-        filter_graph=FILTER_GRAPH,  # True
-        z_min=Z_MIN,  # 50
-        max_iter=MAX_ITER  # 9
-    )
-    
-    print("Program finished successfully!")
-    print(f"Check 'experiments/' directory for all results and summaries.")

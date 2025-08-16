@@ -7,7 +7,7 @@ import pandas as pd
 # Initial parameters
 
 class Generator:
-    def __init__(self, lines_info, cp_depot_distances, depots, timetables_path_to_use=None, seed=None, tmax=15.0):
+    def __init__(self, lines_info, cp_depot_distances, depots, timetables_path_to_use=None, seed=None, tmax=15.0, trips_configs=[]):
         self.lines_info = lines_info
         self.cp_depot_distances = cp_depot_distances
         self.cp_locations_summary = summarize_cp_locations(lines_info)
@@ -20,14 +20,10 @@ class Generator:
         self.depots = depots
         
         if timetables_path_to_use is None:
-            l4_trips = 290
-            l59_trips = 100
-            l60_trips = 120
-            self.instance_name = f"instance_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_l4_{l4_trips}_l59_{l59_trips}_l60_{l60_trips}"
-            tt_l4 = generate_timetable_v2(lines_info, 4, l4_trips)
-            tt_l59 = generate_timetable_v2(lines_info, 59, l59_trips, first_start_time="06:40", last_start_time="19:50") #100
-            tt_l60 = generate_timetable_v2(lines_info, 60, l60_trips, first_start_time="06:00", last_start_time="21:10") #120
-            self.timetables = pd.concat([tt_l4, tt_l59, tt_l60], ignore_index=True)
+            trips_str = ("_").join([f'l{str(dic["line"])}_{dic["total_trips"]}' for dic in trips_configs])
+            self.instance_name = f"instance_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_l4_{trips_str}"
+            generated_timetables = [generate_timetable_v2(lines_info, **configs) for configs in trips_configs]
+            self.timetables = pd.concat(generated_timetables, ignore_index=True)
             self.timetables_path = f"initializer/files/{self.instance_name}.csv"
             self.timetables.to_csv(self.timetables_path)
             self.timetables['covered'] = False
