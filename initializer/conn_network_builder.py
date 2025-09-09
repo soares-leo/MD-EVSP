@@ -8,11 +8,11 @@ from initializer.utils import summarize_cp_locations, calculate_cp_distances, tr
 class GraphBuilder:
     """Class to build a directed graph of trips, depots, and charging stations with deadhead arcs."""
 
-    def __init__(self, timetable_path: str, used_depots: list):
-        self.timetable_path = timetable_path
+    def __init__(self, timetables, used_depots: list):
+        #self.timetable_path = timetable_path
         self.used_depots = used_depots
         # Initialize core data and graph
-        self.timetables = self.load_timetables()
+        self.timetables = timetables
         self.dh_df, self.dh_times_df = self.build_deadhead_data()
         self.G = self.initialize_graph()
         # Placeholders for nodes
@@ -22,9 +22,9 @@ class GraphBuilder:
         # Build full graph
         self.build_graph()
 
-    def load_timetables(self) -> pd.DataFrame:
-        """Load timetables CSV with parsed departure times."""
-        return pd.read_csv(self.timetable_path, parse_dates=["departure_time"])
+    # def load_timetables(self) -> pd.DataFrame:
+    #     """Load timetables CSV with parsed departure times."""
+    #     return pd.read_csv(self.timetable_path, parse_dates=["departure_time"])
 
     def build_deadhead_data(self) -> tuple[pd.DataFrame, pd.DataFrame]:
         """Generate deadhead distance and time DataFrames."""
@@ -44,6 +44,7 @@ class GraphBuilder:
         """Add trip nodes and metadata to the graph."""
         for _, row in self.timetables.iterrows():
             tid = row['trip_id']
+            travel_dist = float(self.dh_df.loc[row['start_cp_id'], row['dest_cp_id']])
             attrs = {
                 'id': tid,
                 'start_cp': row['start_cp_id'],
@@ -51,6 +52,7 @@ class GraphBuilder:
                 'start_time': row['departure_time'],
                 'planned_travel_time': row['planned_travel_time'],
                 'end_time': row['departure_time'] + timedelta(minutes=row['planned_travel_time']),
+                'travel_dist': travel_dist,
                 'type': 'T'
             }
             self.trip_nodes[tid] = attrs

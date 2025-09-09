@@ -1,0 +1,386 @@
+# Imports originais e novos
+from initializer.inputs import *
+from initializer.utils import calculate_cost
+from collections import deque, namedtuple, defaultdict
+from datetime import timedelta
+import math
+import time
+import heapq
+
+# Estrutura otimizada para dados das arestas
+EdgeData = namedtuple('EdgeData', ['dist', 'time', 'reduced_cost'])
+
+# A classe Label agora inclui comparação para uso no heap
+class Label:
+    __slots__ = [
+        'node', 'source_trip', 'total_weight', 'total_dist', 'total_time',
+        'dist_since_charge', 'time_since_charge', 'current_time', 'path',
+        'total_dh_dist', 'total_dh_time', 'total_travel_dist', 
+        'total_travel_time', 'total_wait_time', 'total_charge_time'
+    ]
+    
+    def __init__(self, node, source_trip, total_weight, total_dist, total_time,
+                 dist_since_charge, time_since_charge, current_time, path,
+                 total_dh_dist, total_dh_time, total_travel_dist, 
+                 total_travel_time, total_wait_time, total_charge_time):
+        self.node = node
+        self.source_trip = source_trip
+        self.total_weight = total_weight
+        self.total_dist = total_dist
+        self.total_time = total_time
+        self.dist_since_charge = dist_since_charge
+        self.time_since_charge = time_since_charge
+        self.current_time = current_time
+        self.path = path
+        self.total_dh_dist = total_dh_dist
+        self.total_dh_time = total_dh_time
+        self.total_travel_dist = total_travel_dist
+        self.total_travel_time = total_travel_time
+        self.total_wait_time = total_wait_time
+        self.total_charge_time = total_charge_time
+    
+    def __eq__(self, other):
+        """Requerido para a verificação de pertencimento."""
+        if not isinstance(other, Label):
+            return False
+        return (self.node == other.node and 
+                self.source_trip == other.source_trip and
+                self.path == other.path)
+    
+    def __hash__(self):
+        """Requerido para usar objetos Label em um set para consulta O(1)."""
+        return hash((self.node, self.source_trip, tuple(self.path)))
+    
+    def __lt__(self, other):
+        """Comparação para uso no heap - prioriza menor peso."""
+        return self.total_weight < other.total_weight
+
+def run_spfa(graph, source_node, D, T_d, dh_df, duals, last_route_number=None, filter_graph=True):
+    """
+    Algoritmo SPFA otimizado com cache e heap para encontrar caminhos mínimos com restrições.
+    """
+    # Pré-filtragem do grafo
+    if filter_graph:
+        valid_nodes = {node for node in graph.nodes() 
+                       if node.startswith(("l", "c")) or node == source_node}
+        graph = graph.subgraph(valid_nodes)
+    
+    # ========== OTIMIZAÇÕES DE CACHE ==========
+    print("Building caches...")
+    cache_start = time.time()
+    
+    # Cache de atributos dos nós
+    node_attrs = {node: graph.nodes[node] for node in graph.nodes()}
+    
+    # Cache de vizinhos válidos (pré-filtra nós depot)
+    neighbors_cache = {}
+    for node in graph.nodes():
+        valid_neighbors = [v for v in graph.neighbors(node) if not v.startswith("d")]
+        neighbors_cache[node] = valid_neighbors
+    
+    # Cache de dados das arestas usando namedtuple
+    edge_cache = {}
+    for u in graph.nodes():
+        for v in graph.neighbors(u):
+            if not v.startswith("d"):
+                data = graph[u][v]
+                edge_cache[(u, v)] = EdgeData(
+                    dist=data.get('dist', 0),
+                    time=data.get('time', 0),
+                    reduced_cost=data.get('reduced_cost', 0)
+                )
+    
+    # Pré-cálculo dos nós de viagem
+    trip_nodes = {n for n, d in node_attrs.items() if d.get('type') == 'T'}
+    
+    cache_time = time.time() - cache_start
+    print(f"Cache building completed in {cache_time:.2f} seconds")
+    
+    # ========== INICIALIZAÇÃO ==========
+    # Rótulo inicial
+    start = Label(
+        node=source_node, source_trip=None, total_weight=0.0,
+        total_dist=0.0, total_time=0.0, dist_since_charge=0.0,
+        time_since_charge=0.0, current_time=None, path=[source_node],
+        total_dh_dist=0.0, total_dh_time=0.0, total_travel_dist=0.0,
+        total_travel_time=0.0, total_wait_time=0.0, total_charge_time=0.0
+    )
+    
+    best_labels = {}
+    
+    # OTIMIZAÇÃO: Usando heap em vez de deque para processar por prioridade
+    heap = [(0, start)]  # (prioridade, label)
+    visited = set()  # Rastrear nós já processados completamente
+    in_heap = {start}  # Set para consulta O(1) de pertencimento
+    
+    print(f"Finding shortest paths for source {source_node}...")
+    spfa_start = time.time()
+    
+    # ========== LOOP PRINCIPAL SPFA COM HEAP ==========
+    iterations = 0
+    while heap:
+        _, u_label = heapq.heappop(heap)
+        in_heap.discard(u_label)
+        
+        u = u_label.node
+        iterations += 1
+        
+        # Pular se já encontramos um caminho melhor para este nó
+        if u in best_labels and best_labels[u].total_weight < u_label.total_weight:
+            continue
+        
+        need_recharge = False
+        
+        # Processa todos os vizinhos usando cache
+        for v in neighbors_cache.get(u, []):
+            
+            # ========== PROCESSAMENTO DE ESTAÇÃO DE RECARGA ==========
+            if v.startswith("c"):
+                if not need_recharge or u.startswith(("d", "c")):
+                    continue
+                elif u.startswith("l"):
+                    edge_data = edge_cache.get((u, v))
+                    if edge_data:
+                        new_label = _process_charging_station_optimized(
+                            u, v, u_label, edge_data, T_d
+                        )
+                        if new_label:
+                            prev = best_labels.get(v)
+                            if prev is None or new_label.total_weight < prev.total_weight:
+                                best_labels[v] = new_label
+                                if new_label not in in_heap:
+                                    heapq.heappush(heap, (new_label.total_weight, new_label))
+                                    in_heap.add(new_label)
+                                need_recharge = False
+                continue
+            
+            # ========== PROCESSAMENTO DE NÓ DE VIAGEM ==========
+            if v.startswith("l"):
+                v_attrs = node_attrs[v]
+                edge_data = edge_cache.get((u, v))
+                if not edge_data:
+                    continue
+                
+                # Verificações de tempo para nós de recarga
+                if u.startswith("c"):
+                    v_start_time = v_attrs["start_time"]
+                    if v_start_time < u_label.current_time + timedelta(minutes=edge_data.time):
+                        continue
+                
+                if need_recharge:
+                    continue
+                
+                # Determina a primeira viagem
+                if len(u_label.path) == 1:
+                    first_trip = v
+                else:
+                    first_trip = u_label.source_trip
+                
+                # Usa dados cacheados da aresta
+                dh_dist = edge_data.dist
+                dh_time = edge_data.time
+                
+                # Cálculo do tempo atual
+                if u_label.current_time is None:
+                    clock = v_attrs["start_time"] - timedelta(minutes=dh_time)
+                else:
+                    clock = u_label.current_time
+                    if clock + timedelta(minutes=dh_time) > v_attrs["start_time"]:
+                        continue
+                
+                if u.startswith("c"):
+                    if v_attrs["start_time"] < clock + timedelta(minutes=dh_time):
+                        continue
+                
+                # Cálculo do tempo de espera
+                wait_time = (
+                    v_attrs["start_time"] 
+                    - (clock + timedelta(minutes=dh_time))
+                ).total_seconds() / 60.0
+                
+                travel_time = v_attrs["planned_travel_time"]
+                new_total_time = (
+                    u_label.total_time + dh_time + wait_time + travel_time
+                )
+                
+                # Verificação de restrição de tempo
+                if new_total_time >= T_d:
+                    continue
+                
+                # Cálculo de distância
+                sc = v_attrs["start_cp"]
+                ec = v_attrs["end_cp"]
+                travel_dist = dh_df.loc[sc, ec]
+                new_dist_since_charge = u_label.dist_since_charge + dh_dist + travel_dist
+                
+                # Verificação de necessidade de recarga
+                if new_dist_since_charge >= D:
+                    need_recharge = True
+                    continue
+                
+                # Usa custo reduzido cacheado
+                weight = edge_data.reduced_cost
+                
+                # Cria novo rótulo
+                travel_label = Label(
+                    node=v,
+                    source_trip=first_trip,
+                    total_weight=u_label.total_weight + weight,
+                    total_dist=u_label.total_dist + dh_dist + travel_dist,
+                    total_time=new_total_time,
+                    dist_since_charge=new_dist_since_charge,
+                    time_since_charge=u_label.time_since_charge + dh_time + travel_time,
+                    current_time=clock + timedelta(minutes=dh_time + wait_time + travel_time),
+                    path=u_label.path + [v],
+                    total_dh_dist=u_label.total_dh_dist + dh_dist,
+                    total_dh_time=u_label.total_dh_time + dh_time,
+                    total_travel_dist=u_label.total_travel_dist + travel_dist,
+                    total_travel_time=u_label.total_travel_time + travel_time,
+                    total_wait_time=u_label.total_wait_time + wait_time,
+                    total_charge_time=u_label.total_charge_time
+                )
+                
+                # Atualiza se encontrou caminho melhor
+                prev = best_labels.get(v)
+                if prev is None or travel_label.total_weight < prev.total_weight:
+                    best_labels[v] = travel_label
+                    if travel_label not in in_heap:
+                        heapq.heappush(heap, (travel_label.total_weight, travel_label))
+                        in_heap.add(travel_label)
+    
+    print(f"Shortest paths finding completed. Total iterations: {iterations}")
+    spfa_runtime = time.time() - spfa_start
+    print(f"Time spent finding paths: {spfa_runtime:.2f} seconds")
+    
+    # ========== CORREÇÃO DE RÓTULOS ==========
+    print("Label correcting process started...")
+    label_corr_start = time.time()
+    
+    trip_routes = _build_trip_routes_optimized(
+        trip_nodes, best_labels, graph, edge_cache, duals
+    )
+    
+    print("Label correcting process completed.")
+    label_corr_runtime = time.time() - label_corr_start
+    print(f"Time spent correcting labels: {label_corr_runtime:.2f} seconds")
+    
+    return trip_routes
+
+def _process_charging_station_optimized(u, v, u_label, edge_data, T_d):
+    """Processa a transição para uma estação de recarga usando dados cacheados."""
+    weight_cs = edge_data.reduced_cost
+    dist_cs = edge_data.dist
+    time_cs = edge_data.time
+    
+    # Cálculo do tempo de recarga
+    charge_minutes = (15.6 * ((u_label.dist_since_charge + dist_cs) / 20) / 30) * 60
+    
+    new_clock = (u_label.current_time + timedelta(minutes=time_cs + charge_minutes) 
+                 if u_label.current_time else None)
+    
+    charge_label = Label(
+        node=v,
+        source_trip=u_label.source_trip,
+        total_weight=u_label.total_weight + weight_cs,
+        total_dist=u_label.total_dist + dist_cs,
+        total_time=u_label.total_time + time_cs + charge_minutes,
+        dist_since_charge=0.0,
+        time_since_charge=0.0,
+        current_time=new_clock,
+        path=u_label.path + [v],
+        total_dh_dist=u_label.total_dh_dist + dist_cs,
+        total_dh_time=u_label.total_dh_time + time_cs,
+        total_travel_dist=u_label.total_travel_dist,
+        total_travel_time=u_label.total_travel_time,
+        total_wait_time=u_label.total_wait_time,
+        total_charge_time=u_label.total_charge_time + charge_minutes
+    )
+    
+    if charge_label.total_time >= T_d:
+        return None
+    
+    return charge_label
+
+def _build_trip_routes_optimized(trip_nodes, best_labels, graph, edge_cache, duals):
+    """Constrói as rotas de viagem usando caches otimizados."""
+    
+    # Agrupa todos os rótulos pela sua viagem de origem em uma única passagem
+    labels_by_source_trip = defaultdict(list)
+    for label in best_labels.values():
+        if len(label.path) > 1:
+            source_trip = label.path[1]  # A primeira viagem na rota
+            labels_by_source_trip[source_trip].append(label)
+    
+    trip_routes = {}
+    
+    # Itera sobre os grupos já formados
+    for trip_id, trip_labels in labels_by_source_trip.items():
+        best_cols = []
+        
+        for a in trip_labels:
+            a_full_path = a.path + [a.path[0]]
+            a_rec_times = sum(1 for x in a.path if x.startswith("c"))
+            
+            # Pula se o penúltimo nó é uma estação de recarga
+            if a_full_path[-2].startswith("c"):
+                continue
+            
+            # Usa cache para obter tempo de retorno
+            return_edge = edge_cache.get((a.path[0], a_full_path[-2]))
+            if not return_edge:
+                # Se não há aresta cacheada, tenta buscar do grafo original
+                if graph.has_edge(a.path[0], a_full_path[-2]):
+                    return_time = graph[a.path[0]][a_full_path[-2]]["time"]
+                else:
+                    continue
+            else:
+                return_time = return_edge.time
+            
+            a_dh_time = a.total_dh_time + return_time
+            
+            # Obtém custo reduzido da última aresta
+            a_last_trip = a.path[-1]
+            last_edge = edge_cache.get((a_last_trip, a.path[0]))
+            if not last_edge:
+                if graph.has_edge(a_last_trip, a.path[0]):
+                    a_beta = graph[a_last_trip][a.path[0]]["reduced_cost"]
+                else:
+                    continue
+            else:
+                a_beta = last_edge.reduced_cost
+            
+            a_final_weight = a.total_weight + a_beta
+            
+            # Calcula custo total
+            a_cost = calculate_cost(
+                a_rec_times, 
+                a.total_travel_time, 
+                a_dh_time, 
+                a.total_wait_time,
+            )
+            
+            # Calcula custo reduzido
+            only_trips = [t for t in a_full_path if t.startswith("l")]
+            trip_duals_sum = sum(duals["alpha"][graph.nodes[t]['id']] for t in only_trips)
+            a_reduced_cost = a_cost - trip_duals_sum + duals["beta"][a.path[0]]
+            
+            route = {
+                "Path": a_full_path,
+                "Cost": a_cost,
+                "ReducedCost": a_reduced_cost,
+                "Data": {
+                    "total_dh_dist": a.total_dh_dist,
+                    "total_dh_time": a.total_dh_time,
+                    "total_travel_dist": a.total_travel_dist,
+                    "total_travel_time": a.total_travel_time,
+                    "total_wait_time": a.total_wait_time,
+                    "final_time": a.current_time,
+                    "total_charge_time": a.total_charge_time
+                }
+            }
+            
+            best_cols.append(route)
+        
+        trip_routes[trip_id] = best_cols
+    
+    return trip_routes

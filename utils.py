@@ -30,18 +30,18 @@ class Logger:
     def close(self):
         self.log.close()
 
-def save_columns_data(columns, exp_set_id, experiment_name):
-    """Save the columns dictionary to a Python file."""
+# def save_columns_data(columns, exp_set_id, experiment_name):
+#     """Save the columns dictionary to a Python file."""
     
-    output_filename = f"experiments/{exp_set_id}/{experiment_name}/columns_data.py"
+#     output_filename = f"experiments/{exp_set_id}/{experiment_name}/columns_data.py"
     
-    with open(output_filename, "w", encoding="utf-8") as f:
-        f.write("import pandas as pd\n")
-        f.write("import numpy as np\n\n")
-        f.write("columns = ")
-        pprint.pprint(columns, stream=f, indent=4)
+#     with open(output_filename, "w", encoding="utf-8") as f:
+#         f.write("import pandas as pd\n")
+#         f.write("import numpy as np\n\n")
+#         f.write("columns = ")
+#         pprint.pprint(columns, stream=f, indent=4)
     
-    print(f"✓ Columns data saved to: {output_filename}")
+#     print(f"✓ Columns data saved to: {output_filename}")
 
 def initialize_data():
 
@@ -109,7 +109,7 @@ def generate_instance(tmax, instance_path=None):
     return gen, initial_solution, used_depots, instance_name, generation_time
 
 
-def build_connection_network(timetables_path, used_depots):
+def build_connection_network(timetables_path, used_depots, experiment_name):
     """
     Build the connection network graph.
     
@@ -132,8 +132,19 @@ def build_connection_network(timetables_path, used_depots):
     print(f"✓ Nodes: {graph.number_of_nodes()}")
     print(f"✓ Edges: {graph.number_of_edges()}")
     print(f"✓ Build time: {build_time:.2f} seconds\n")
+
+    metrics = ["graph_build_time", "number_of_nodes", "number_of_edges"]
+    log_ids = [f"{datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')}{i}" for i in range(len(metrics))]
+    values = [build_time, graph.number_of_nodes(), graph.number_of_edges()]
+    log_df = pd.DataFrame({
+        "log_ids": log_ids,
+        "experiment_name": [experiment_name] * len(metrics),
+        "step": ["graph_build"] * len(metrics),
+        "metric": metrics,
+        "value": values,
+    })
     
-    return graph, build_time
+    return graph, log_df
 
 def generate_initial_solution_with_tmax(gen, tmax):
     """
@@ -210,3 +221,4 @@ def filter_routes_by_dominance(flat):
         new_flat.extend(routes_to_keep)
     
     return new_flat
+

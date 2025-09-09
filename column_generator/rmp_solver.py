@@ -22,7 +22,7 @@ def build_rmp_model(
     C = {}
     for k, depot in enumerate(grouped_routes):
         for p, cost in enumerate(routes_costs[depot]):
-            X[(k,p)] = pl.LpVariable(f"{depot}_col{p}", lowBound=0,)
+            X[(k,p)] = pl.LpVariable(f"{depot}_col{p}", lowBound=0, upBound=1)
             C[(k,p)] = cost
     
     # X[('NONE', 'ARTIF')] = pl.LpVariable("ARTIF", lowBound=0)
