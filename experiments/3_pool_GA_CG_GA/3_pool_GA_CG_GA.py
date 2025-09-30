@@ -4,10 +4,12 @@ from ..utils import initialize_data, build_connection_network
 from framework_v7 import generate_columns
 from .parameters import _3_POOL_GA_CG_GA_PARAMS as params # This one can stay as is
 import pandas as pd
-#from genetic_algorithm.genetic_algorithm_standard_v2 import run_ga as run_ga_standard
-from genetic_algorithm.genetic_algorithm_static import run_ga as run_ga_static
+from genetic_algorithm.genetic_algorithm_static_diverse_double_pop import run_ga as run_ga_2
+from genetic_algorithm.genetic_algorithm_static_diverse_pop import run_ga as run_ga_1
+#from genetic_algorithm.genetic_algorithm_static_diverse_double_pop import run_ga as run_ga_2
 import json
 import datetime
+import asyncio
 
 
 def run_cg_ga(i):
@@ -135,7 +137,7 @@ def run_cg_ga(i):
 
     # FIRST GA ========================================================================================================================================================================
     
-    best_fitness, best_cost, v, r, u, s, selected_columns, first_ga_log_df = run_ga_static(
+    best_fitness, best_cost, v, r, u, s, selected_columns, first_ga_log_df = run_ga_1(
         unique_routes,
         timetables_path=params["solution_generator"]["timetables_path"],
         experiment_name=i,
@@ -226,7 +228,7 @@ def run_cg_ga(i):
 
     # SECOND GA ========================================================================================================================================================================
 
-    sec_best_fitness, sec_best_cost, sec_v, sec_r, sec_u, sec_s, sec_selected_columns, sec_ga_log_df = run_ga_static(
+    sec_best_fitness, sec_best_cost, sec_v, sec_r, sec_u, sec_s, sec_selected_columns, sec_ga_log_df = run_ga_2(
         columns,
         timetables_path=params["solution_generator"]["timetables_path"],
         experiment_name=i,

@@ -1,53 +1,53 @@
 {
   "Route_0": {
     "Path": [
-      "d2_4",
-      "l4_cp2_2",
-      "l4_cp1_27",
-      "l4_cp2_54",
-      "l4_cp1_83",
-      "l4_cp2_104",
-      "c1_4",
-      "l4_cp1_183",
-      "l4_cp2_206",
-      "l4_cp1_233",
-      "l4_cp2_254",
-      "d2_4"
+      "d1_4",
+      "l4_cp1_1",
+      "l4_cp2_26",
+      "l4_cp1_53",
+      "l4_cp2_82",
+      "l4_cp1_103",
+      "c2_4",
+      "l4_cp2_182",
+      "l4_cp1_203",
+      "l4_cp2_228",
+      "l4_cp1_249",
+      "d1_4"
     ],
-    "Cost": 1990.3360000000002,
+    "Cost": 1985.836,
     "Data": {
       "total_dh_dist": 28.8,
       "total_dh_time": 86.39999999999999,
       "total_travel_dist": 216.0,
-      "total_travel_time": 681.0,
-      "total_wait_time": 240.0,
-      "final_time": "2025-09-07 22:39:24",
+      "total_travel_time": 683.0,
+      "total_wait_time": 229.0,
+      "final_time": "2025-09-07 22:27:24",
       "total_charging_time": 200.72
     }
   },
   "Route_1": {
     "Path": [
-      "d1_4",
-      "l4_cp1_3",
-      "l4_cp2_28",
-      "l4_cp1_55",
-      "l4_cp2_84",
-      "l4_cp1_107",
-      "c2_4",
-      "l4_cp2_186",
-      "l4_cp1_209",
-      "l4_cp2_234",
-      "l4_cp1_255",
-      "d1_4"
+      "d2_4",
+      "l4_cp2_2",
+      "l4_cp1_27",
+      "l4_cp2_54",
+      "l4_cp1_83",
+      "l4_cp2_106",
+      "c1_4",
+      "l4_cp1_185",
+      "l4_cp2_206",
+      "l4_cp1_233",
+      "l4_cp2_256",
+      "d2_4"
     ],
-    "Cost": 1988.236,
+    "Cost": 1994.536,
     "Data": {
       "total_dh_dist": 28.8,
       "total_dh_time": 86.39999999999999,
       "total_travel_dist": 216.0,
       "total_travel_time": 681.0,
-      "total_wait_time": 237.0,
-      "final_time": "2025-09-07 22:41:24",
+      "total_wait_time": 246.0,
+      "final_time": "2025-09-07 22:45:24",
       "total_charging_time": 200.72
     }
   },
@@ -55,26 +55,27 @@
     "Path": [
       "d2_4",
       "l4_cp2_4",
-      "l4_cp1_31",
-      "l4_cp2_58",
+      "l4_cp1_29",
+      "l4_cp2_56",
       "l4_cp1_85",
-      "l4_cp2_106",
-      "c1_4",
-      "l4_cp1_185",
-      "l4_cp2_208",
-      "l4_cp1_235",
-      "l4_cp2_256",
+      "l59_cp2_44",
+      "c1_59",
+      "l60_cp1_69",
+      "l60_cp2_74",
+      "l60_cp1_85",
+      "l4_cp2_236",
+      "l4_cp1_257",
       "d2_4"
     ],
-    "Cost": 1989.6360000000002,
+    "Cost": 1871.0614222188196,
     "Data": {
-      "total_dh_dist": 28.8,
-      "total_dh_time": 86.39999999999999,
-      "total_travel_dist": 216.0,
-      "total_travel_time": 681.0,
-      "total_wait_time": 239.0,
-      "final_time": "2025-09-07 22:45:24",
-      "total_charging_time": 200.72
+      "total_dh_dist": 7.314865691767938,
+      "total_dh_time": 21.94459707530381,
+      "total_travel_dist": 212.4,
+      "total_travel_time": 667.0,
+      "total_wait_time": 236.05540291631073,
+      "final_time": "2025-09-07 21:24:00",
+      "total_charging_time": 187.84102163297737
     }
   },
   "Route_3": {
@@ -89,20 +90,20 @@
       "l4_cp1_97",
       "c2_4",
       "l4_cp2_170",
-      "l4_cp1_189",
-      "l4_cp2_212",
-      "l4_cp1_237",
-      "l60_cp2_108",
+      "l4_cp1_191",
+      "l4_cp2_216",
+      "l4_cp1_241",
+      "l4_cp2_260",
       "d1_59"
     ],
-    "Cost": 1870.8844432238095,
+    "Cost": 1914.327766375305,
     "Data": {
-      "total_dh_dist": 12.660028008779733,
-      "total_dh_time": 37.9800840263392,
-      "total_travel_dist": 207.4,
-      "total_travel_time": 644.0,
-      "total_wait_time": 233.01991596418245,
-      "final_time": "2025-09-07 21:15:00",
+      "total_dh_dist": 13.502740286869079,
+      "total_dh_time": 40.50822086060724,
+      "total_travel_dist": 212.4,
+      "total_travel_time": 660.0,
+      "total_wait_time": 252.7317791308491,
+      "final_time": "2025-09-07 21:53:14.400000",
       "total_charging_time": 169.13947484751577
     }
   },
@@ -118,17 +119,17 @@
       "l4_cp2_168",
       "l4_cp1_187",
       "l4_cp2_210",
-      "l59_cp2_84",
+      "l4_cp1_237",
       "d2_59"
     ],
-    "Cost": 1881.9783296802707,
+    "Cost": 1887.6029986535045,
     "Data": {
-      "total_dh_dist": 34.14666958582026,
-      "total_dh_time": 102.44000875746079,
-      "total_travel_dist": 188.4,
-      "total_travel_time": 599.0,
-      "total_wait_time": 204.63999122951395,
-      "final_time": "2025-09-07 20:25:02.400000",
+      "total_dh_dist": 22.557287721910654,
+      "total_dh_time": 67.67186316573196,
+      "total_travel_dist": 201.0,
+      "total_travel_time": 637.0,
+      "total_wait_time": 205.28813682951395,
+      "final_time": "2025-09-07 20:28:55.200000",
       "total_charging_time": 169.3909688461806
     }
   },
@@ -139,53 +140,26 @@
       "l4_cp2_34",
       "l4_cp1_61",
       "l4_cp2_86",
-      "l59_cp2_44",
-      "c1_59",
-      "l60_cp1_69",
-      "l60_cp2_74",
-      "l60_cp1_85",
-      "l4_cp2_236",
-      "l4_cp1_257",
+      "l4_cp1_107",
+      "c2_4",
+      "l4_cp2_186",
+      "l4_cp1_209",
+      "l59_cp2_84",
+      "l60_cp2_110",
       "d1_4"
     ],
-    "Cost": 2006.5160828852709,
+    "Cost": 1882.5031584231135,
     "Data": {
-      "total_dh_dist": 35.58666958582027,
-      "total_dh_time": 106.7600087574608,
-      "total_travel_dist": 212.4,
-      "total_travel_time": 666.0,
-      "total_wait_time": 236.63999124103233,
-      "final_time": "2025-09-07 22:50:24",
-      "total_charging_time": 186.49703570769898
+      "total_dh_dist": 25.879688307593128,
+      "total_dh_time": 77.63906492277937,
+      "total_travel_dist": 198.4,
+      "total_travel_time": 621.0,
+      "total_wait_time": 242.6009350666667,
+      "final_time": "2025-09-07 21:42:14.400000",
+      "total_charging_time": 200.20000000000002
     }
   },
   "Route_6": {
-    "Path": [
-      "d2_4",
-      "l4_cp2_6",
-      "l4_cp1_33",
-      "l4_cp2_60",
-      "l4_cp1_87",
-      "l4_cp2_108",
-      "c1_4",
-      "l4_cp1_191",
-      "l4_cp2_214",
-      "l4_cp1_239",
-      "l4_cp2_258",
-      "d2_4"
-    ],
-    "Cost": 1992.016,
-    "Data": {
-      "total_dh_dist": 28.8,
-      "total_dh_time": 86.39999999999999,
-      "total_travel_dist": 216.0,
-      "total_travel_time": 681.0,
-      "total_wait_time": 245.0,
-      "final_time": "2025-09-07 22:55:24",
-      "total_charging_time": 203.32
-    }
-  },
-  "Route_7": {
     "Path": [
       "d2_59",
       "l59_cp2_2",
@@ -195,8 +169,8 @@
       "l4_cp2_94",
       "c1_4",
       "l4_cp1_169",
-      "l4_cp2_190",
-      "l4_cp1_213",
+      "l4_cp2_188",
+      "l4_cp1_211",
       "l4_cp2_238",
       "l4_cp1_259",
       "d2_59"
@@ -212,7 +186,7 @@
       "total_charging_time": 178.73016884618062
     }
   },
-  "Route_8": {
+  "Route_7": {
     "Path": [
       "d1_4",
       "l4_cp1_7",
@@ -221,8 +195,8 @@
       "l4_cp2_88",
       "l4_cp1_109",
       "c2_4",
-      "l4_cp2_188",
-      "l4_cp1_211",
+      "l4_cp2_190",
+      "l4_cp1_213",
       "l60_cp2_94",
       "l60_cp1_105",
       "d1_4"
@@ -238,7 +212,7 @@
       "total_charging_time": 200.20000000000002
     }
   },
-  "Route_9": {
+  "Route_8": {
     "Path": [
       "d1_59",
       "l59_cp1_3",
@@ -251,104 +225,74 @@
       "l4_cp2_198",
       "l4_cp1_221",
       "l4_cp2_244",
-      "l4_cp1_263",
+      "l4_cp1_265",
       "d1_59"
     ],
-    "Cost": 1994.2714060367662,
+    "Cost": 1997.7714060367662,
     "Data": {
       "total_dh_dist": 19.869381863909613,
       "total_dh_time": 59.60814559172884,
       "total_travel_dist": 227.4,
       "total_travel_time": 710.0,
-      "total_wait_time": 226.351854407699,
-      "final_time": "2025-09-07 22:41:57.600000",
+      "total_wait_time": 231.351854407699,
+      "final_time": "2025-09-07 22:46:57.600000",
       "total_charging_time": 186.49703570769898
+    }
+  },
+  "Route_9": {
+    "Path": [
+      "d2_4",
+      "l4_cp2_8",
+      "l4_cp1_35",
+      "l4_cp2_62",
+      "l60_cp1_37",
+      "l60_cp2_46",
+      "c1_59",
+      "l59_cp1_67",
+      "l4_cp2_204",
+      "l4_cp1_231",
+      "l4_cp2_252",
+      "d2_4"
+    ],
+    "Cost": 1943.8732268889532,
+    "Data": {
+      "total_dh_dist": 42.300318256726364,
+      "total_dh_time": 126.90095477017908,
+      "total_travel_dist": 193.4,
+      "total_travel_time": 606.0,
+      "total_wait_time": 249.49904521418242,
+      "final_time": "2025-09-07 22:34:24",
+      "total_charging_time": 197.73947484751574
     }
   },
   "Route_10": {
     "Path": [
-      "d2_60",
-      "l60_cp2_2",
-      "l60_cp1_11",
-      "l4_cp1_59",
-      "l59_cp2_36",
-      "l60_cp1_39",
-      "c2_60",
-      "l60_cp2_66",
-      "l59_cp1_65",
-      "l59_cp2_70",
-      "l59_cp1_75",
-      "l59_cp2_78",
-      "l60_cp1_91",
-      "l60_cp2_100",
-      "d2_60"
-    ],
-    "Cost": 1841.2146204492963,
-    "Data": {
-      "total_dh_dist": 20.17874406547837,
-      "total_dh_time": 60.536232196435115,
-      "total_travel_dist": 195.00000000000003,
-      "total_travel_time": 612.0,
-      "total_wait_time": 220.26376779214627,
-      "final_time": "2025-09-07 20:59:48",
-      "total_charging_time": 177.18284074214625
-    }
-  },
-  "Route_11": {
-    "Path": [
-      "d2_4",
-      "l4_cp2_8",
-      "l4_cp1_37",
-      "l4_cp2_64",
-      "l4_cp1_89",
-      "l4_cp2_112",
-      "c1_4",
-      "l4_cp1_193",
-      "l4_cp2_216",
-      "l4_cp1_241",
-      "l4_cp2_260",
-      "d2_4"
-    ],
-    "Cost": 1990.9,
-    "Data": {
-      "total_dh_dist": 28.8,
-      "total_dh_time": 86.39999999999999,
-      "total_travel_dist": 216.0,
-      "total_travel_time": 675.0,
-      "total_wait_time": 254.00000000000003,
-      "final_time": "2025-09-07 23:07:24",
-      "total_charging_time": 200.20000000000002
-    }
-  },
-  "Route_12": {
-    "Path": [
       "d2_59",
       "l59_cp2_4",
       "l59_cp1_9",
-      "l59_cp2_16",
-      "l59_cp1_23",
-      "l4_cp2_66",
-      "l4_cp1_91",
-      "c2_4",
-      "l4_cp2_166",
-      "l59_cp2_66",
-      "l60_cp2_86",
-      "l59_cp1_83",
-      "l4_cp1_247",
+      "l59_cp2_14",
+      "l4_cp1_57",
+      "l60_cp2_34",
+      "l60_cp1_41",
+      "c2_60",
+      "l4_cp2_178",
+      "l4_cp1_199",
+      "l4_cp2_222",
+      "l4_cp1_245",
       "d2_59"
     ],
-    "Cost": 1860.2611053333126,
+    "Cost": 1834.458001877314,
     "Data": {
-      "total_dh_dist": 34.53845203541235,
-      "total_dh_time": 103.61535610623704,
-      "total_travel_dist": 183.4,
-      "total_travel_time": 577.0,
-      "total_wait_time": 217.3046438663107,
-      "final_time": "2025-09-07 21:11:55.200000",
-      "total_charging_time": 165.48102163297736
+      "total_dh_dist": 21.537315730690388,
+      "total_dh_time": 64.61194719207116,
+      "total_travel_dist": 192.2,
+      "total_travel_time": 604.0,
+      "total_wait_time": 222.30805279369642,
+      "final_time": "2025-09-07 21:04:55.200000",
+      "total_charging_time": 179.9096436936964
     }
   },
-  "Route_13": {
+  "Route_11": {
     "Path": [
       "d1_4",
       "l4_cp1_9",
@@ -358,50 +302,48 @@
       "l4_cp1_113",
       "c2_4",
       "l4_cp2_192",
-      "l4_cp1_217",
-      "l4_cp2_242",
-      "l4_cp1_261",
+      "l4_cp1_215",
+      "l4_cp2_240",
+      "l59_cp2_92",
+      "l60_cp1_115",
       "d1_4"
     ],
-    "Cost": 1990.364,
+    "Cost": 1897.2593310267662,
     "Data": {
-      "total_dh_dist": 28.8,
-      "total_dh_time": 86.39999999999999,
-      "total_travel_dist": 216.0,
-      "total_travel_time": 674.0,
-      "total_wait_time": 255.0,
-      "final_time": "2025-09-07 23:10:24",
+      "total_dh_dist": 6.789381863909613,
+      "total_dh_time": 20.36814559172884,
+      "total_travel_dist": 222.4,
+      "total_travel_time": 683.0,
+      "total_wait_time": 252.3518544,
+      "final_time": "2025-09-07 22:10:43.200000",
       "total_charging_time": 199.68
     }
   },
-  "Route_14": {
+  "Route_12": {
     "Path": [
       "d2_4",
       "l4_cp2_10",
       "l4_cp1_39",
-      "l59_cp2_30",
-      "l60_cp1_33",
-      "l60_cp2_40",
-      "c1_59",
-      "l60_cp1_65",
-      "l4_cp2_184",
-      "l4_cp1_207",
-      "l60_cp2_92",
-      "l60_cp1_101",
+      "l4_cp2_64",
+      "l4_cp1_89",
+      "l4_cp2_112",
+      "c1_4",
+      "l4_cp1_193",
+      "l4_cp2_218",
       "d2_4"
     ],
-    "Cost": 1938.962099067324,
+    "Cost": 1761.9,
     "Data": {
-      "total_dh_dist": 33.59215341367859,
-      "total_dh_time": 100.77646024103576,
-      "total_travel_dist": 202.4,
-      "total_travel_time": 633.0,
-      "total_wait_time": 211.343539749644,
-      "final_time": "2025-09-07 22:02:07.200000",
-      "total_charging_time": 168.60102163297734
+      "total_dh_dist": 28.8,
+      "total_dh_time": 86.39999999999999,
+      "total_travel_dist": 168.0,
+      "total_travel_time": 538.0,
+      "total_wait_time": 240.00000000000003,
+      "final_time": "2025-09-07 20:41:24",
+      "total_charging_time": 200.20000000000002
     }
   },
-  "Route_15": {
+  "Route_13": {
     "Path": [
       "d2_59",
       "l60_cp1_3",
@@ -425,60 +367,87 @@
       "total_charging_time": 187.74079999999995
     }
   },
-  "Route_16": {
+  "Route_14": {
     "Path": [
       "d1_59",
       "l59_cp1_5",
       "l60_cp2_12",
       "l59_cp1_25",
-      "l4_cp1_69",
-      "l4_cp2_96",
-      "c1_4",
-      "l59_cp2_60",
-      "l60_cp1_71",
-      "l4_cp2_200",
-      "l4_cp1_223",
-      "l4_cp2_246",
+      "l59_cp2_30",
+      "l60_cp1_33",
+      "l60_cp2_40",
+      "l60_cp1_47",
+      "c2_60",
+      "l60_cp2_72",
+      "l60_cp1_79",
+      "l60_cp2_88",
+      "l60_cp1_95",
+      "l60_cp2_108",
       "d1_59"
     ],
-    "Cost": 1839.0256153006624,
+    "Cost": 1810.4102013886254,
     "Data": {
-      "total_dh_dist": 21.091549831387965,
-      "total_dh_time": 63.2746494941639,
-      "total_travel_dist": 192.2,
-      "total_travel_time": 605.0,
-      "total_wait_time": 216.96535048308564,
-      "final_time": "2025-09-07 21:04:14.400000",
-      "total_charging_time": 167.27081318308564
+      "total_dh_dist": 6.675498381658087,
+      "total_dh_time": 20.026495144974263,
+      "total_travel_dist": 205.2,
+      "total_travel_time": 624.0,
+      "total_wait_time": 251.97350484205325,
+      "final_time": "2025-09-07 21:15:00",
+      "total_charging_time": 187.7337774753866
     }
   },
-  "Route_17": {
+  "Route_15": {
     "Path": [
       "d1_4",
       "l4_cp1_11",
       "l4_cp2_40",
       "l60_cp1_27",
-      "l4_cp1_101",
-      "c2_4",
-      "l4_cp2_178",
-      "l4_cp1_197",
-      "l4_cp2_220",
-      "l4_cp1_243",
-      "l4_cp2_264",
+      "l4_cp2_96",
+      "c1_4",
+      "l4_cp1_171",
+      "l59_cp1_73",
+      "l4_cp1_219",
+      "l4_cp2_242",
       "d1_4"
     ],
-    "Cost": 1905.0856414659527,
+    "Cost": 1790.9998877441194,
     "Data": {
-      "total_dh_dist": 18.923906382490166,
-      "total_dh_time": 56.771719147470506,
-      "total_travel_dist": 211.0,
-      "total_travel_time": 658.0,
-      "total_wait_time": 221.22828085668468,
-      "final_time": "2025-09-07 21:56:00",
-      "total_charging_time": 183.44129395668466
+      "total_dh_dist": 30.988384572386,
+      "total_dh_time": 92.965153717158,
+      "total_travel_dist": 174.4,
+      "total_travel_time": 552.0,
+      "total_wait_time": 208.03484626036308,
+      "final_time": "2025-09-07 20:33:00",
+      "total_charging_time": 173.6696436936964
     }
   },
-  "Route_18": {
+  "Route_16": {
+    "Path": [
+      "d2_4",
+      "l4_cp2_12",
+      "l4_cp1_41",
+      "l4_cp2_66",
+      "l4_cp1_91",
+      "l4_cp2_114",
+      "c1_4",
+      "l4_cp1_195",
+      "l4_cp2_220",
+      "l4_cp1_243",
+      "l4_cp2_262",
+      "d2_4"
+    ],
+    "Cost": 1986.664,
+    "Data": {
+      "total_dh_dist": 28.8,
+      "total_dh_time": 86.39999999999999,
+      "total_travel_dist": 216.0,
+      "total_travel_time": 673.0,
+      "total_wait_time": 252.0,
+      "final_time": "2025-09-07 23:13:24",
+      "total_charging_time": 199.68
+    }
+  },
+  "Route_17": {
     "Path": [
       "d2_60",
       "l60_cp2_4",
@@ -488,49 +457,44 @@
       "l60_cp2_38",
       "l60_cp1_45",
       "c2_60",
-      "l60_cp2_72",
-      "l60_cp1_79",
-      "l60_cp2_88",
-      "l60_cp1_95",
-      "l60_cp2_106",
-      "l60_cp1_115",
+      "l59_cp2_68",
+      "l4_cp2_214",
+      "l4_cp1_239",
+      "l4_cp2_258",
       "d2_60"
     ],
-    "Cost": 1880.8319999999999,
+    "Cost": 1860.8110773155029,
     "Data": {
-      "total_dh_dist": 0.0,
-      "total_dh_time": 0.0,
-      "total_travel_dist": 228.0,
-      "total_travel_time": 690.0,
-      "total_wait_time": 247.99999999999997,
-      "final_time": "2025-09-07 22:01:00",
+      "total_dh_dist": 24.694473081354744,
+      "total_dh_time": 74.08341924406423,
+      "total_travel_dist": 197.4,
+      "total_travel_time": 611.0,
+      "total_wait_time": 230.63658074999998,
+      "final_time": "2025-09-07 21:38:43.200000",
       "total_charging_time": 188.23999999999998
     }
   },
-  "Route_19": {
+  "Route_18": {
     "Path": [
       "d1_4",
       "l4_cp1_13",
       "l60_cp1_19",
       "l60_cp2_26",
       "l59_cp1_37",
-      "l4_cp1_105",
-      "c2_4",
-      "l59_cp2_68",
       "d1_4"
     ],
-    "Cost": 1435.989457865625,
+    "Cost": 1235.551231688544,
     "Data": {
-      "total_dh_dist": 26.485934533463556,
-      "total_dh_time": 79.45780360039065,
-      "total_travel_dist": 108.80000000000001,
-      "total_travel_time": 344.0,
-      "total_wait_time": 222.78219638922582,
-      "final_time": "2025-09-07 17:10:14.400000",
-      "total_charging_time": 189.2722362392258
+      "total_dh_dist": 29.538974699696656,
+      "total_dh_time": 88.61692409908997,
+      "total_travel_dist": 73.4,
+      "total_travel_time": 241.0,
+      "total_wait_time": 11.663075899999999,
+      "final_time": "2025-09-07 12:05:16.800000",
+      "total_charging_time": 0
     }
   },
-  "Route_20": {
+  "Route_19": {
     "Path": [
       "d2_59",
       "l59_cp2_6",
@@ -542,22 +506,20 @@
       "l4_cp2_172",
       "l59_cp1_71",
       "l59_cp2_76",
-      "l4_cp1_231",
-      "l4_cp2_252",
       "d2_59"
     ],
-    "Cost": 1898.9902035773762,
+    "Cost": 1615.264804807071,
     "Data": {
-      "total_dh_dist": 37.15486243764777,
-      "total_dh_time": 111.46458731294331,
-      "total_travel_dist": 189.6,
-      "total_travel_time": 593.0,
-      "total_wait_time": 217.81541267436566,
-      "final_time": "2025-09-07 21:52:16.800000",
+      "total_dh_dist": 26.65212215077869,
+      "total_dh_time": 79.95636645233608,
+      "total_travel_dist": 141.6,
+      "total_travel_time": 451.0,
+      "total_wait_time": 209.08363354103233,
+      "final_time": "2025-09-07 18:50:02.400000",
       "total_charging_time": 165.177035707699
     }
   },
-  "Route_21": {
+  "Route_20": {
     "Path": [
       "d1_4",
       "l4_cp1_15",
@@ -570,40 +532,21 @@
       "l60_cp2_76",
       "l59_cp1_77",
       "l4_cp2_232",
-      "l59_cp2_90",
-      "l59_cp1_95",
+      "l4_cp1_253",
       "d1_4"
     ],
-    "Cost": 1912.7976197960002,
+    "Cost": 1964.8062887692338,
     "Data": {
-      "total_dh_dist": 33.251207389444446,
-      "total_dh_time": 99.75362216833334,
-      "total_travel_dist": 196.00000000000003,
-      "total_travel_time": 611.0,
-      "total_wait_time": 229.52637780734304,
-      "final_time": "2025-09-07 22:11:16.800000",
+      "total_dh_dist": 43.741825525534836,
+      "total_dh_time": 131.22547657660448,
+      "total_travel_dist": 197.20000000000002,
+      "total_travel_time": 617.0,
+      "total_wait_time": 218.17452340734303,
+      "final_time": "2025-09-07 22:37:24",
       "total_charging_time": 171.53805734067637
     }
   },
-  "Route_22": {
-    "Path": [
-      "d2_4",
-      "l4_cp2_16",
-      "l4_cp1_43",
-      "d2_4"
-    ],
-    "Cost": 970.3,
-    "Data": {
-      "total_dh_dist": 0.0,
-      "total_dh_time": 0.0,
-      "total_travel_dist": 48.0,
-      "total_travel_time": 165.0,
-      "total_wait_time": 9.0,
-      "final_time": "2025-09-07 09:28:00",
-      "total_charging_time": 0
-    }
-  },
-  "Route_23": {
+  "Route_21": {
     "Path": [
       "d1_59",
       "l59_cp1_7",
@@ -613,282 +556,247 @@
       "c1_59",
       "l59_cp1_55",
       "l59_cp2_58",
+      "l4_cp1_183",
+      "l60_cp2_82",
+      "l60_cp1_89",
+      "l60_cp2_98",
       "d1_59"
     ],
-    "Cost": 1323.1101987406023,
+    "Cost": 1792.9922743594116,
     "Data": {
-      "total_dh_dist": 25.003854945264354,
-      "total_dh_time": 75.01156483579307,
-      "total_travel_dist": 88.60000000000001,
-      "total_travel_time": 280.0,
-      "total_wait_time": 178.98843514794572,
-      "final_time": "2025-09-07 15:29:00",
+      "total_dh_dist": 37.66388295404409,
+      "total_dh_time": 112.99164886213225,
+      "total_travel_dist": 169.60000000000002,
+      "total_travel_time": 530.0,
+      "total_wait_time": 192.0083511146124,
+      "final_time": "2025-09-07 20:30:00",
       "total_charging_time": 150.2860137146124
     }
   },
-  "Route_24": {
+  "Route_22": {
     "Path": [
       "d1_4",
       "l4_cp1_19",
       "l4_cp2_44",
-      "l60_cp2_32",
-      "l4_cp2_110",
-      "c1_4",
-      "l4_cp1_195",
+      "l4_cp1_69",
+      "l59_cp1_43",
+      "l59_cp2_46",
+      "c1_59",
+      "l60_cp1_73",
+      "l4_cp2_212",
+      "l60_cp1_97",
+      "l59_cp2_94",
+      "l60_cp1_117",
       "d1_4"
     ],
-    "Cost": 1605.2864664058584,
+    "Cost": 1874.9665125609788,
     "Data": {
-      "total_dh_dist": 53.080140795317746,
-      "total_dh_time": 159.24042238595325,
-      "total_travel_dist": 115.0,
-      "total_travel_time": 365.0,
-      "total_wait_time": 233.15957762402903,
-      "final_time": "2025-09-07 19:25:24",
-      "total_charging_time": 188.1570196406957
+      "total_dh_dist": 37.35450109013448,
+      "total_dh_time": 112.06350327040343,
+      "total_travel_dist": 187.20000000000002,
+      "total_travel_time": 570.0,
+      "total_wait_time": 250.6564967148601,
+      "final_time": "2025-09-07 22:20:43.200000",
+      "total_charging_time": 181.13520053152678
     }
   },
-  "Route_25": {
+  "Route_23": {
     "Path": [
       "d2_4",
       "l4_cp2_20",
       "l4_cp1_47",
       "l4_cp2_74",
-      "l59_cp1_43",
-      "l59_cp2_46",
-      "l59_cp1_49",
-      "c2_59",
-      "l4_cp1_199",
-      "l4_cp2_222",
-      "l4_cp1_245",
+      "l4_cp1_101",
+      "l4_cp2_122",
+      "c1_4",
+      "l4_cp1_201",
+      "l4_cp2_226",
+      "l4_cp1_247",
       "l4_cp2_266",
       "d2_4"
     ],
-    "Cost": 1973.935097402071,
-    "Data": {
-      "total_dh_dist": 41.77212215077869,
-      "total_dh_time": 125.31636645233607,
-      "total_travel_dist": 202.20000000000002,
-      "total_travel_time": 624.0,
-      "total_wait_time": 246.08363353084908,
-      "final_time": "2025-09-07 23:27:24",
-      "total_charging_time": 188.89947484751576
-    }
-  },
-  "Route_26": {
-    "Path": [
-      "d2_60",
-      "l60_cp2_6",
-      "l59_cp1_19",
-      "l59_cp2_26",
-      "l4_cp1_77",
-      "l4_cp2_102",
-      "c1_4",
-      "l4_cp1_175",
-      "l4_cp2_194",
-      "l4_cp1_219",
-      "l60_cp2_98",
-      "l60_cp1_109",
-      "d2_60"
-    ],
-    "Cost": 1816.9964432238096,
-    "Data": {
-      "total_dh_dist": 12.660028008779733,
-      "total_dh_time": 37.9800840263392,
-      "total_travel_dist": 199.8,
-      "total_travel_time": 619.0,
-      "total_wait_time": 209.01991596418242,
-      "final_time": "2025-09-07 21:22:00",
-      "total_charging_time": 164.97947484751575
-    }
-  },
-  "Route_27": {
-    "Path": [
-      "d2_4",
-      "l4_cp2_22",
-      "l4_cp1_49",
-      "l4_cp2_76",
-      "d2_4"
-    ],
-    "Cost": 1235.24,
+    "Cost": 1972.612,
     "Data": {
       "total_dh_dist": 28.8,
       "total_dh_time": 86.39999999999999,
-      "total_travel_dist": 72.0,
-      "total_travel_time": 242.0,
-      "total_wait_time": 14.0,
-      "final_time": "2025-09-07 12:39:24",
-      "total_charging_time": 0
+      "total_travel_dist": 216.0,
+      "total_travel_time": 667.0,
+      "total_wait_time": 242.0,
+      "final_time": "2025-09-07 23:27:24",
+      "total_charging_time": 196.04
     }
   },
-  "Route_28": {
+  "Route_24": {
     "Path": [
       "d1_4",
       "l4_cp1_23",
       "l4_cp2_50",
-      "l4_cp1_79",
-      "l60_cp2_42",
-      "l60_cp1_49",
-      "c2_60",
-      "l4_cp2_196",
-      "l59_cp1_81",
+      "l4_cp1_77",
+      "l4_cp2_102",
+      "l4_cp1_123",
+      "c2_4",
+      "l4_cp2_200",
+      "l4_cp1_223",
+      "l4_cp2_246",
+      "l60_cp2_116",
       "d1_4"
     ],
-    "Cost": 1639.819634272314,
+    "Cost": 1861.953148460648,
     "Data": {
-      "total_dh_dist": 30.657315730690385,
-      "total_dh_time": 91.97194719207116,
-      "total_travel_dist": 145.4,
-      "total_travel_time": 455.0,
-      "total_wait_time": 226.30805279618065,
-      "final_time": "2025-09-07 19:53:16.800000",
-      "total_charging_time": 183.93016884618064
+      "total_dh_dist": 13.58116609562109,
+      "total_dh_time": 40.74349828686327,
+      "total_travel_dist": 211.0,
+      "total_travel_time": 649.0,
+      "total_wait_time": 231.49650171666664,
+      "final_time": "2025-09-07 22:21:14.400000",
+      "total_charging_time": 198.11999999999998
     }
   },
-  "Route_29": {
+  "Route_25": {
     "Path": [
       "d2_59",
       "l60_cp1_7",
-      "l4_cp2_48",
-      "l4_cp1_75",
+      "l60_cp2_18",
+      "l4_cp1_79",
+      "l60_cp2_42",
+      "c1_59",
+      "l60_cp1_71",
+      "l59_cp2_74",
+      "l4_cp2_230",
+      "l4_cp1_251",
       "d2_59"
     ],
-    "Cost": 1180.2766768485044,
+    "Cost": 1836.1698423443122,
     "Data": {
-      "total_dh_dist": 22.557287721910654,
-      "total_dh_time": 67.67186316573196,
-      "total_travel_dist": 67.0,
-      "total_travel_time": 228.0,
-      "total_wait_time": 10.288136833333333,
-      "final_time": "2025-09-07 11:27:55.200000",
-      "total_charging_time": 0
+      "total_dh_dist": 53.434501090134475,
+      "total_dh_time": 160.3035032704034,
+      "total_travel_dist": 159.4,
+      "total_travel_time": 498.0,
+      "total_wait_time": 243.65649671036303,
+      "final_time": "2025-09-07 21:23:55.200000",
+      "total_charging_time": 175.25044369369635
     }
   },
-  "Route_30": {
+  "Route_26": {
     "Path": [
       "d1_4",
       "l4_cp1_25",
       "l4_cp2_52",
       "l4_cp1_81",
-      "l59_cp1_45",
-      "l59_cp2_48",
-      "c1_59",
-      "l60_cp1_73",
-      "l60_cp2_82",
-      "l60_cp1_89",
-      "l4_cp2_248",
-      "l4_cp1_269",
+      "l4_cp2_104",
+      "l4_cp1_127",
+      "c2_4",
+      "l4_cp2_208",
+      "l4_cp1_235",
+      "l59_cp1_95",
+      "l4_cp1_277",
       "d1_4"
     ],
-    "Cost": 1977.6532681637152,
+    "Cost": 1996.7625627153102,
     "Data": {
-      "total_dh_dist": 46.81626242160731,
-      "total_dh_time": 140.44878726482193,
-      "total_travel_dist": 199.8,
-      "total_travel_time": 612.0,
-      "total_wait_time": 235.95121273152677,
-      "final_time": "2025-09-07 23:32:24",
-      "total_charging_time": 180.61520053152677
+      "total_dh_dist": 47.128356563606275,
+      "total_dh_time": 141.3850696908188,
+      "total_travel_dist": 203.4,
+      "total_travel_time": 619.0,
+      "total_wait_time": 260.0149303,
+      "final_time": "2025-09-08 00:04:24",
+      "total_charging_time": 195.51999999999998
     }
   },
-  "Route_31": {
+  "Route_27": {
     "Path": [
-      "d2_59",
-      "l60_cp1_9",
-      "l4_cp1_57",
-      "l60_cp2_34",
-      "l60_cp1_41",
-      "c2_60",
-      "l4_cp2_176",
-      "l59_cp1_73",
-      "d2_59"
-    ],
-    "Cost": 1522.514949362962,
-    "Data": {
-      "total_dh_dist": 39.078481826311474,
-      "total_dh_time": 117.23544547893442,
-      "total_travel_dist": 116.4,
-      "total_travel_time": 368.0,
-      "total_wait_time": 191.8045545220162,
-      "final_time": "2025-09-07 17:47:00",
-      "total_charging_time": 175.89278795534952
-    }
-  },
-  "Route_32": {
-    "Path": [
-      "d1_4",
-      "l4_cp1_29",
-      "l4_cp2_56",
+      "d2_4",
+      "l4_cp2_30",
+      "l59_cp2_28",
       "l60_cp2_36",
       "l4_cp1_117",
       "c2_4",
-      "l60_cp2_78",
-      "l60_cp1_87",
-      "l4_cp2_240",
-      "l59_cp2_92",
-      "l4_cp1_279",
-      "d1_4"
+      "l4_cp2_194",
+      "l4_cp1_217",
+      "l60_cp2_96",
+      "l60_cp1_107",
+      "l4_cp2_274",
+      "d2_4"
     ],
-    "Cost": 2012.8877249600328,
+    "Cost": 1992.497679525212,
     "Data": {
-      "total_dh_dist": 67.17060397709017,
-      "total_dh_time": 201.51181193127047,
+      "total_dh_dist": 65.96880793233585,
+      "total_dh_time": 197.9064237970075,
       "total_travel_dist": 188.4,
-      "total_travel_time": 572.0,
-      "total_wait_time": 238.8881880566847,
-      "final_time": "2025-09-08 00:10:24",
-      "total_charging_time": 181.36129395668468
+      "total_travel_time": 563.0,
+      "total_wait_time": 232.49357618208268,
+      "final_time": "2025-09-07 23:54:24",
+      "total_charging_time": 175.28300268208267
     }
   },
-  "Route_33": {
-    "Path": [
-      "d2_59",
-      "l59_cp2_12",
-      "l59_cp1_21",
-      "l60_cp2_24",
-      "l59_cp1_35",
-      "l59_cp2_38",
-      "l60_cp1_43",
-      "l4_cp2_126",
-      "c1_4",
-      "l4_cp1_201",
-      "l4_cp2_224",
-      "l59_cp2_86",
-      "l59_cp1_91",
-      "l59_cp2_96",
-      "l4_cp1_283",
-      "d2_59"
-    ],
-    "Cost": 1909.7004898508676,
-    "Data": {
-      "total_dh_dist": 28.524908254347434,
-      "total_dh_time": 85.57472476304231,
-      "total_travel_dist": 213.8,
-      "total_travel_time": 627.0,
-      "total_wait_time": 233.34527522156722,
-      "final_time": "2025-09-07 23:14:55.200000",
-      "total_charging_time": 183.9439463215672
-    }
-  },
-  "Route_34": {
+  "Route_28": {
     "Path": [
       "d1_4",
-      "l4_cp1_35",
-      "l4_cp2_62",
+      "l4_cp1_31",
+      "l4_cp2_60",
+      "l4_cp1_87",
+      "l4_cp2_110",
+      "l4_cp1_133",
+      "c2_4",
+      "l60_cp2_84",
       "d1_4"
     ],
-    "Cost": 962.2,
+    "Cost": 1491.1966768485045,
+    "Data": {
+      "total_dh_dist": 7.317287721910654,
+      "total_dh_time": 21.951863165731965,
+      "total_travel_dist": 139.0,
+      "total_travel_time": 437.0,
+      "total_wait_time": 227.2881368333333,
+      "final_time": "2025-09-07 18:49:14.400000",
+      "total_charging_time": 196.04
+    }
+  },
+  "Route_29": {
+    "Path": [
+      "d1_4",
+      "l4_cp1_37",
+      "l59_cp1_33",
+      "l4_cp1_93",
+      "l4_cp2_116",
+      "c1_4",
+      "l59_cp2_66",
+      "l4_cp1_205",
+      "l60_cp2_92",
+      "l60_cp1_101",
+      "l60_cp2_114",
+      "d1_4"
+    ],
+    "Cost": 1802.2094039975525,
+    "Data": {
+      "total_dh_dist": 38.61776643629562,
+      "total_dh_time": 115.85329930888683,
+      "total_travel_dist": 175.8,
+      "total_travel_time": 529.0,
+      "total_wait_time": 213.3867006725591,
+      "final_time": "2025-09-07 21:59:14.400000",
+      "total_charging_time": 162.75223623922577
+    }
+  },
+  "Route_30": {
+    "Path": [
+      "d2_4",
+      "l4_cp2_48",
+      "l4_cp1_75",
+      "d2_4"
+    ],
+    "Cost": 960.9,
     "Data": {
       "total_dh_dist": 0.0,
       "total_dh_time": 0.0,
       "total_travel_dist": 48.0,
-      "total_travel_time": 163.0,
-      "total_wait_time": 2.0,
-      "final_time": "2025-09-07 10:20:00",
+      "total_travel_time": 160.0,
+      "total_wait_time": 7.0,
+      "final_time": "2025-09-07 11:11:00",
       "total_charging_time": 0
     }
   },
-  "Route_35": {
+  "Route_31": {
     "Path": [
       "d2_60",
       "l60_cp2_22",
@@ -906,188 +814,120 @@
       "total_charging_time": 0
     }
   },
-  "Route_36": {
+  "Route_32": {
     "Path": [
       "d2_4",
-      "l60_cp1_23",
-      "l4_cp1_93",
-      "l4_cp2_114",
-      "l59_cp1_53",
-      "c2_59",
-      "l59_cp2_72",
-      "l60_cp2_90",
-      "l60_cp1_99",
-      "l60_cp2_110",
-      "d2_4"
-    ],
-    "Cost": 1769.3260593754183,
-    "Data": {
-      "total_dh_dist": 68.32601672022601,
-      "total_dh_time": 204.97805016067804,
-      "total_travel_dist": 146.8,
-      "total_travel_time": 430.0,
-      "total_wait_time": 200.061949840018,
-      "final_time": "2025-09-07 22:17:31.200000",
-      "total_charging_time": 173.83169395668466
-    }
-  },
-  "Route_37": {
-    "Path": [
-      "d1_59",
-      "l59_cp1_33",
       "l4_cp2_92",
       "l4_cp1_115",
       "l4_cp2_136",
       "l4_cp1_159",
-      "c2_4",
-      "l4_cp2_226",
-      "l59_cp2_88",
-      "l60_cp2_118",
-      "d1_59"
+      "l4_cp2_180",
+      "c1_4",
+      "l59_cp2_90",
+      "l60_cp1_113",
+      "l4_cp1_287",
+      "d2_4"
     ],
-    "Cost": 1619.7497743065464,
+    "Cost": 1603.6364794874141,
     "Data": {
-      "total_dh_dist": 25.34907017150274,
-      "total_dh_time": 76.04721051450821,
-      "total_travel_dist": 161.8,
-      "total_travel_time": 461.0,
-      "total_wait_time": 203.9527894663107,
-      "final_time": "2025-09-07 22:21:00",
-      "total_charging_time": 167.56102163297734
-    }
-  },
-  "Route_38": {
-    "Path": [
-      "d1_4",
-      "l4_cp1_95",
-      "l4_cp2_116",
-      "l4_cp1_137",
-      "l4_cp2_162",
-      "l4_cp1_181",
-      "c2_4",
-      "l4_cp2_262",
-      "l4_cp1_281",
-      "d1_4"
-    ],
-    "Cost": 1674.74,
-    "Data": {
-      "total_dh_dist": 28.8,
-      "total_dh_time": 86.39999999999999,
-      "total_travel_dist": 168.0,
-      "total_travel_time": 476.0,
-      "total_wait_time": 239.0,
-      "final_time": "2025-09-08 00:18:24",
+      "total_dh_dist": 13.050547959530702,
+      "total_dh_time": 39.15164387859211,
+      "total_travel_dist": 174.4,
+      "total_travel_time": 485.0,
+      "total_wait_time": 224.84835611666668,
+      "final_time": "2025-09-07 23:15:00",
       "total_charging_time": 182.0
     }
   },
-  "Route_39": {
+  "Route_33": {
     "Path": [
-      "d1_59",
-      "l59_cp1_41",
+      "d1_4",
+      "l4_cp1_95",
       "l4_cp2_118",
-      "l4_cp1_139",
+      "l4_cp1_141",
       "l4_cp2_164",
-      "d1_59"
+      "d1_4"
     ],
-    "Cost": 1128.4934605136482,
+    "Cost": 1154.4,
     "Data": {
-      "total_dh_dist": 8.157577969857282,
-      "total_dh_time": 24.47273390957185,
-      "total_travel_dist": 83.4,
-      "total_travel_time": 236.0,
-      "total_wait_time": 16.767266083333332,
-      "final_time": "2025-09-07 16:02:14.400000",
+      "total_dh_dist": 0.0,
+      "total_dh_time": 0.0,
+      "total_travel_dist": 96.0,
+      "total_travel_time": 277.0,
+      "total_wait_time": 16.0,
+      "final_time": "2025-09-07 15:50:00",
       "total_charging_time": 0
     }
   },
-  "Route_40": {
+  "Route_34": {
     "Path": [
       "d1_4",
       "l4_cp1_111",
       "l4_cp2_134",
-      "l4_cp1_157",
-      "l60_cp2_70",
-      "l60_cp1_75",
-      "c2_60",
-      "l60_cp2_112",
-      "l60_cp1_119",
+      "l4_cp1_155",
+      "l60_cp2_68",
       "d1_4"
     ],
-    "Cost": 1458.3495586535046,
+    "Cost": 1161.7246768485045,
     "Data": {
-      "total_dh_dist": 6.477287721910654,
-      "total_dh_time": 19.43186316573196,
-      "total_travel_dist": 148.0,
-      "total_travel_time": 417.0,
-      "total_wait_time": 208.28813682951397,
-      "final_time": "2025-09-07 22:36:43.200000",
-      "total_charging_time": 172.49016884618064
-    }
-  },
-  "Route_41": {
-    "Path": [
-      "d2_60",
-      "l60_cp2_46",
-      "l60_cp1_51",
-      "l60_cp2_58",
-      "l59_cp1_57",
-      "l4_cp1_179",
-      "l59_cp2_74",
-      "c1_59",
-      "l60_cp1_111",
-      "l4_cp2_280",
-      "d2_60"
-    ],
-    "Cost": 1483.5128282555856,
-    "Data": {
-      "total_dh_dist": 14.104247555677551,
-      "total_dh_time": 42.31274266703265,
-      "total_travel_dist": 146.8,
-      "total_travel_time": 406.0,
-      "total_wait_time": 210.40725732400966,
-      "final_time": "2025-09-07 22:59:43.200000",
-      "total_charging_time": 165.81805734067635
-    }
-  },
-  "Route_42": {
-    "Path": [
-      "d2_4",
-      "l60_cp1_47",
-      "l4_cp1_141",
-      "d2_4"
-    ],
-    "Cost": 1016.5851484606479,
-    "Data": {
-      "total_dh_dist": 25.34116609562109,
-      "total_dh_time": 76.02349828686327,
-      "total_travel_dist": 43.0,
-      "total_travel_time": 119.0,
-      "total_wait_time": 6.496501716666667,
-      "final_time": "2025-09-07 14:40:00",
+      "total_dh_dist": 7.317287721910654,
+      "total_dh_time": 21.951863165731965,
+      "total_travel_dist": 91.0,
+      "total_travel_time": 263.0,
+      "total_wait_time": 8.288136833333333,
+      "final_time": "2025-09-07 16:45:14.400000",
       "total_charging_time": 0
     }
   },
-  "Route_43": {
+  "Route_35": {
+    "Path": [
+      "d1_59",
+      "l59_cp1_45",
+      "l59_cp2_48",
+      "l4_cp1_149",
+      "l59_cp2_62",
+      "l4_cp1_189",
+      "c2_4",
+      "l60_cp2_112",
+      "l60_cp1_119",
+      "d1_59"
+    ],
+    "Cost": 1456.2209549694294,
+    "Data": {
+      "total_dh_dist": 32.760346265506094,
+      "total_dh_time": 98.28103879651827,
+      "total_travel_dist": 120.19999999999999,
+      "total_travel_time": 335.0,
+      "total_wait_time": 200.51896117800888,
+      "final_time": "2025-09-07 22:46:48",
+      "total_charging_time": 160.55997132800888
+    }
+  },
+  "Route_36": {
     "Path": [
       "d2_60",
       "l60_cp2_48",
       "l59_cp1_51",
       "l59_cp2_52",
       "l4_cp1_165",
+      "l60_cp1_75",
+      "c2_60",
+      "l59_cp2_96",
+      "l4_cp1_283",
       "d2_60"
     ],
-    "Cost": 1158.233398770305,
+    "Cost": 1587.4856020877792,
     "Data": {
-      "total_dh_dist": 32.46274028686908,
-      "total_dh_time": 97.38822086060722,
-      "total_travel_dist": 65.8,
-      "total_travel_time": 183.0,
-      "total_wait_time": 13.731779133333333,
-      "final_time": "2025-09-07 17:07:07.200000",
-      "total_charging_time": 0
+      "total_dh_dist": 63.3399536550929,
+      "total_dh_time": 190.01986096527872,
+      "total_travel_dist": 120.2,
+      "total_travel_time": 329.0,
+      "total_wait_time": 195.10013901237588,
+      "final_time": "2025-09-08 00:07:07.200000",
+      "total_charging_time": 163.59467537904254
     }
   },
-  "Route_44": {
+  "Route_37": {
     "Path": [
       "d1_4",
       "l4_cp1_119",
@@ -1108,25 +948,44 @@
       "total_charging_time": 0
     }
   },
-  "Route_45": {
+  "Route_38": {
     "Path": [
       "d2_4",
       "l4_cp2_120",
       "l4_cp1_143",
+      "l4_cp2_166",
       "d2_4"
     ],
-    "Cost": 923.0,
+    "Cost": 1174.6399999999999,
     "Data": {
-      "total_dh_dist": 0.0,
-      "total_dh_time": 0.0,
-      "total_travel_dist": 48.0,
-      "total_travel_time": 135.0,
-      "total_wait_time": 10.0,
-      "final_time": "2025-09-07 14:48:00",
+      "total_dh_dist": 28.8,
+      "total_dh_time": 86.39999999999999,
+      "total_travel_dist": 72.0,
+      "total_travel_time": 205.0,
+      "total_wait_time": 12.0,
+      "final_time": "2025-09-07 17:26:24",
       "total_charging_time": 0
     }
   },
-  "Route_46": {
+  "Route_39": {
+    "Path": [
+      "d2_4",
+      "l60_cp1_49",
+      "l60_cp2_52",
+      "d2_4"
+    ],
+    "Cost": 1017.5640000000001,
+    "Data": {
+      "total_dh_dist": 31.68,
+      "total_dh_time": 95.04,
+      "total_travel_dist": 38.0,
+      "total_travel_time": 103.0,
+      "total_wait_time": 1.0,
+      "final_time": "2025-09-07 14:56:31.200000",
+      "total_charging_time": 0
+    }
+  },
+  "Route_40": {
     "Path": [
       "d1_4",
       "l4_cp1_121",
@@ -1134,153 +993,77 @@
       "l4_cp1_167",
       "l60_cp1_77",
       "c2_60",
-      "l60_cp2_114",
-      "l4_cp1_287",
+      "l4_cp2_268",
       "d1_4"
     ],
-    "Cost": 1607.5499900855157,
+    "Cost": 1365.5092681637152,
     "Data": {
-      "total_dh_dist": 53.00171498656573,
-      "total_dh_time": 159.0051449596972,
-      "total_travel_dist": 134.0,
-      "total_travel_time": 364.0,
-      "total_wait_time": 211.3948550315268,
-      "final_time": "2025-09-08 00:41:24",
+      "total_dh_dist": 18.016262421607312,
+      "total_dh_time": 54.04878726482193,
+      "total_travel_dist": 115.0,
+      "total_travel_time": 324.0,
+      "total_wait_time": 196.9512127315268,
+      "final_time": "2025-09-07 22:02:00",
       "total_charging_time": 160.3352005315268
     }
   },
-  "Route_47": {
-    "Path": [
-      "d2_4",
-      "l4_cp2_122",
-      "l59_cp2_54",
-      "l4_cp2_174",
-      "d2_4"
-    ],
-    "Cost": 1211.02656271531,
-    "Data": {
-      "total_dh_dist": 47.128356563606275,
-      "total_dh_time": 141.3850696908188,
-      "total_travel_dist": 59.4,
-      "total_travel_time": 171.0,
-      "total_wait_time": 16.0149303,
-      "final_time": "2025-09-07 17:57:24",
-      "total_charging_time": 0
-    }
-  },
-  "Route_48": {
-    "Path": [
-      "d1_4",
-      "l4_cp1_123",
-      "l4_cp2_146",
-      "d1_4"
-    ],
-    "Cost": 922.3,
-    "Data": {
-      "total_dh_dist": 0.0,
-      "total_dh_time": 0.0,
-      "total_travel_dist": 48.0,
-      "total_travel_time": 135.0,
-      "total_wait_time": 9.0,
-      "final_time": "2025-09-07 14:55:00",
-      "total_charging_time": 0
-    }
-  },
-  "Route_49": {
+  "Route_41": {
     "Path": [
       "d2_4",
       "l4_cp2_124",
       "l4_cp1_147",
-      "l59_cp2_62",
       "d2_4"
     ],
-    "Cost": 1076.3414605136484,
-    "Data": {
-      "total_dh_dist": 19.917577969857284,
-      "total_dh_time": 59.75273390957185,
-      "total_travel_dist": 59.4,
-      "total_travel_time": 169.0,
-      "total_wait_time": 14.767266083333332,
-      "final_time": "2025-09-07 16:37:31.200000",
-      "total_charging_time": 0
-    }
-  },
-  "Route_50": {
-    "Path": [
-      "d1_4",
-      "l4_cp1_125",
-      "l4_cp2_148",
-      "l4_cp1_171",
-      "d1_4"
-    ],
-    "Cost": 1181.54,
-    "Data": {
-      "total_dh_dist": 28.8,
-      "total_dh_time": 86.39999999999999,
-      "total_travel_dist": 72.0,
-      "total_travel_time": 208.0,
-      "total_wait_time": 15.0,
-      "final_time": "2025-09-07 17:47:24",
-      "total_charging_time": 0
-    }
-  },
-  "Route_51": {
-    "Path": [
-      "d1_59",
-      "l59_cp1_47",
-      "l60_cp2_56",
-      "l60_cp1_63",
-      "l60_cp2_68",
-      "d1_59"
-    ],
-    "Cost": 1052.2238456269588,
-    "Data": {
-      "total_dh_dist": 6.675498381658087,
-      "total_dh_time": 20.026495144974263,
-      "total_travel_dist": 68.4,
-      "total_travel_time": 194.0,
-      "total_wait_time": 13.97350485,
-      "final_time": "2025-09-07 16:33:00",
-      "total_charging_time": 0
-    }
-  },
-  "Route_52": {
-    "Path": [
-      "d1_4",
-      "l4_cp1_127",
-      "l4_cp2_150",
-      "d1_4"
-    ],
-    "Cost": 918.8,
+    "Cost": 921.6,
     "Data": {
       "total_dh_dist": 0.0,
       "total_dh_time": 0.0,
       "total_travel_dist": 48.0,
       "total_travel_time": 135.0,
-      "total_wait_time": 4.0,
-      "final_time": "2025-09-07 15:05:00",
+      "total_wait_time": 8.0,
+      "final_time": "2025-09-07 14:57:00",
       "total_charging_time": 0
     }
   },
-  "Route_53": {
+  "Route_42": {
     "Path": [
-      "d2_60",
-      "l60_cp2_50",
-      "l60_cp1_55",
-      "d2_60"
+      "d1_4",
+      "l4_cp1_125",
+      "l4_cp2_146",
+      "l59_cp2_60",
+      "d1_4"
     ],
-    "Cost": 865.5,
+    "Cost": 1010.0673310267662,
     "Data": {
-      "total_dh_dist": 0.0,
-      "total_dh_time": 0.0,
-      "total_travel_dist": 38.0,
-      "total_travel_time": 103.0,
-      "total_wait_time": 1.0,
-      "final_time": "2025-09-07 14:30:00",
+      "total_dh_dist": 7.629381863909613,
+      "total_dh_time": 22.888145591728836,
+      "total_travel_dist": 59.4,
+      "total_travel_time": 169.0,
+      "total_wait_time": 4.351854400000001,
+      "final_time": "2025-09-07 15:54:14.400000",
       "total_charging_time": 0
     }
   },
-  "Route_54": {
+  "Route_43": {
+    "Path": [
+      "d1_59",
+      "l59_cp1_47",
+      "l4_cp1_139",
+      "l60_cp2_64",
+      "d1_59"
+    ],
+    "Cost": 978.5240078752706,
+    "Data": {
+      "total_dh_dist": 6.786669585820267,
+      "total_dh_time": 20.3600087574608,
+      "total_travel_dist": 54.4,
+      "total_travel_time": 153.0,
+      "total_wait_time": 1.6399912333333335,
+      "final_time": "2025-09-07 15:40:00",
+      "total_charging_time": 0
+    }
+  },
+  "Route_44": {
     "Path": [
       "d2_4",
       "l4_cp2_128",
@@ -1298,97 +1081,121 @@
       "total_charging_time": 0
     }
   },
-  "Route_55": {
+  "Route_45": {
     "Path": [
       "d1_4",
       "l4_cp1_129",
-      "l4_cp2_152",
+      "l4_cp2_150",
       "d1_4"
     ],
-    "Cost": 924.1,
+    "Cost": 916.0,
     "Data": {
       "total_dh_dist": 0.0,
       "total_dh_time": 0.0,
       "total_travel_dist": 48.0,
-      "total_travel_time": 137.0,
-      "total_wait_time": 7.0,
-      "final_time": "2025-09-07 15:14:00",
+      "total_travel_time": 135.0,
+      "total_wait_time": 0.0,
+      "final_time": "2025-09-07 15:05:00",
       "total_charging_time": 0
     }
   },
-  "Route_56": {
+  "Route_46": {
     "Path": [
       "d2_4",
       "l4_cp2_130",
       "l4_cp1_153",
+      "l4_cp2_174",
       "d2_4"
     ],
-    "Cost": 923.4,
+    "Cost": 1179.8400000000001,
     "Data": {
-      "total_dh_dist": 0.0,
-      "total_dh_time": 0.0,
-      "total_travel_dist": 48.0,
-      "total_travel_time": 137.0,
-      "total_wait_time": 6.0,
-      "final_time": "2025-09-07 15:16:00",
+      "total_dh_dist": 28.8,
+      "total_dh_time": 86.39999999999999,
+      "total_travel_dist": 72.0,
+      "total_travel_time": 210.0,
+      "total_wait_time": 8.0,
+      "final_time": "2025-09-07 17:57:24",
       "total_charging_time": 0
     }
   },
-  "Route_57": {
+  "Route_47": {
     "Path": [
       "d1_4",
       "l4_cp1_131",
-      "l60_cp2_62",
+      "l4_cp2_152",
+      "l4_cp1_175",
+      "l60_cp1_81",
+      "c2_60",
+      "l4_cp2_272",
       "d1_4"
     ],
-    "Cost": 935.2246768485045,
+    "Cost": 1358.225268163715,
     "Data": {
-      "total_dh_dist": 7.317287721910654,
-      "total_dh_time": 21.951863165731965,
+      "total_dh_dist": 18.016262421607312,
+      "total_dh_time": 54.04878726482193,
+      "total_travel_dist": 115.0,
+      "total_travel_time": 330.0,
+      "total_wait_time": 175.95121273152677,
+      "final_time": "2025-09-07 22:15:00",
+      "total_charging_time": 163.45520053152677
+    }
+  },
+  "Route_48": {
+    "Path": [
+      "d2_4",
+      "l4_cp2_132",
+      "l60_cp1_63",
+      "d2_4"
+    ],
+    "Cost": 1054.133398770305,
+    "Data": {
+      "total_dh_dist": 32.46274028686908,
+      "total_dh_time": 97.38822086060722,
       "total_travel_dist": 43.0,
       "total_travel_time": 121.0,
-      "total_wait_time": 9.288136833333335,
-      "final_time": "2025-09-07 15:27:14.400000",
+      "total_wait_time": 6.731779133333333,
+      "final_time": "2025-09-07 16:43:07.200000",
       "total_charging_time": 0
     }
   },
-  "Route_58": {
+  "Route_49": {
     "Path": [
-      "d1_4",
-      "l4_cp1_133",
-      "l4_cp2_154",
-      "d1_4"
+      "d1_59",
+      "l59_cp1_49",
+      "l4_cp2_148",
+      "d1_59"
     ],
-    "Cost": 922.9,
+    "Cost": 904.3934605136483,
     "Data": {
-      "total_dh_dist": 0.0,
-      "total_dh_time": 0.0,
-      "total_travel_dist": 48.0,
-      "total_travel_time": 138.0,
-      "total_wait_time": 3.0,
-      "final_time": "2025-09-07 15:24:00",
+      "total_dh_dist": 8.157577969857282,
+      "total_dh_time": 24.47273390957185,
+      "total_travel_dist": 35.4,
+      "total_travel_time": 99.0,
+      "total_wait_time": 9.767266083333334,
+      "final_time": "2025-09-07 15:12:14.400000",
       "total_charging_time": 0
     }
   },
-  "Route_59": {
+  "Route_50": {
     "Path": [
       "d2_4",
       "l59_cp2_50",
-      "l4_cp2_158",
+      "l59_cp1_53",
+      "l4_cp1_161",
       "d2_4"
     ],
-    "Cost": 1101.815231688544,
+    "Cost": 965.3553310267662,
     "Data": {
-      "total_dh_dist": 49.21897469969666,
-      "total_dh_time": 147.65692409908996,
-      "total_travel_dist": 35.4,
-      "total_travel_time": 101.0,
-      "total_wait_time": 5.6630759,
-      "final_time": "2025-09-07 17:01:24",
+      "total_dh_dist": 9.189381863909613,
+      "total_dh_time": 27.568145591728836,
+      "total_travel_dist": 46.8,
+      "total_travel_time": 132.0,
+      "total_wait_time": 14.3518544,
+      "final_time": "2025-09-07 15:41:00",
       "total_charging_time": 0
     }
   },
-  "Route_60": {
+  "Route_51": {
     "Path": [
       "d1_4",
       "l4_cp1_135",
@@ -1406,7 +1213,43 @@
       "total_charging_time": 0
     }
   },
-  "Route_61": {
+  "Route_52": {
+    "Path": [
+      "d2_4",
+      "l60_cp1_53",
+      "l60_cp2_62",
+      "d2_4"
+    ],
+    "Cost": 1028.664,
+    "Data": {
+      "total_dh_dist": 31.68,
+      "total_dh_time": 95.04,
+      "total_travel_dist": 38.0,
+      "total_travel_time": 106.0,
+      "total_wait_time": 10.0,
+      "final_time": "2025-09-07 16:02:31.200000",
+      "total_charging_time": 0
+    }
+  },
+  "Route_53": {
+    "Path": [
+      "d1_4",
+      "l4_cp1_137",
+      "l4_cp2_162",
+      "d1_4"
+    ],
+    "Cost": 922.9,
+    "Data": {
+      "total_dh_dist": 0.0,
+      "total_dh_time": 0.0,
+      "total_travel_dist": 48.0,
+      "total_travel_time": 138.0,
+      "total_wait_time": 3.0,
+      "final_time": "2025-09-07 15:43:00",
+      "total_charging_time": 0
+    }
+  },
+  "Route_54": {
     "Path": [
       "d2_4",
       "l4_cp2_138",
@@ -1424,62 +1267,82 @@
       "total_charging_time": 0
     }
   },
-  "Route_62": {
+  "Route_55": {
+    "Path": [
+      "d1_4",
+      "l60_cp2_56",
+      "l4_cp2_176",
+      "l4_cp1_197",
+      "l59_cp1_83",
+      "c2_59",
+      "l4_cp2_290",
+      "d1_4"
+    ],
+    "Cost": 1393.1485631440696,
+    "Data": {
+      "total_dh_dist": 36.87552736925059,
+      "total_dh_time": 110.62658210775179,
+      "total_travel_dist": 102.4,
+      "total_travel_time": 291.0,
+      "total_wait_time": 196.09341787972025,
+      "final_time": "2025-09-07 23:29:00",
+      "total_charging_time": 173.8848010630536
+    }
+  },
+  "Route_56": {
     "Path": [
       "d2_4",
-      "l60_cp1_57",
-      "l60_cp2_64",
+      "l60_cp1_59",
       "d2_4"
     ],
-    "Cost": 1027.2640000000001,
+    "Cost": 969.8240000000001,
     "Data": {
-      "total_dh_dist": 31.68,
-      "total_dh_time": 95.04,
-      "total_travel_dist": 38.0,
-      "total_travel_time": 106.0,
-      "total_wait_time": 8.0,
-      "final_time": "2025-09-07 16:27:31.200000",
+      "total_dh_dist": 38.879999999999995,
+      "total_dh_time": 116.63999999999999,
+      "total_travel_dist": 19.0,
+      "total_travel_time": 52.0,
+      "total_wait_time": 0,
+      "final_time": "2025-09-07 15:56:07.200000",
       "total_charging_time": 0
     }
   },
-  "Route_63": {
+  "Route_57": {
     "Path": [
       "d1_4",
       "l60_cp2_60",
-      "l59_cp1_59",
+      "l60_cp1_65",
       "d1_4"
     ],
-    "Cost": 932.1,
+    "Cost": 904.604,
     "Data": {
-      "total_dh_dist": 18.0,
-      "total_dh_time": 54.0,
-      "total_travel_dist": 30.4,
-      "total_travel_time": 88.0,
-      "total_wait_time": 7.0,
-      "final_time": "2025-09-07 16:21:16.800000",
+      "total_dh_dist": 6.48,
+      "total_dh_time": 19.44,
+      "total_travel_dist": 38.0,
+      "total_travel_time": 108.0,
+      "total_wait_time": 1.0,
+      "final_time": "2025-09-07 16:00:43.200000",
       "total_charging_time": 0
     }
   },
-  "Route_64": {
+  "Route_58": {
     "Path": [
       "d1_4",
-      "l4_cp1_161",
-      "l4_cp2_180",
-      "l60_cp1_83",
+      "l4_cp1_157",
+      "l60_cp2_70",
       "d1_4"
     ],
-    "Cost": 1094.4933987703048,
+    "Cost": 940.6246768485046,
     "Data": {
-      "total_dh_dist": 12.662740286869079,
-      "total_dh_time": 37.988220860607235,
-      "total_travel_dist": 67.0,
-      "total_travel_time": 203.0,
-      "total_wait_time": 12.731779133333333,
-      "final_time": "2025-09-07 18:44:43.200000",
+      "total_dh_dist": 7.317287721910654,
+      "total_dh_time": 21.951863165731965,
+      "total_travel_dist": 43.0,
+      "total_travel_time": 127.0,
+      "total_wait_time": 3.288136833333333,
+      "final_time": "2025-09-07 16:55:14.400000",
       "total_charging_time": 0
     }
   },
-  "Route_65": {
+  "Route_59": {
     "Path": [
       "d2_4",
       "l59_cp2_56",
@@ -1497,256 +1360,492 @@
       "total_charging_time": 0
     }
   },
-  "Route_66": {
+  "Route_60": {
     "Path": [
       "d2_4",
-      "l4_cp2_202",
-      "l4_cp1_225",
+      "l4_cp2_196",
+      "l59_cp1_81",
       "d2_4"
     ],
-    "Cost": 945.5,
+    "Cost": 953.2133987703049,
+    "Data": {
+      "total_dh_dist": 15.06274028686908,
+      "total_dh_time": 45.18822086060723,
+      "total_travel_dist": 35.4,
+      "total_travel_time": 111.0,
+      "total_wait_time": 4.731779133333333,
+      "final_time": "2025-09-07 19:25:55.200000",
+      "total_charging_time": 0
+    }
+  },
+  "Route_61": {
+    "Path": [
+      "d1_59",
+      "l59_cp1_79",
+      "l59_cp2_82",
+      "l4_cp2_254",
+      "l4_cp1_271",
+      "l4_cp2_286",
+      "d1_59"
+    ],
+    "Cost": 1198.887231688544,
+    "Data": {
+      "total_dh_dist": 18.858974699696656,
+      "total_dh_time": 56.57692409908997,
+      "total_travel_dist": 94.8,
+      "total_travel_time": 251.0,
+      "total_wait_time": 9.663075899999999,
+      "final_time": "2025-09-07 23:24:14.400000",
+      "total_charging_time": 0
+    }
+  },
+  "Route_62": {
+    "Path": [
+      "d2_4",
+      "l4_cp2_224",
+      "l59_cp2_86",
+      "l59_cp1_91",
+      "l4_cp1_273",
+      "l4_cp2_288",
+      "d2_4"
+    ],
+    "Cost": 1293.9066620535323,
+    "Data": {
+      "total_dh_dist": 35.89876372781923,
+      "total_dh_time": 107.69629118345767,
+      "total_travel_dist": 94.8,
+      "total_travel_time": 254.0,
+      "total_wait_time": 21.7037088,
+      "final_time": "2025-09-08 00:45:24",
+      "total_charging_time": 0
+    }
+  },
+  "Route_63": {
+    "Path": [
+      "d2_4",
+      "l59_cp2_80",
+      "l60_cp1_93",
+      "l60_cp2_104",
+      "l4_cp1_275",
+      "d2_4"
+    ],
+    "Cost": 1102.613398770305,
+    "Data": {
+      "total_dh_dist": 15.06274028686908,
+      "total_dh_time": 45.18822086060723,
+      "total_travel_dist": 73.4,
+      "total_travel_time": 200.0,
+      "total_wait_time": 14.731779133333333,
+      "final_time": "2025-09-07 22:31:00",
+      "total_charging_time": 0
+    }
+  },
+  "Route_64": {
+    "Path": [
+      "d1_4",
+      "l60_cp2_102",
+      "l59_cp1_93",
+      "l4_cp2_276",
+      "d1_4"
+    ],
+    "Cost": 960.3614605136482,
+    "Data": {
+      "total_dh_dist": 7.317577969857283,
+      "total_dh_time": 21.95273390957185,
+      "total_travel_dist": 54.4,
+      "total_travel_time": 140.0,
+      "total_wait_time": 1.7672660833333333,
+      "final_time": "2025-09-07 22:34:00",
+      "total_charging_time": 0
+    }
+  },
+  "Route_65": {
+    "Path": [
+      "d1_4",
+      "l4_cp1_261",
+      "l4_cp2_280",
+      "d1_4"
+    ],
+    "Cost": 905.8,
     "Data": {
       "total_dh_dist": 0.0,
       "total_dh_time": 0.0,
       "total_travel_dist": 48.0,
-      "total_travel_time": 153.0,
-      "total_wait_time": 1.0,
-      "final_time": "2025-09-07 19:40:00",
+      "total_travel_time": 126.0,
+      "total_wait_time": 6.0,
+      "final_time": "2025-09-07 22:50:00",
+      "total_charging_time": 0
+    }
+  },
+  "Route_66": {
+    "Path": [
+      "d1_59",
+      "l59_cp1_97",
+      "l59_cp2_98",
+      "d1_59"
+    ],
+    "Cost": 789.9,
+    "Data": {
+      "total_dh_dist": 0.0,
+      "total_dh_time": 0.0,
+      "total_travel_dist": 22.8,
+      "total_travel_time": 54.0,
+      "total_wait_time": 5.0,
+      "final_time": "2025-09-07 22:07:00",
       "total_charging_time": 0
     }
   },
   "Route_67": {
     "Path": [
-      "d2_4",
-      "l4_cp2_204",
-      "l4_cp1_229",
-      "l4_cp2_250",
-      "l4_cp1_271",
-      "l4_cp2_286",
-      "d2_4"
+      "d1_59",
+      "l4_cp1_105",
+      "l4_cp2_126",
+      "l4_cp1_181",
+      "c2_59",
+      "l4_cp1_263",
+      "l4_cp2_282",
+      "d1_59"
     ],
-    "Cost": 1393.24,
+    "Cost": 1577.46176,
     "Data": {
-      "total_dh_dist": 28.8,
-      "total_dh_time": 86.39999999999999,
+      "total_dh_dist": 24.479999999999997,
+      "total_dh_time": 73.44,
       "total_travel_dist": 120.0,
-      "total_travel_time": 339.0,
-      "total_wait_time": 18.0,
-      "final_time": "2025-09-08 00:38:24",
-      "total_charging_time": 0
+      "total_travel_time": 334.0,
+      "total_wait_time": 160.31679999999983,
+      "final_time": "2025-09-07 22:56:00",
+      "total_charge_time": 127.48320000000002
     }
   },
   "Route_68": {
     "Path": [
-      "d1_4",
-      "l4_cp1_215",
-      "l60_cp2_96",
-      "l60_cp1_107",
-      "l4_cp2_274",
-      "l4_cp1_289",
-      "d1_4"
+      "d1_59",
+      "l59_cp1_15",
+      "d1_59"
     ],
-    "Cost": 1354.721353697009,
+    "Cost": 765.6,
     "Data": {
-      "total_dh_dist": 35.27457544382131,
-      "total_dh_time": 105.82372633146392,
-      "total_travel_dist": 110.0,
-      "total_travel_time": 297.0,
-      "total_wait_time": 14.576273666666665,
-      "final_time": "2025-09-08 00:49:24",
-      "total_charging_time": 0
+      "total_dh_dist": 0.0,
+      "total_dh_time": 0.0,
+      "total_travel_dist": 11.4,
+      "total_travel_time": 41.0,
+      "total_wait_time": 0.0,
+      "final_time": "2025-09-07 08:18:00",
+      "total_charge_time": 0.0
     }
   },
   "Route_69": {
     "Path": [
       "d1_59",
-      "l59_cp1_89",
-      "l4_cp1_267",
-      "l4_cp2_284",
+      "l4_cp1_51",
+      "l4_cp2_264",
+      "l4_cp1_285",
       "d1_59"
     ],
-    "Cost": 984.7673310267662,
+    "Cost": 1533.868,
     "Data": {
-      "total_dh_dist": 7.629381863909613,
-      "total_dh_time": 22.888145591728836,
-      "total_travel_dist": 59.4,
-      "total_travel_time": 151.0,
-      "total_wait_time": 9.3518544,
-      "final_time": "2025-09-07 23:16:14.400000",
-      "total_charging_time": 0
+      "total_dh_dist": 4.08,
+      "total_dh_time": 12.24,
+      "total_travel_dist": 72.0,
+      "total_travel_time": 204.0,
+      "total_wait_time": 669.0,
+      "final_time": "2025-09-07 23:08:00",
+      "total_charge_time": 0.0
     }
   },
   "Route_70": {
     "Path": [
-      "d1_4",
-      "l4_cp1_273",
-      "l4_cp2_288",
-      "d1_4"
+      "d2_4",
+      "l4_cp2_14",
+      "d2_4"
     ],
-    "Cost": 887.5,
+    "Cost": 831.2,
     "Data": {
       "total_dh_dist": 0.0,
       "total_dh_time": 0.0,
-      "total_travel_dist": 48.0,
-      "total_travel_time": 115.0,
-      "total_wait_time": 5.0,
-      "final_time": "2025-09-07 23:19:00",
-      "total_charging_time": 0
+      "total_travel_dist": 24.0,
+      "total_travel_time": 82.0,
+      "total_wait_time": 0.0,
+      "final_time": "2025-09-07 07:50:00",
+      "total_charge_time": 0.0
     }
   },
   "Route_71": {
     "Path": [
-      "d1_4",
-      "l4_cp1_1",
-      "l4_cp2_30",
-      "l4_cp1_93",
-      "c2_4",
-      "l4_cp2_160",
-      "l4_cp1_203",
-      "l59_cp2_82",
-      "l59_cp1_85",
-      "l59_cp2_90",
-      "l60_cp1_113",
-      "d1_4"
+      "d2_59",
+      "l4_cp2_6",
+      "l59_cp1_21",
+      "l59_cp2_30",
+      "l60_cp1_35",
+      "l4_cp2_108",
+      "c2_60",
+      "l4_cp1_191",
+      "l4_cp2_214",
+      "l4_cp1_255",
+      "d2_59"
     ],
-    "Cost": 1833.1694605186146,
+    "Cost": 1852.3147650381177,
     "Data": {
-      "total_dh_dist": 4.077577969857283,
-      "total_dh_time": 12.23273390957185,
-      "total_travel_dist": 173.20000000000002,
-      "total_travel_time": 530.0,
-      "total_wait_time": 301.44726609042823,
-      "final_time": "2025-09-07 21:45:00",
-      "total_charge_time": 112.32
+      "total_dh_dist": 24.780028008779738,
+      "total_dh_time": 74.3400840263392,
+      "total_travel_dist": 161.8,
+      "total_travel_time": 501.0,
+      "total_wait_time": 179.88947227996437,
+      "final_time": "2025-09-07 21:15:00",
+      "total_charge_time": 173.69044369369638
     }
   },
   "Route_72": {
     "Path": [
       "d2_59",
-      "l4_cp1_21",
-      "l59_cp2_94",
-      "l59_cp1_99",
+      "l4_cp2_24",
+      "l4_cp1_49",
       "d2_59"
     ],
-    "Cost": 1613.1214605186146,
+    "Cost": 1068.3200000000002,
     "Data": {
-      "total_dh_dist": 18.837577969857282,
-      "total_dh_time": 56.51273390957185,
-      "total_travel_dist": 46.8,
-      "total_travel_time": 139.0,
-      "total_wait_time": 763.7672660904282,
-      "final_time": "2025-09-07 22:10:00",
+      "total_dh_dist": 5.64,
+      "total_dh_time": 16.919999999999998,
+      "total_travel_dist": 48.0,
+      "total_travel_time": 169.0,
+      "total_wait_time": 0.0,
+      "final_time": "2025-09-07 09:51:00",
       "total_charge_time": 0.0
     }
   },
   "Route_73": {
     "Path": [
-      "d1_4",
-      "l4_cp1_249",
-      "l4_cp2_268",
-      "l4_cp1_285",
-      "d1_4"
+      "d1_59",
+      "l4_cp1_3",
+      "l4_cp2_32",
+      "l59_cp1_35",
+      "l59_cp2_42",
+      "c2_60",
+      "l60_cp2_66",
+      "l59_cp1_65",
+      "l4_cp2_202",
+      "l4_cp1_227",
+      "l59_cp2_88",
+      "l60_cp1_111",
+      "d1_59"
     ],
-    "Cost": 1006.0,
+    "Cost": 1873.9985274185149,
     "Data": {
-      "total_dh_dist": 0.0,
-      "total_dh_time": 0.0,
-      "total_travel_dist": 72.0,
-      "total_travel_time": 186.0,
-      "total_wait_time": 12.0,
-      "final_time": "2025-09-07 23:08:00",
-      "total_charge_time": 0.0
+      "total_dh_dist": 28.257896226583647,
+      "total_dh_time": 84.77368867975093,
+      "total_travel_dist": 179.6,
+      "total_travel_time": 552.0,
+      "total_wait_time": 171.65803647273333,
+      "final_time": "2025-09-07 21:35:00",
+      "total_charge_time": 141.80827484751575
     }
   },
   "Route_74": {
     "Path": [
-      "d2_59",
-      "l4_cp2_14",
-      "l4_cp1_51",
+      "d1_4",
+      "l59_cp2_12",
       "l4_cp2_80",
-      "l4_cp1_103",
-      "c1_59",
-      "l4_cp1_199",
-      "l59_cp2_80",
-      "l4_cp1_251",
-      "l4_cp2_270",
-      "d2_59"
+      "l4_cp1_113",
+      "c2_4",
+      "l59_cp2_68",
+      "l59_cp1_75",
+      "l4_cp1_223",
+      "l4_cp2_248",
+      "l4_cp1_269",
+      "d1_4"
     ],
-    "Cost": 1902.1625392931612,
+    "Cost": 1799.5412023496683,
     "Data": {
-      "total_dh_dist": 39.540318256726366,
-      "total_dh_time": 118.62095477017908,
-      "total_travel_dist": 179.4,
-      "total_travel_time": 547.0,
-      "total_wait_time": 107.28144522982086,
-      "final_time": "2025-09-07 22:08:00",
-      "total_charge_time": 184.01760000000002
+      "total_dh_dist": 38.72835656360627,
+      "total_dh_time": 116.1850696908188,
+      "total_travel_dist": 154.2,
+      "total_travel_time": 458.0,
+      "total_wait_time": 208.3501297776545,
+      "final_time": "2025-09-07 22:06:00",
+      "total_charge_time": 138.74480053152678
     }
   },
   "Route_75": {
     "Path": [
-      "d2_4",
-      "l59_cp1_67",
-      "l4_cp1_205",
-      "l60_cp2_102",
-      "l59_cp1_97",
-      "l60_cp2_120",
-      "d2_4"
+      "d2_60",
+      "l59_cp1_1",
+      "l59_cp2_10",
+      "l59_cp1_19",
+      "l4_cp1_59",
+      "l59_cp2_38",
+      "l4_cp1_159",
+      "d2_60"
     ],
-    "Cost": 1399.1718535121918,
+    "Cost": 1469.866190325717,
     "Data": {
-      "total_dh_dist": 29.302167967478354,
-      "total_dh_time": 87.90650390243508,
-      "total_travel_dist": 84.8,
-      "total_travel_time": 232.0,
-      "total_wait_time": 109.61349609756508,
-      "final_time": "2025-09-07 22:43:00",
+      "total_dh_dist": 23.649700120635973,
+      "total_dh_time": 70.94910036190792,
+      "total_travel_dist": 93.60000000000001,
+      "total_travel_time": 303.0,
+      "total_wait_time": 222.85089963809207,
+      "final_time": "2025-09-07 15:37:00",
       "total_charge_time": 0.0
     }
   },
   "Route_76": {
     "Path": [
-      "d1_4",
-      "l4_cp1_41",
-      "l60_cp2_44",
-      "l4_cp2_182",
-      "l4_cp1_223",
-      "c2_4",
-      "l4_cp2_290",
-      "d1_4"
+      "d2_59",
+      "l59_cp1_31",
+      "l4_cp1_101",
+      "l4_cp2_144",
+      "l4_cp1_179",
+      "d2_59"
     ],
-    "Cost": 1765.1381499739446,
+    "Cost": 1375.295331032556,
     "Data": {
-      "total_dh_dist": 18.016262421607312,
-      "total_dh_time": 54.04878726482193,
-      "total_travel_dist": 115.0,
-      "total_travel_time": 342.0,
-      "total_wait_time": 368.88584335747066,
-      "final_time": "2025-09-07 23:29:00",
-      "total_charge_time": 170.06536937770738
+      "total_dh_dist": 17.229381863909612,
+      "total_dh_time": 51.68814559172884,
+      "total_travel_dist": 83.4,
+      "total_travel_time": 245.0,
+      "total_wait_time": 185.35185440827115,
+      "final_time": "2025-09-07 16:54:00",
+      "total_charge_time": 0.0
     }
   },
   "Route_77": {
     "Path": [
-      "d1_4",
-      "l4_cp1_17",
-      "l4_cp2_82",
-      "l59_cp2_60",
-      "l60_cp2_74",
+      "d2_60",
+      "l60_cp2_2",
+      "l60_cp1_11",
+      "d2_60"
+    ],
+    "Cost": 949.1800000000001,
+    "Data": {
+      "total_dh_dist": 0.0,
+      "total_dh_time": 0.0,
+      "total_travel_dist": 38.0,
+      "total_travel_time": 132.0,
+      "total_wait_time": 9.0,
+      "final_time": "2025-09-07 08:28:00",
+      "total_charge_time": 0.0
+    }
+  },
+  "Route_78": {
+    "Path": [
+      "d2_59",
+      "l59_cp2_26",
+      "l60_cp1_43",
+      "l4_cp2_136",
+      "l59_cp2_70",
+      "l60_cp1_87",
       "c1_4",
-      "l59_cp1_93",
-      "l4_cp2_276",
+      "l4_cp1_283",
+      "d2_59"
+    ],
+    "Cost": 1608.369284693999,
+    "Data": {
+      "total_dh_dist": 10.026669585820267,
+      "total_dh_time": 30.080008757460803,
+      "total_travel_dist": 108.8,
+      "total_travel_time": 314.0,
+      "total_wait_time": 359.99038668865944,
+      "final_time": "2025-09-07 22:58:00",
+      "total_charge_time": 147.9296045538796
+    }
+  },
+  "Route_79": {
+    "Path": [
+      "d1_4",
+      "l4_cp1_99",
+      "l4_cp2_180",
+      "l59_cp2_78",
+      "l60_cp1_99",
+      "l4_cp1_279",
       "d1_4"
     ],
-    "Cost": 1823.6178599788605,
+    "Cost": 1482.236479490733,
     "Data": {
-      "total_dh_dist": 33.509070171502735,
-      "total_dh_time": 100.5272105145082,
-      "total_travel_dist": 113.80000000000001,
-      "total_travel_time": 337.0,
-      "total_wait_time": 357.62046165092477,
-      "final_time": "2025-09-07 22:34:00",
-      "total_charge_time": 161.85232783456692
+      "total_dh_dist": 13.050547959530702,
+      "total_dh_time": 39.15164387859211,
+      "total_travel_dist": 102.4,
+      "total_travel_time": 291.0,
+      "total_wait_time": 362.84835612140796,
+      "final_time": "2025-09-07 22:44:00",
+      "total_charge_time": 0.0
+    }
+  },
+  "Route_80": {
+    "Path": [
+      "d2_60",
+      "l60_cp2_6",
+      "l4_cp1_71",
+      "l60_cp2_44",
+      "l59_cp1_51",
+      "l59_cp1_57",
+      "d2_60"
+    ],
+    "Cost": 1384.9420756237053,
+    "Data": {
+      "total_dh_dist": 24.06002800877973,
+      "total_dh_time": 72.1800840263392,
+      "total_travel_dist": 84.80000000000001,
+      "total_travel_time": 257.0,
+      "total_wait_time": 180.81991597366073,
+      "final_time": "2025-09-07 15:26:00",
+      "total_charge_time": 0.0
+    }
+  },
+  "Route_81": {
+    "Path": [
+      "d1_59",
+      "l4_cp1_97",
+      "l4_cp2_208",
+      "l60_cp1_103",
+      "l4_cp2_278",
+      "d1_59"
+    ],
+    "Cost": 1548.1020756237053,
+    "Data": {
+      "total_dh_dist": 16.740028008779735,
+      "total_dh_time": 50.2200840263392,
+      "total_travel_dist": 91.0,
+      "total_travel_time": 255.0,
+      "total_wait_time": 402.0199159736608,
+      "final_time": "2025-09-07 22:41:00",
+      "total_charge_time": 0.0
+    }
+  },
+  "Route_82": {
+    "Path": [
+      "d1_59",
+      "l60_cp1_1",
+      "l60_cp2_10",
+      "l59_cp1_23",
+      "l4_cp2_72",
+      "d1_59"
+    ],
+    "Cost": 1225.5454605186146,
+    "Data": {
+      "total_dh_dist": 4.077577969857283,
+      "total_dh_time": 12.23273390957185,
+      "total_travel_dist": 73.4,
+      "total_travel_time": 249.0,
+      "total_wait_time": 41.767266090428166,
+      "final_time": "2025-09-07 11:03:00",
+      "total_charge_time": 0.0
+    }
+  },
+  "Route_83": {
+    "Path": [
+      "d1_59",
+      "l60_cp1_9",
+      "l4_cp1_55",
+      "d1_59"
+    ],
+    "Cost": 1007.1371484581769,
+    "Data": {
+      "total_dh_dist": 9.50116609562109,
+      "total_dh_time": 28.50349828686327,
+      "total_travel_dist": 43.0,
+      "total_travel_time": 151.0,
+      "total_wait_time": 0.4965017131366949,
+      "final_time": "2025-09-07 10:11:00",
+      "total_charge_time": 0.0
     }
   }
 }

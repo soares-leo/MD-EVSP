@@ -1,10 +1,10 @@
-from initializer.generator_v2 import SolutionGenerator
+from initializer.generator_v3 import SolutionGenerator
 from initializer.inputs import *
 from ..utils import initialize_data, build_connection_network
 from framework_v7 import generate_columns
 from .parameters import _1_CG_GA_PARAMS as params # This one can stay as is
 import pandas as pd
-from genetic_algorithm.genetic_algorithm_standard_v2 import run_ga
+from genetic_algorithm.genetic_algorithm_standard_v3 import run_ga
 import json
 
 
@@ -82,7 +82,7 @@ def run_cg_ga(i):
     
 
 if __name__ == "__main__":
-    for tmax in [10]:#, 15, 20, 30, 60*8]:
+    for tmax in [15]:#, 15, 20, 30, 60*8]:
         
         params["solution_generator"]["tmax"] = tmax
 

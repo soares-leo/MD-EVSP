@@ -81,7 +81,7 @@ def run_spfa(graph, source_node, D, T_d, dh_df, duals, last_route_number=None, f
         graph = graph.subgraph(valid_nodes)
     
     # ========== OTIMIZAÇÕES DE CACHE ==========
-    print("Building caches...")
+    #print("Building caches...")
     cache_start = time.time()
     
     # Cache de atributos dos nós com conversão de datetime para minutos
@@ -121,7 +121,7 @@ def run_spfa(graph, source_node, D, T_d, dh_df, duals, last_route_number=None, f
     trip_nodes = {n for n, d in node_attrs.items() if d.get('type') == 'T'}
     
     cache_time = time.time() - cache_start
-    print(f"Cache building completed in {cache_time:.2f} seconds")
+    #print(f"Cache building completed in {cache_time:.2f} seconds")
     
     # ========== INICIALIZAÇÃO ==========
     # Rótulo inicial
@@ -137,7 +137,7 @@ def run_spfa(graph, source_node, D, T_d, dh_df, duals, last_route_number=None, f
     queue = deque([start])
     queue_set = {start}  # Set auxiliar para consulta O(1)
     
-    print(f"Finding shortest paths for source {source_node}...")
+    #print(f"Finding shortest paths for source {source_node}...")
     spfa_start = time.time()
     
     iterations = 0
@@ -268,21 +268,21 @@ def run_spfa(graph, source_node, D, T_d, dh_df, duals, last_route_number=None, f
                         queue.append(travel_label)
                         queue_set.add(travel_label)
     
-    print(f"Shortest paths finding process is done. Total iterations: {iterations}")
+    #print(f"Shortest paths finding process is done. Total iterations: {iterations}")
     spfa_runtime = time.time() - spfa_start
-    print(f"Time spent finding paths: {spfa_runtime:.2f} seconds.")
+    #print(f"Time spent finding paths: {spfa_runtime:.2f} seconds.")
     
     # ========== CORREÇÃO DE RÓTULOS ==========
-    print("Label correcting process started...")
+    #print("Label correcting process started...")
     label_corr_start = time.time()
     
     trip_routes = _build_trip_routes_optimized(
         trip_nodes, best_labels, graph, edge_cache, duals, reference_date
     )
     
-    print("Label correcting process is done.")
+    #print("Label correcting process is done.")
     label_corr_runtime = time.time() - label_corr_start
-    print(f"Time spent correcting labels: {label_corr_runtime:.2f} seconds.")
+    #print(f"Time spent correcting labels: {label_corr_runtime:.2f} seconds.")
     
     return trip_routes
 

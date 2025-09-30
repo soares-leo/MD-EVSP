@@ -126,8 +126,8 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
         print(f"  Objective value: {current_cost:.2f}")
         
         # Save RMP model
-        with open(f"{exp_dir}/RMP_iteration_{it:03d}.txt", "w") as f:
-            f.write(model.__str__())
+        # with open(f"{exp_dir}/RMP_iteration_{it:03d}.txt", "w") as f:
+        #     f.write(model.__str__())
         
         # Check convergence
         last_z = z_values[-1] if z_values else current_cost
@@ -158,13 +158,15 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
         
         all_labels = {}
         spfa_start = time.time()
-        
+
+        print("\n► Running SPFA with multiprocessing...")
+
         if use_multiprocessing and len(source_nodes) > 1:
-            print("\n► Running SPFA with multiprocessing...")
+            #print("\n► Running SPFA with multiprocessing...")
             
             # Determine number of processes to use (min of CPU count and number of depots)
             num_processes = min(cpu_count(), len(source_nodes))
-            print(f"  Using {num_processes} processes for {len(source_nodes)} source nodes")
+            #print(f"  Using {num_processes} processes for {len(source_nodes)} source nodes")
             
             try:
                 # Prepare arguments for multiprocessing
@@ -184,8 +186,8 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                 # Process results and reconstruct all_labels dictionary
                 for source_node, labels, exec_time in results:
                     all_labels[source_node] = labels
-                    if exec_time > 0:
-                        print(f"  Source {source_node}: {exec_time:.2f}s")
+                    # if exec_time > 0:
+                    #     print(f"  Source {source_node}: {exec_time:.2f}s")
                     
             except Exception as e:
                 print(f"  ⚠️ Multiprocessing failed: {e}")
@@ -197,7 +199,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
             print("\n► Running SPFA (sequential)...")
             
             for i, t in enumerate(source_nodes):
-                print(f"  Source {t} ({i+1}/{len(source_nodes)})...", end="")
+                #print(f"  Source {t} ({i+1}/{len(source_nodes)})...", end="")
                 node_start = time.time()
                 
                 all_labels[t] = run_spfa(
@@ -210,7 +212,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                 )
                 
                 node_time = time.time() - node_start
-                print(f" {node_time:.2f}s")
+                #print(f" {node_time:.2f}s")
         
         spfa_time = time.time() - spfa_start
         spfa_times.append(spfa_time)
@@ -245,7 +247,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
         
         # Add new columns
         new_columns_added = 0
-        print(f"\n  Top {k} columns with negative reduced cost:")
+        #print(f"\n  Top {k} columns with negative reduced cost:")
 
         for i, info in enumerate(topk, start=last_route_number+1):
             if info["ReducedCost"] >= 0:
@@ -265,7 +267,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                 path_str = " → ".join(info['Path'][:5])
                 if len(info['Path']) > 5:
                     path_str += f" ... ({len(info['Path'])} nodes)"
-                print(f"    {new_key}: RC={info['ReducedCost']:.2f}, Path={path_str}")
+                #print(f"    {new_key}: RC={info['ReducedCost']:.2f}, Path={path_str}")
         
         print(f"  Added {new_columns_added} new columns")
         
@@ -452,20 +454,20 @@ def main(tmax_values_per_set=None,
             initial_solution_gen_times.append(init_gen_time)
         
         # Save experiment set info
-        with open(f"experiments/{exp_set_id}/experiment_info.txt", "w") as f:
-            f.write(f"Experiment Set: {exp_set_id}\n")
-            f.write(f"Set Number: {set_number}/{num_experiment_sets}\n")
-            f.write(f"Instance: {instance_name}\n")
-            f.write(f"Instance Path: {instance_path_for_set}\n")
-            f.write(f"Instance Generation Time: {gen_time:.2f}s\n")
-            f.write(f"Graph Build Time: {graph_build_time:.2f}s\n")
-            f.write(f"K Values: {k_values_per_set}\n")
-            f.write(f"Tmax Values: {tmax_values_per_set}\n")
-            f.write(f"Filter Graph: {filter_graph}\n")
-            f.write(f"Z_min: {z_min}\n")
-            f.write(f"Max Iterations: {max_iter}\n")
-            f.write(f"Timestamp: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"\nNotes:\n{exp_note}\n")
+        # with open(f"experiments/{exp_set_id}/experiment_info.txt", "w") as f:
+        #     f.write(f"Experiment Set: {exp_set_id}\n")
+        #     f.write(f"Set Number: {set_number}/{num_experiment_sets}\n")
+        #     f.write(f"Instance: {instance_name}\n")
+        #     f.write(f"Instance Path: {instance_path_for_set}\n")
+        #     f.write(f"Instance Generation Time: {gen_time:.2f}s\n")
+        #     f.write(f"Graph Build Time: {graph_build_time:.2f}s\n")
+        #     f.write(f"K Values: {k_values_per_set}\n")
+        #     f.write(f"Tmax Values: {tmax_values_per_set}\n")
+        #     f.write(f"Filter Graph: {filter_graph}\n")
+        #     f.write(f"Z_min: {z_min}\n")
+        #     f.write(f"Max Iterations: {max_iter}\n")
+        #     f.write(f"Timestamp: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        #     f.write(f"\nNotes:\n{exp_note}\n")
         
         set_results = pd.DataFrame()
         set_summary = {
