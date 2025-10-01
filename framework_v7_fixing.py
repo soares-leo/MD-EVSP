@@ -127,7 +127,8 @@ def fix_vars(
     vars_values: Dict[str, float],
     var_to_route_mapping: Dict[str, str],
     S: Dict[str, Dict],
-    threshold: float = 0.5
+    threshold: float = 0.5,
+    vars_in_quarentine: List[str] = []
 ) -> List[str]:
     """
     Identifies NEW variables to fix to 1 based on their fractional values.
@@ -174,7 +175,7 @@ def fix_vars(
             fixed_trips.update({node for node in path if node.startswith('l')})
 
     # 3. Phase 1: Try to fix all non-conflicting variables above the threshold
-    candidates_above_threshold = {k: v for k, v in available_vars.items() if v > threshold}
+    candidates_above_threshold = {k: v for k, v in available_vars.items() if v > threshold and var_to_route_mapping.get(k) not in vars_in_quarentine}
     
     if candidates_above_threshold:
         print(f"\nPhase 1: Trying to fix variables above threshold {threshold}:")
@@ -212,10 +213,12 @@ def fix_vars(
     sorted_available = sorted(available_vars.items(), key=lambda item: item[1], reverse=True)
     
     for var_name, var_value in sorted_available:
+        if var_to_route_mapping.get(var_name) in vars_in_quarentine:
+            continue
         trips_of_candidate = get_trips_covered(var_name)
         # We only need to check for conflicts with previous rounds, as we're only picking one.
         if not (trips_of_candidate & fixed_trips):
-            print(f"  ✓ Selected single best non-conflicting variable: {var_name} (value={var_value:.4f})")
+            print(f"  ✓ Selected single best non-conflicting variable: {var_name} (value={var_value:.4f}, route={var_to_route_mapping.get(var_name)})")
             return [var_name] # Return a list with just this one variable
 
     # 5. If absolutely nothing can be fixed without a conflict, return an empty list.
@@ -578,6 +581,13 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     thresholds = [0.9, 0.9, 0.9]
     fix_count = 1
     lock = 0
+    taboo_vars = {}
+    taboo_var_counts_per_iteration = []
+    quarentine_days = 5
+    infeasibility_nominal_limit = 1
+    vars_in_quarentine = {}
+    newly_fixed_stable_keys = []
+
     
     # Main column generation loop
     while True:
@@ -601,7 +611,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                 )
                 lock = lock -1
             except:
-                lock = 5
+                lock = 3
                 infeasible_counter +=1
                 if infeasible_counter == 5:
                     raise RuntimeError("Problem kept infeasible after 5 consecutive trials.")
@@ -610,6 +620,9 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                 if fixed_vars_stable_keys:
                     fixed_vars_stable_keys = [item for item in fixed_vars_stable_keys if item not in newly_fixed_stable_keys]
                     graph = graph_backup.copy()
+                    for item in newly_fixed_stable_keys:
+                        taboo_vars[item] = taboo_vars.get(item, 0) + 1
+                        taboo_var_counts_per_iteration.append(taboo_vars.copy())
                 continue
             
             rmp_time = time.time() - rmp_start
@@ -735,6 +748,8 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
 
             if optimality_condition:
                 print("\n🥈🥈🥈 Relaxed problem solution is OPTIMAL! 🥈🥈🥈")
+                lock = 0
+                cnt = max_iter
                 break
 
             cnt+=1
@@ -759,6 +774,32 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
             break
         
         print("\n------------------- HEURISTIC FIXING PHASE -------------------")
+
+        remove_from_taboo_vars = []
+        remove_from_quarentine = []
+
+        if taboo_var_counts_per_iteration:
+            for _k, v in taboo_vars.items():
+                if v >= infeasibility_nominal_limit:
+                    vars_in_quarentine[_k] = quarentine_days + 1
+                    remove_from_taboo_vars.append(_k)
+        
+        for _k in remove_from_taboo_vars:
+            del taboo_vars[_k]
+
+        if vars_in_quarentine:
+            for _k, v in vars_in_quarentine.items():
+                vars_in_quarentine[_k] -= 1
+                if vars_in_quarentine[_k] == 0:
+                    remove_from_quarentine.append(_k)
+        
+        for _k in remove_from_quarentine:
+            del vars_in_quarentine[_k]
+
+        print("\nVars in quarentine:")
+        for _k, _v in vars_in_quarentine.items():
+            print(f"  - {_k}: {_v}")
+
         # 1. Call fix_vars to get NEW candidates to fix (returns UNSTABLE names)
         thresh_idx = 2 // fix_count
         fix_count += 1
@@ -767,7 +808,8 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
             vars_values=vars_values,
             var_to_route_mapping=var_to_route_mapping,
             S=S,
-            threshold=thresholds[thresh_idx] # Using the threshold from your logs
+            threshold=thresholds[thresh_idx], # Using the threshold from your logs
+            vars_in_quarentine=list(vars_in_quarentine.keys())
         )
 
         # 2. If fix_vars returns no new candidates, we can't proceed.
