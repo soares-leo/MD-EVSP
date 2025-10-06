@@ -144,7 +144,7 @@ def solve_rmp_model(
     cplex_path: str = "/Applications/CPLEX_Studio2211/cplex/bin/arm64_osx/cplex"
 ):
 
-    solver = pl.CPLEX_CMD(path=cplex_path)
+    solver = pl.CPLEX_CMD(mip=False, path=cplex_path, timeLimit=300)
     
     status = model.solve(solver)
 

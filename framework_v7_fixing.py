@@ -575,6 +575,9 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     it = 1
     diff = 1000000.0
     optimality_condition = False
+    integrality_condition = False
+    infeasibility_reached = False
+    infeasible_round = False
     #fixed_vars = []
     fixed_vars_stable_keys = []
     infeasible_counter = 0
@@ -583,7 +586,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     lock = 0
     taboo_vars = {}
     taboo_var_counts_per_iteration = []
-    quarentine_days = 5
+    quarentine_days = 20
     infeasibility_nominal_limit = 1
     vars_in_quarentine = {}
     newly_fixed_stable_keys = []
@@ -593,6 +596,14 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     while True:
 
         while (diff >= z_min and cnt < max_iter) or lock > 0: # or it <= max_iter
+
+            if infeasible_counter == 21:
+                infeasibility_reached = True
+                break
+            
+            if it > 1500:
+                break
+
             iteration_start = time.time()
             
             # Display iteration header
@@ -610,11 +621,14 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                     fixed_vars=fixed_vars_stable_keys
                 )
                 lock = lock -1
+                optimality_condition = False
+                integrality_condition = False
+                if lock <= 0:
+                    infeasible_round = False
             except:
                 lock = 3
-                infeasible_counter +=1
-                if infeasible_counter == 5:
-                    raise RuntimeError("Problem kept infeasible after 5 consecutive trials.")
+                infeasible_round = True
+                infeasible_counter += 1
                 cnt=0
                 diff = 1000000.0
                 if fixed_vars_stable_keys:
@@ -623,6 +637,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                     for item in newly_fixed_stable_keys:
                         taboo_vars[item] = taboo_vars.get(item, 0) + 1
                         taboo_var_counts_per_iteration.append(taboo_vars.copy())
+                it+=1
                 continue
             
             rmp_time = time.time() - rmp_start
@@ -751,14 +766,24 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                 lock = 0
                 cnt = max_iter
                 break
-
+                
+            if it > 1500:
+                break
             cnt+=1
             it+=1
                 
         # --- START OF CHANGE 4: Replace the entire fixing/pruning logic ---
         # This block executes after the inner CG loop finishes.
         
-        # First, check if the RMP failed in the last attempt. If so, exit completely.
+        # First, check if the RMP failed in the last attempt. If so, exit completely. 
+        if infeasibility_reached == 21:
+            print("Problem kept infeasible after 21 consecutive rounding trials.")
+            break
+
+        if it > 1500:
+            print("Terminating due to max iterations (1500).")
+            break
+
         if current_cost is None:
             print("Terminating due to RMP failure in the previous step.")
             break # Exit the outer `while True` loop
@@ -769,7 +794,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
             print("\n🥇🥇🥇 Solution is INTEGER AND OPTIMAL! 🥇🥇🥇")
             break
         
-        if integrality_condition:
+        if integrality_condition and it > 10:
             print("\n🥈🥈🥈 Solution is INTEGER! 🥈🥈🥈")
             break
         
@@ -814,6 +839,8 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
 
         # 2. If fix_vars returns no new candidates, we can't proceed.
         if not unstable_vars_to_fix:
+            if it <= 10:
+                continue
             print("\nHeuristic found no new variables to fix. Finalizing with current solution.")
             break # Exit the outer `while True` loop
 
@@ -894,6 +921,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
         "start_objective",
         "final_objective",
         "is_optimal",
+        "is_integer",
         "total_columns_generated",
         "total_reduced_cost"
     ]
@@ -906,6 +934,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
         z_values[0] if z_values else 0,
         min(z_values) if z_values else 0,
         optimality_condition,
+        integrality_condition,
         len(S) - initial_num_of_columns,
         total_reduced_cost
     ]
