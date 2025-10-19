@@ -2,10 +2,10 @@ from initializer.generator_v3 import SolutionGenerator
 from initializer.inputs import *
 from ..utils import initialize_data, build_connection_network
 from framework_v7_fixing import generate_columns
-from .parameters import _4_POOL_CG_PARAMS as params # This one can stay as is
+from .parameters import _5_pool_GA_CG_PARAMS as params # This one can stay as is
 import pandas as pd
 from genetic_algorithm.genetic_algorithm_static_diverse_double_pop import run_ga as run_ga_2
-from genetic_algorithm.genetic_algorithm_static_diverse_pop import run_ga as run_ga_1
+from genetic_algorithm.genetic_algorithm_static_diverse_pop_depot import run_ga as run_ga_1
 #from genetic_algorithm.genetic_algorithm_static_diverse_double_pop import run_ga as run_ga_2
 import json
 import datetime
@@ -47,13 +47,13 @@ def run_cg_ga(i):
 
     # POOL GENERATION ========================================================================================================================================================================
 
-    pool_tmax_list = [16*60] * 10
-    pool_random_st_list = ["random"] * 10
-    pool_random_tmax_list = [True] * 5
-    pool_random_tmax_list.extend([False] * 5)
-    pool_inverse_list = [True, False] * 5
-    pool_tmax_min_list = [0] * 5
-    pool_tmax_min_list.extend([params["solution_generator"]["tmax"]] * 5)
+    pool_tmax_list = [16*60] * 20
+    pool_random_st_list = ["random"] * 20
+    pool_random_tmax_list = [True] * 10
+    pool_random_tmax_list.extend([False] * 10)
+    pool_inverse_list = [True, False] * 10
+    pool_tmax_min_list = [0] * 10
+    pool_tmax_min_list.extend([params["solution_generator"]["tmax"]] * 10)
     
     all_solutions = []
     used_depots = []
@@ -137,15 +137,16 @@ def run_cg_ga(i):
 
     # FIRST GA ========================================================================================================================================================================
     
-    # best_fitness, best_cost, v, r, u, s, selected_columns, first_ga_log_df = run_ga_1(
-    #     unique_routes,
-    #     timetables_path=params["solution_generator"]["timetables_path"],
-    #     experiment_name=i,
-    #     ga_params=params["FIRST_GA"]
-    # )
-    # log_dfs.append(first_ga_log_df)
+    best_fitness, best_cost, v, r, u, s, d, selected_columns, first_ga_log_df = run_ga_1(
+        unique_routes,
+        timetables_path=params["solution_generator"]["timetables_path"],
+        experiment_name=i,
+        ga_params=params["FIRST_GA"],
+        depots=depots
+    )
+    log_dfs.append(first_ga_log_df)
 
-    # # Combine and deduplicate solutions
+    # Combine and deduplicate solutions
     # start_time = datetime.datetime.now()
     # combined_selected_columns = selected_columns.copy()
     # max_route_num = max([int(r.split('_')[1]) for r in selected_columns.keys()] + [-1])
@@ -174,44 +175,44 @@ def run_cg_ga(i):
     
     # GRAPH BUILD ========================================================================================================================================================================
     
-    used_depots.extend(indep_used_depots)
-    used_depots = set(used_depots)
-    filtered_depots = {key: value for key, value in depots.items() if key in used_depots}
+    # used_depots.extend(indep_used_depots)
+    # used_depots = set(used_depots)
+    # filtered_depots = {key: value for key, value in depots.items() if key in used_depots}
 
-    fresh_timetables = pd.read_csv(
-        params["solution_generator"]["timetables_path"],
-        converters={"departure_time": pd.to_datetime}
-    )
+    # fresh_timetables = pd.read_csv(
+    #     params["solution_generator"]["timetables_path"],
+    #     converters={"departure_time": pd.to_datetime}
+    # )
 
-    graph, graph_log_df = build_connection_network(fresh_timetables, used_depots, i)
-    log_dfs.append(graph_log_df)
+    # graph, graph_log_df = build_connection_network(fresh_timetables, used_depots, i)
+    # log_dfs.append(graph_log_df)
     
     # COLUMN GENERATION ========================================================================================================================================================================
 
-    columns, optimal, z_vals, col_counts, results, exp_name, gencol_log_df, columns_light, nonzero_cols = generate_columns(
-        S=unique_routes,
-        graph=graph,
-        depots=filtered_depots,
-        dh_df=dh_df,
-        dh_times_df=dh_times_df,
-        z_min=params["CG"]["z_min"],
-        k=params["CG"]["k"],
-        max_iter=params["CG"]["max_iter"],
-        experiment_name=i,
-        filter_graph=params["CG"]["filter_graph"],
-        timetables_path=params["solution_generator"]["timetables_path"],
-        exp_set_id="CG_GA",
-        instance_name=instance_name
-    )
-    log_dfs.append(gencol_log_df)
+    # columns, optimal, z_vals, col_counts, results, exp_name, gencol_log_df, columns_light, nonzero_cols = generate_columns(
+    #     S=_unique_routes,
+    #     graph=graph,
+    #     depots=filtered_depots,
+    #     dh_df=dh_df,
+    #     dh_times_df=dh_times_df,
+    #     z_min=params["CG"]["z_min"],
+    #     k=params["CG"]["k"],
+    #     max_iter=params["CG"]["max_iter"],
+    #     experiment_name=i,
+    #     filter_graph=params["CG"]["filter_graph"],
+    #     timetables_path=params["solution_generator"]["timetables_path"],
+    #     exp_set_id="CG_GA",
+    #     instance_name=instance_name
+    # )
+    # log_dfs.append(gencol_log_df)
 
-    # Dedup final columns
+    #Dedup final columns
     # start_time = datetime.datetime.now()
     # final_unique_routes = {}
     # final_route_counter = 0
     # final_seen_routes = set()   
     # for start_trip, columns in columns.items():
-    #     for route_name, route_data in col.items():
+    #     for route_name, route_data in columns.items():
     #         route_tuple = tuple(route_data["Path"])
     #         if route_tuple not in final_seen_routes:
     #             final_seen_routes.add(route_tuple)
@@ -231,12 +232,12 @@ def run_cg_ga(i):
 
     print(final_df)
 
-    final_df.to_csv(f"experiments/4_pool_CG/reports/4_pool_CG_20Q_09theta_mipFalse_{i}.csv", index=False)
+    final_df.to_csv(f"experiments/6_pool_GA/reports/6_pool_GA_20Q_09theta_mipFalse_{i}.csv", index=False)
 
-    if nonzero_cols:
-        file_path = f"experiments/4_pool_CG/solutions/4_pool_CG_20Q_09theta_mipFalse_{i}.json"
+    if selected_columns:
+        file_path = f"experiments/6_pool_GA/solutions/6_pool_GA_20Q_09theta_mipFalse_{i}.json"
         with open(file_path, 'w') as f:
-            json.dump(nonzero_cols, f, indent=2, default=str)
+            json.dump(selected_columns, f, indent=2, default=str)
         print(f"Selected columns saved to: {file_path}")
     
 
@@ -245,6 +246,6 @@ if __name__ == "__main__":
         
         params["solution_generator"]["tmax"] = tmax
 
-        for i in range(14,31):
+        for i in range(1,31):
         
-            run_cg_ga(str(i) + "_pop200")
+            run_cg_ga(str(i))

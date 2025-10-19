@@ -1,0 +1,14 @@
+log_ids,experiment_name,step,metric,value
+202510150233084340940,19,initial_solution,solution_generation_time,3.0263686180114746
+202510150233084340941,19,initial_solution,total_generated_columns,125.0
+2025101502342378238319,19,preprocessing_and_transformations,pool_deduplication_run_time,0.00265
+202510150234237829030,19,initial_solution,pool_solution_generation_time,71.43955731391907
+202510150234237834411,19,initial_solution,pool_total_generated_columns,2690.0
+202510150242331492490,19,genetic_algorithm,ga_execution_time,489.35668110847473
+202510150242331492491,19,genetic_algorithm,best_cost,168288.5423937409
+202510150242331492492,19,genetic_algorithm,best_fitness,0.26847432323923653
+202510150242331492493,19,genetic_algorithm,best_v,129.0
+202510150242331492494,19,genetic_algorithm,best_r,26.0
+202510150242331492495,19,genetic_algorithm,best_u,53.0
+202510150242331492496,19,genetic_algorithm,best_s,67.0
+202510150242331492497,19,genetic_algorithm,best_d,0.0
