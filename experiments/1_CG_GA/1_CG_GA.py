@@ -73,10 +73,10 @@ def run_cg_ga(i):
 
     print(final_df)
 
-    final_df.to_csv(f"experiments/1_CG_GA/reports/1_CG_GA_{i}.csv", index=False)
+    final_df.to_csv(f"experiments/1_CG_GA/reports/1_CG_GA_extra_{i}.csv", index=False)
 
     if selected_columns:
-        with open(f"experiments/1_CG_GA/solutions/1_CG_GA_{i}.json", 'w') as f:
+        with open(f"experiments/1_CG_GA/solutions/1_CG_GA_extra_{i}.json", 'w') as f:
             json.dump(selected_columns, f, indent=2, default=str)
         print(f"Selected columns saved to: selected_columns_{i}.json")
     
@@ -86,6 +86,4 @@ if __name__ == "__main__":
         
         params["solution_generator"]["tmax"] = tmax
 
-        for i in range(1,31):
-        
-            run_cg_ga(str(i) + "_tmax" + str(tmax))
+        run_cg_ga(str(7) + "_tmax" + str(tmax))

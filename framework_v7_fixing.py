@@ -591,6 +591,10 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     vars_in_quarentine = {}
     newly_fixed_stable_keys = []
 
+    #duals_df = pd.DataFrame()
+
+    _it_ = 1
+
     
     # Main column generation loop
     while True:
@@ -620,6 +624,13 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                     cplex_path=CPLEX_PATH,
                     fixed_vars=fixed_vars_stable_keys
                 )
+
+                #duals_dict = {"experiment_name": experiment_name, "objective": current_cost}
+                #duals_dict.update(duals["alpha"])
+                #duals_dict.update(duals["beta"])
+                # {"alpha": {"trip": 12341 ...}, "beta": {"depot": 1312}}}
+                #duals_df = pd.concat([duals_df, pd.DataFrame(duals_dict, index=[0])], ignore_index=True)
+
                 lock = lock -1
                 optimality_condition = False
                 integrality_condition = False
@@ -638,6 +649,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                         taboo_vars[item] = taboo_vars.get(item, 0) + 1
                         taboo_var_counts_per_iteration.append(taboo_vars.copy())
                 it+=1
+                _it_+=1
                 continue
             
             rmp_time = time.time() - rmp_start
@@ -770,6 +782,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
             if it > 1500:
                 break
             cnt+=1
+            _it_+=1
             it+=1
                 
         # --- START OF CHANGE 4: Replace the entire fixing/pruning logic ---
@@ -877,6 +890,9 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
         # --- END OF CHANGE 4 ---
     
     # ========== FINALIZE RESULTS ==========
+
+    #duals_df.to_csv(f"C:/Users/soare/Documents/MD-EVSP/experiments/5_pool_GA_CG/reports/{experiment_name}_duals_tracking.csv", index=False)
+
     print(f"\n{'='*80}")
     print("OPTIMIZATION COMPLETED")
     print(f"{'='*80}")
@@ -898,6 +914,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     }
     
     results = create_results_dataframe(results_data)
+    #results.to_csv(f"C:/Users/soare/Documents/MD-EVSP/experiments/5_pool_GA_CG/reports/{experiment_name}_duals_results.csv", index=False)
     
     # Print summary
     print("\nResults Summary:")
