@@ -1,0 +1,14 @@
+log_ids,experiment_name,step,metric,value
+202510290207503222500,0,graph_build,graph_build_time,12.509676694869995
+202510290207503222501,0,graph_build,number_of_nodes,510.0
+202510290207503222502,0,graph_build,number_of_edges,107126.0
+202510290208268787560,0,preprocessing_and_transformations,pool_deduplication_run_time,0.001074
+202510290208268809060,0,initial_solution,pool_solution_generation_time,34.70943355560303
+202510290208268809061,0,initial_solution,pool_total_generated_columns,685.0
+202510290208268832100,0,preprocessing_and_transformations,combination_deduplication_run_time,0.001763
+202510290208353829070,0,column_generation,column_generation_time,3.4954097270965576
+202510290208353829071,0,column_generation,number_of_iterations,2.0
+202510290208353829072,0,column_generation,start_objective,192739.08419987283
+202510290208353829073,0,column_generation,optimal_value,192739.08419987283
+202510290208353829074,0,column_generation,total_columns_generated,0.0
+202510290208353839075,0,column_generation,total_reduced_cost,0.0

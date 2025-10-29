@@ -26,7 +26,7 @@ def build_rmp_model(
 
     for k, depot in enumerate(grouped_routes):
         for p, cost in enumerate(routes_costs[depot]):
-            X[(k,p)] = pl.LpVariable(f"{depot}_col{p}", lowBound=0, upBound=1)
+            X[(k,p)] = pl.LpVariable(f"{depot}_col{p}", lowBound=0, upBound=1, cat="Integer")
             C[(k,p)] = cost
             if cost > highest_cost:
                 highest_cost = cost
@@ -111,7 +111,7 @@ def solve_rmp_model(
     cplex_path: str = "/Applications/CPLEX_Studio2211/cplex/bin/arm64_osx/cplex"
 ):
 
-    solver = pl.CPLEX_CMD(path=cplex_path)
+    solver = pl.CPLEX_CMD(mip=True, path=cplex_path, timeLimit=300)
    
     status = model.solve(solver)
 

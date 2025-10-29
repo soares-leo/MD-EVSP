@@ -914,7 +914,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     }
     
     results = create_results_dataframe(results_data)
-    duals_df.to_csv(f"C:/Users/soare/Documents/MD-EVSP/experiments/4_pool_CG/reports/{experiment_name}_duals_results.csv", index=False)
+    results.to_csv(f"C:/Users/soare/Documents/MD-EVSP/experiments/4_pool_CG/reports/{experiment_name}_duals_results.csv", index=False)
     
     # Print summary
     print("\nResults Summary:")
