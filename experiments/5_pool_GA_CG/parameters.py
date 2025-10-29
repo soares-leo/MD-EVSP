@@ -11,7 +11,7 @@ _5_pool_GA_CG_PARAMS = {
     "CG": {
         "z_min": 100,
         "k": 100,
-        "max_iter": 10,
+        "max_iter": 5,
         "filter_graph": True,
     },
     "FIRST_GA": {

@@ -591,15 +591,15 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     vars_in_quarentine = {}
     newly_fixed_stable_keys = []
 
-    #duals_df = pd.DataFrame()
+    duals_df = pd.DataFrame()
 
     _it_ = 1
 
     
     # Main column generation loop
-    while True:
+    while _it_ <= 100:
 
-        while (diff >= z_min and cnt < max_iter) or lock > 0: # or it <= max_iter
+        while cnt < max_iter or lock > 0: # or it <= max_iter
 
             if infeasible_counter == 21:
                 infeasibility_reached = True
@@ -625,11 +625,11 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
                     fixed_vars=fixed_vars_stable_keys
                 )
 
-                #duals_dict = {"experiment_name": experiment_name, "objective": current_cost}
-                #duals_dict.update(duals["alpha"])
-                #duals_dict.update(duals["beta"])
+                duals_dict = {"experiment_name": experiment_name, "objective": current_cost}
+                duals_dict.update(duals["alpha"])
+                duals_dict.update(duals["beta"])
                 # {"alpha": {"trip": 12341 ...}, "beta": {"depot": 1312}}}
-                #duals_df = pd.concat([duals_df, pd.DataFrame(duals_dict, index=[0])], ignore_index=True)
+                duals_df = pd.concat([duals_df, pd.DataFrame(duals_dict, index=[0])], ignore_index=True)
 
                 lock = lock -1
                 optimality_condition = False
@@ -891,7 +891,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     
     # ========== FINALIZE RESULTS ==========
 
-    #duals_df.to_csv(f"C:/Users/soare/Documents/MD-EVSP/experiments/5_pool_GA_CG/reports/{experiment_name}_duals_tracking.csv", index=False)
+    duals_df.to_csv(f"C:/Users/soare/Documents/MD-EVSP/experiments/4_pool_CG/reports/{experiment_name}_duals_tracking.csv", index=False)
 
     print(f"\n{'='*80}")
     print("OPTIMIZATION COMPLETED")
@@ -914,7 +914,7 @@ def generate_columns(S, graph, depots, dh_df, dh_times_df, z_min, k, max_iter,
     }
     
     results = create_results_dataframe(results_data)
-    #results.to_csv(f"C:/Users/soare/Documents/MD-EVSP/experiments/5_pool_GA_CG/reports/{experiment_name}_duals_results.csv", index=False)
+    duals_df.to_csv(f"C:/Users/soare/Documents/MD-EVSP/experiments/4_pool_CG/reports/{experiment_name}_duals_results.csv", index=False)
     
     # Print summary
     print("\nResults Summary:")

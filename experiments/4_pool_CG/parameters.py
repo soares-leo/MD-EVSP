@@ -11,7 +11,7 @@ _4_POOL_CG_PARAMS = {
     "CG": {
         "z_min": 100,
         "k": 100,
-        "max_iter": 5,
+        "max_iter": 10,
         "filter_graph": True,
     },
     "FIRST_GA": {

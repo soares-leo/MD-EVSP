@@ -231,10 +231,10 @@ def run_cg_ga(i):
 
     print(final_df)
 
-    final_df.to_csv(f"experiments/4_pool_CG/reports/4_pool_CG_20Q_09theta_mipFalse_{i}.csv", index=False)
+    final_df.to_csv(f"experiments/4_pool_CG/reports/4_pool_CG_duals_{i}.csv", index=False)
 
     if nonzero_cols:
-        file_path = f"experiments/4_pool_CG/solutions/4_pool_CG_20Q_09theta_mipFalse_{i}.json"
+        file_path = f"experiments/4_pool_CG/solutions/4_pool_duals_{i}.json"
         with open(file_path, 'w') as f:
             json.dump(nonzero_cols, f, indent=2, default=str)
         print(f"Selected columns saved to: {file_path}")
@@ -245,6 +245,6 @@ if __name__ == "__main__":
         
         params["solution_generator"]["tmax"] = tmax
 
-        for i in range(14,31):
+        for i in range(1,31):
         
             run_cg_ga(str(i) + "_pop200")
